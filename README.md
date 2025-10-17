@@ -1,6 +1,6 @@
-# Brick Kit - AI-Powered LEGO Build Generator
+# brickkit (this summary is ai generated)
 
-Brick Kit is an intelligent web application that generates custom LEGO builds and instructions based on your natural language descriptions. Using advanced AI and the Official LEGO Model Repository (OMR), it creates personalized building experiences with step-by-step instructions.
+brickkit is an intelligent web application that generates custom LEGO builds and instructions based on your natural language descriptions. Using advanced agentic AI and the Official LEGO Model Repository (OMR), it creates personalized building experiences with step-by-step instructions.
 
 ## Features
 
