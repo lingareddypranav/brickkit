@@ -1,0 +1,13 @@
+0 Ultra Simple Test Model
+0 Name: ultra_simple.ldr
+0 Author: Test
+0 !LDRAW_ORG Model
+0 !LICENSE Redistributable under CCAL version 2.0 : see CAreadme.txt
+
+0 STEP
+1 4 0 0 0 1 0 0 0 1 0 0 0 1 3001.dat
+0 STEP
+1 15 0 8 0 1 0 0 0 1 0 0 0 1 3002.dat
+0 STEP
+1 4 0 16 0 1 0 0 0 1 0 0 0 1 3003.dat
+0

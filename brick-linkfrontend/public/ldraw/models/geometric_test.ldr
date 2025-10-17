@@ -1,0 +1,18 @@
+0 Geometric Test Model
+0 Name: geometric_test.ldr
+0 Author: Test
+0 !LDRAW_ORG Model
+0 !LICENSE Redistributable under CCAL version 2.0 : see CAreadme.txt
+
+0 STEP
+4 4 0 0 0 0 0 20 0 20 0 20 0 0
+4 4 0 0 0 0 20 0 20 20 0 20 0 0
+4 4 0 0 0 20 0 0 20 0 20 0 0 20
+4 4 20 0 0 20 20 0 20 20 20 20 0 20
+4 4 0 20 0 0 20 20 20 20 20 20 20 0
+4 4 0 0 20 0 20 20 20 20 20 20 0 20
+0 STEP
+4 15 0 20 0 0 20 20 20 20 20 20 20 0
+4 15 0 0 0 0 0 20 20 0 20 20 0 0
+4 15 0 0 0 0 20 0 20 20 0 20 0 0
+0
