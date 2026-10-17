@@ -477,7 +477,7 @@ class OMRSearchService:
                 await page.wait_for_timeout(2000)
                 
                 # Find and fill the search input
-                search_input = await page.wait_for_selector('input[type="search"], input[name="search"], input[placeholder*="search" i]', timeout=10000)
+                search_input = await page.wait_for_selector('input[type="search"]:visible, input[name="search"]:visible, input[placeholder*="search" i]:visible', timeout=10000)
                 await search_input.fill("")  # Clear the input
                 await search_input.fill(search_terms)
                 

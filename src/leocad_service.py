@@ -133,7 +133,7 @@ class LeoCADService:
                     print(f"   🗑️  Removed old MPD: {mpd_file.name}")
             
             # Also clean up frontend model files
-            frontend_models_dir = Path(__file__).parent.parent.parent / "brick-linkfrontend" / "public" / "ldraw" / "models"
+            frontend_models_dir = Path(__file__).resolve().parent.parent / "brick-linkfrontend" / "public" / "ldraw" / "models"
             frontend_models_dir = frontend_models_dir.resolve()  # Use absolute path
             if frontend_models_dir.exists():
                 for frontend_mpd in frontend_models_dir.glob("*.mpd"):
@@ -313,7 +313,7 @@ class LeoCADService:
         
         try:
             # Define frontend public directory path
-            frontend_public_dir = Path(__file__).parent.parent.parent / "brick-linkfrontend" / "public" / "ldraw" / "models"
+            frontend_public_dir = Path(__file__).resolve().parent.parent / "brick-linkfrontend" / "public" / "ldraw" / "models"
             
             print(f"   Calculated frontend dir: {frontend_public_dir}")
             print(f"   Frontend dir absolute: {frontend_public_dir.absolute()}")
