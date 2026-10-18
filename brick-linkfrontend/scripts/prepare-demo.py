@@ -13,6 +13,9 @@ import sys
 from collections import Counter
 
 ROOT = Path(__file__).resolve().parent.parent
+catalog = ROOT / 'lib/demo/catalog-data.json'
+if catalog.exists() and 'legacyModels' in json.loads(catalog.read_text()):
+    raise SystemExit('This legacy generator cannot overwrite the OMR catalogue. Use scripts/prepare-omr.py.')
 DATA = Path(sys.argv[1])
 IDS = ['10696-1', '11001-1', '11017-1', '11014-1', '10698-1', '11019-1']
 

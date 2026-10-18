@@ -1,88 +1,133 @@
-# Collection prototype: replacing the visual design
+# Collection prototype and real OMR catalogue
 
-The collection-aware demo lives at `/`. The previous live OMR app is preserved at `/explore`.
+The redesigned app at `/` uses 23 real LDraw OMR models, including alternate
+builds, three dinosaurs, dragons, animals, cars, and spacecraft. The original
+live prompt → OMR search → download → LeoCAD flow is accessible at `/explore`.
+The homepage catalogue is cached and deterministic; it needs no AI backend.
+In the product story, these are the AI-generated blueprints. OMR is the source of
+convincing models behind that simulation. Shopping recommendations are separate:
+existing real retail sets are added to the child's available inventory and ranked
+by how much of the generated build's deficit they cover. The direct “Find missing
+pieces” action opens those suggestions; there is no parent-gating button.
 
-The demo has fourteen original illustrative mini designs: cars, a bus, a boat, animals, three dinosaurs, two dragons, two spaceships, a rocket, and a moon rover. Six real set inventory snapshots and local set imagery support the collection picker. The sample includes extra loose pieces and one protected set. The rover starts four tyres short. These recipes demonstrate the interaction; physical assembly has not been verified.
-
-## The replacement boundary
+## Replace the visual design without replacing the behaviour
 
 ```text
-lib/demo/catalog-data.json   Offline content, not UI
-lib/demo/types.ts            Public domain types
-lib/demo/inventory.ts        Availability, gaps, donor sets/pairs
-lib/demo/selectors.ts        Filtering and protected-piece sources
-lib/demo/state.ts            Versioned storage validation
-           ↓
-hooks/use-brick-box.ts       Persistence and collection commands
-hooks/use-build-ideas.ts     Gallery state and derived ideas
-hooks/use-build-session.ts   Step progression and completion guard
-           ↓
-components/prototype/       Replaceable React markup, art layout, CSS, 3D view
-app/page.tsx                Only mounts the chosen presentation
+scripts/omr-models.json      Curated source URLs, names, families, render cameras
+scripts/prepare-omr.py       Imports OMR files + Rebrickable retail inventories
+lib/demo/catalog-data.json  Cached domain data, no UI
+lib/demo/types.ts           Blueprint, source, inventory, collection contracts
+lib/demo/inventory.ts       Available pieces, exact-colour gaps, donor sets/pairs
+lib/demo/selectors.ts       Strict/family/saved filtering and protected sources
+lib/demo/state.ts           Storage validation
+lib/demo/chat-script.ts     Catalogue-derived scripted choices
+          ↓
+hooks/use-brick-box.ts      Persistence and guarded collection commands
+hooks/use-build-ideas.ts    Filters and derived gallery state
+          ↓
+components/prototype/      Replaceable React markup, CSS, gallery and builder
 ```
 
-No domain module imports React components, CSS, browser storage, or a backend client. Inventory and recommendation functions are deterministic. Hooks contain no rendered elements or CSS. A redesign can replace `components/prototype/` and the root page while retaining all collection and matching behavior.
-
-## Small example for a new design
+Domain modules import no React components, CSS, browser storage, or backend
+clients. A new design can keep the same hooks and deterministic functions:
 
 ```tsx
 const box = useBrickBox();
 const ideas = useBuildIdeas(box.collection);
-
-// Render these however the new design needs:
-ideas.ideas; // [{ model, match, saved }]
-ideas.family;
-ideas.onlyMyBricks;
-box.collection.sets;
-box.collection.loose;
-box.collection.creations;
-
-// Shared commands, with no dependence on today's buttons or dialogs:
+ideas.ideas;                          // [{ model, match, saved }]
+ideas.setOnlyMyBricks(true);          // Only currently available builds
 box.setQuantity(setId, 2);
-box.toggleSet(setId); // Keep built / ready to remix
+box.toggleSet(setId);                 // Protect / release all copies
 box.adjustLoose(partColorKey, 1);
 box.toggleWish(modelId);
-box.saveCreation(modelId, true); // Guarded by current availability
-box.toggleCreation(creationId);
-ideas.setFamily("dragons");
-ideas.setOnlyMyBricks(true);
+box.saveCreation(modelId, true);      // Guarded by availability
+box.toggleCreation(creationId);       // Reserve / release its inventory
 ```
 
-`selectIdeas(collection, filters)` is available directly if a new UI does not need the gallery hook. `availablePieces`, `matchInventory`, `recommendSets`, and `protectedSources` can also run outside React.
+`selectIdeas`, `availablePieces`, `matchInventory`, `recommendSets`, and
+`protectedSources` also work outside React. Gallery cards and chat both respect
+strict filtering. Chat is scripted, not an LLM or a live OMR search.
 
-## Data and inventory contracts
+## Inventory contract and the deliberate shortcut
 
-- The canonical inventory key is `Rebrickable part number:Rebrickable colour ID`. Quantities are integers. Colours must match exactly in this prototype.
-- Sets store owned quantity and one keep-built choice for all owned copies. Available inventory includes only unlocked set copies and extra loose pieces.
-- A kept-built creation subtracts its recipe's exact quantities. Remixing releases those quantities. Saving a creation requires all pieces to be available at that moment.
-- The collection is saved under `brick-kit:brick-box:v1`. Stored data is validated and clamped when read. Unknown items are ignored. Malformed/old storage recovers to an empty collection. A browser storage failure falls back to the current tab with a visible note.
-- A new browser starts with the sample box. Explicit sample/empty actions ask for confirmation before replacing the local box.
-- Thumbnails, progressive step pictures, 3D meshes, and matching all derive from the same recipe placements. Illustrative geometry is not a physical-build guarantee.
-- Shops and wishlists do not mutate ownership. The explicit “Found these pieces at home” action adds only the current deficit to extra pieces.
-- Recommendations evaluate singles and pairs from the six-set catalogue. The returned remaining count is calculated, and a pair is included only if it fills more gaps than either single. No live price or stock claims are made.
+- Keys are `Rebrickable part number:Rebrickable colour ID`. Quantities must match
+  exactly. No LDraw-to-Rebrickable colour or assembly equivalence is assumed.
+- A model uses its **entire source set's version-1 retail inventory**, excluding
+  spares. This is a conservative requirement that can overstate what alternate
+  builds need. Castle Dragon uses
+  an explicitly checked eight-piece assembly inventory (`inventoryBasis = "model"`).
+  `source.inventoryBasis = "source-set"` makes that limitation explicit.
+- Keeping a creation built reserves that whole inventory. Completing a model
+  requires its current availability; remixing releases the reservation.
+- All set cards, the add-set picker, matching and recommendations share one
+  catalogue. There are no visual-only sets that disappear on reload.
+- Suggestions evaluate one or two real catalogue sets. Pairs must improve on
+  either single. Complete options take priority when available. No live price,
+  stock, or purchase integration is claimed.
+- Shop visits and wishlist changes do not add ownership. The explicit “Found
+  these pieces at home” action adds only the current deficit.
+- The existing storage key `brick-kit:brick-box:v1` is preserved. `legacyModels`
+  retains old saved creations and their original reservations, but those recipes
+  do not appear in the gallery. Existing collections are not reset or silently
+  given new sets. A fresh browser gets a sample box; replacing a collection with
+  that sample requires the existing confirmation UI.
+- Browse mode starts with all real builds visible. “Use my bricks” enables
+  strict filtering; models needing more pieces have explicit deficit badges.
 
-## Adding another build
+## Geometry, previews and instructions
 
-1. Add a recipe to `scripts/prepare-demo.py`, using explicit part/colour placements and step numbers.
-2. Regenerate with the four public Rebrickable CSV downloads described in `public/demo/SOURCES.md`.
-3. The generator writes the catalogue, model thumbnail, step images, and loose-piece thumbnails from that recipe.
-4. Review the pictures and piece inventory together. Extend the source dimensions when introducing a new supported piece.
-5. Run the tests and TypeScript check below. Choose an existing family or add the family type and picture choice in `catalog.ts`.
+The importer caches the original MPDs and renders transparent 1000×800 PNGs with
+LeoCAD. Every model retains author/licence headers and an OMR source link.
+`public/demo/omr/SOURCES.md` and the adjacent licence files document redistribution.
+Castle Dragon adds a root selecting the original Dragon Wagon assembly, retaining
+all original submodels and headers. Other files keep the original model content.
 
-A redesigned presentation can instead use photos, different SVG art, a new 3D renderer, or externally supplied instruction assets; preserve the same inventory and recipe IDs. The renderer is not the source of truth for readiness.
+The optional `model-scene.tsx` loads the real MPD with Three.js's LDraw loader and
+conditional-line material. It normalizes embedded Windows subpart headers in
+memory (`lib/ldraw.ts`) and fits the actual geometry to the camera. It needs an
+LDraw parts library, served by `/ldraw/...`; previews remain available if 3D fails.
+Set `LDRAW_DIR` to your local library. This machine already has one configured.
 
-## Checks and local use
+No invented progressive pictures or assembly instructions are attached to OMR
+models. The builder links to LEGO's official instructions lookup, lets the child
+inspect the model in 3D, and preserves the completion / keep-built / remix flow.
+Some old booklets may be unavailable. Time estimates are approximate and some
+models need adult help; they are not official age ratings. The legacy guide and
+old SVGs remain only to support previously saved prototype creations.
 
-From `brick-linkfrontend`:
+## Import another real build
 
-```bash
-npm run dev -- --hostname 127.0.0.1
-npm run test:demo
-npx tsc --noEmit --incremental false
-```
+1. Choose a real model/variant on https://library.ldraw.org/omr/sets and add its
+   observed source/download URLs to `scripts/omr-models.json`.
+2. Download Rebrickable's `sets.csv.gz`, `inventories.csv.gz`,
+   `inventory_parts.csv.gz`, `parts.csv.gz`, and `colors.csv.gz` into a local data
+   directory. Bulk datasets and credentials are not committed.
+3. From `brick-linkfrontend`, run:
 
-The new demo works without the Python server. For the original `/explore` experience, also run `LDRAW_PATH=/Users/pranavlingareddy/Desktop/ldraw python3 -m src.main` from the repository root.
+   ```bash
+   python3 scripts/prepare-omr.py --data-dir /path/to/csvs --ldraw /path/to/ldraw
+   ```
 
-Browser QA should cover: strict filtering; picture categories and unknown prompts; keeping a set built; adding loose pieces; missing-piece recommendations; adding four tyres to unlock the rover; guided steps; saving a kept-built creation; remixing; persistence across reload; a narrow mobile viewport; and the optional 3D view. Printing opens the browser's print dialog with all step illustrations.
+4. Inspect the render/camera and source model. Review source inventory and
+   licensing. A new import automatically feeds the gallery, chat choices, set
+   picker and recommendations. Use `--cache` to reuse downloads; remove just a
+   model's generated PNG when intentionally changing its camera.
+5. Run `npm run test:demo` and `npx tsc --noEmit --incremental false`.
 
-The engine tests additionally check catalogue/placement consistency, duplicate set quantities, corrupt storage, saved-only filtering, and two-set coverage. Generated runtime files from the Python app are deliberately outside the implementation commits.
+`prepare-demo.py` is the archived original illustrative recipe generator and
+refuses to overwrite the OMR catalogue. Do not use it to add new homepage builds.
+
+## Local verification
+
+`npm run dev -- --hostname 127.0.0.1` runs the homepage. The API is only needed for
+`/explore`; start it from the repository root with `LDRAW_PATH=/path/to/ldraw
+python3 -m src.main`. The live explorer's availability also depends on OMR and
+the configured model provider.
+
+Engine tests cover source/asset integrity, retail inventory agreement, exact
+colour gaps, strict mode, protected sets and creations, pair recommendations,
+catalogue-derived chat, old/new storage compatibility and embedded MPD paths.
+Browser QA covers real previews, categories, 3D, adding a real set, reload,
+strict filtering, parent suggestions, completion/reservation/remix, chat, and a
+narrow viewport. Generated outputs from the live Python app are excluded from
+the implementation commits.

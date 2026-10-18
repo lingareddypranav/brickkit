@@ -1,136 +1,222 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 const {
   models,
+  modelById,
+  setById,
+  partByKey,
   sets,
   sampleCollection,
   emptyCollection,
+  findFamily,
 } = require("../lib/demo/catalog.ts");
 const {
   availablePieces,
   matchInventory,
   recommendSets,
   countPieces,
+  addInventory,
 } = require("../lib/demo/inventory.ts");
 const { readCollection } = require("../lib/demo/state.ts");
+const { selectIdeas } = require("../lib/demo/selectors.ts");
+const { buildAssistantReply } = require("../lib/demo/chat-script.ts");
 
-test("sample makes the small builds ready and the rover needs exactly four tyres", () => {
-  const available = availablePieces(sampleCollection);
+test("every gallery build is a real, attributed OMR file with a rendered preview", () => {
+  assert.ok(models.length >= 20);
+  assert.equal(new Set(models.map((m) => m.id)).size, models.length);
   for (const model of models) {
-    const match = matchInventory(model.inventory, available);
-    if (model.id === "moon-rover")
-      assert.deepEqual(match.missing, { "87414:0": 4 });
-    else assert.equal(match.ready, true, model.id);
+    assert.equal(model.source.provider, "LDraw OMR");
+    assert.match(
+      model.source.url,
+      /^https:\/\/library\.ldraw\.org\/omr\/sets\//,
+    );
+    assert.match(model.source.sha256, /^[a-f0-9]{64}$/);
+    assert.ok(
+      fs.statSync(path.join(__dirname, "../public", model.image)).size > 10000,
+    );
+    const file = fs.readFileSync(
+      path.join(__dirname, "../public", model.modelUrl),
+      "utf8",
+    );
+    assert.ok(file.startsWith("0 "));
+    assert.ok(file.includes(`0 Author: ${model.source.author}`));
+    assert.ok(file.includes(`0 !LICENSE ${model.source.license}`));
+    assert.ok(!model.image.endsWith(".svg"));
+    assert.deepEqual(model.placements, []);
+    assert.deepEqual(model.steps, []); // No fabricated recipe instructions.
   }
 });
-test("catalogue includes distinct dinosaurs, dragons, and spaceships", () => {
-  const { findFamily } = require("../lib/demo/catalog.ts");
-  const { selectIdeas } = require("../lib/demo/selectors.ts");
+
+test("conservative source-set inventories agree with ownership for every model", () => {
+  for (const model of models) {
+    if (model.source.inventoryBasis === "source-set") {
+      assert.deepEqual(model.inventory, setById[model.source.setId].inventory);
+    } else {
+      assert.equal(model.source.inventoryBasis, "model");
+      for (const [key, n] of Object.entries(model.inventory))
+        assert.ok(n <= (setById[model.source.setId].inventory[key] ?? 0));
+    }
+    const box = structuredClone(emptyCollection);
+    box.sets[model.source.setId] = { quantity: 1, keepBuilt: false };
+    assert.equal(
+      matchInventory(model.inventory, availablePieces(box)).ready,
+      true,
+    );
+    box.sets[model.source.setId].keepBuilt = true;
+    assert.equal(
+      matchInventory(model.inventory, availablePieces(box)).ready,
+      false,
+    );
+    for (const [key, n] of Object.entries(model.inventory)) {
+      assert.ok(partByKey[key], key);
+      assert.ok(Number.isInteger(n) && n > 0);
+    }
+  }
+});
+
+test("strict mode shows only available models and honours the sample's kept-built racer", () => {
+  const ready = selectIdeas(sampleCollection, {
+    family: "all",
+    onlyMyBricks: true,
+    savedOnly: false,
+  });
+  assert.ok(ready.length >= 5);
+  assert.ok(ready.every((idea) => idea.match.ready));
+  assert.ok(!ready.some((idea) => idea.model.id === "blue-racer"));
+  assert.ok(ready.some((idea) => idea.model.id === "cute-pug"));
+  assert.equal(
+    selectIdeas(emptyCollection, {
+      family: "all",
+      onlyMyBricks: true,
+      savedOnly: false,
+    }).length,
+    0,
+  );
+});
+
+test("dinosaurs, dragons and spacecraft use distinct real OMR models", () => {
   for (const family of ["dinosaurs", "dragons", "space"]) {
-    const ideas = selectIdeas(sampleCollection, {
+    const ideas = selectIdeas(emptyCollection, {
       family,
       onlyMyBricks: false,
       savedOnly: false,
     });
-    assert.ok(ideas.length >= 2, family);
-    assert.ok(ideas.every((x) => x.model.family === family));
+    assert.ok(ideas.length >= 2);
+    assert.ok(
+      ideas.every((idea) => idea.model.family === family && idea.model.source),
+    );
   }
-  assert.equal(findFamily("I want dragons"), "dragons");
-  assert.equal(findFamily("two spaceships"), "space");
   assert.equal(findFamily("dinasours please"), "dinosaurs");
+  assert.equal(findFamily("two spaceships"), "space");
   assert.equal(findFamily("a birthday cake"), null);
 });
-test("strict filtering excludes near matches; saved-only filtering preserves ownership", () => {
-  const { selectIdeas } = require("../lib/demo/selectors.ts");
-  const box = structuredClone(sampleCollection);
-  box.wishlist = ["moon-rover"];
+
+test("one missing piece stays blocked until the correct colour and quantity are available", () => {
+  const model = modelById["cute-pug"];
+  const box = structuredClone(emptyCollection);
+  box.loose = { ...model.inventory };
+  const key = Object.keys(model.inventory)[0];
+  box.loose[key] -= 1;
   assert.deepEqual(
-    selectIdeas(box, { family: "all", onlyMyBricks: true, savedOnly: true }),
-    [],
+    matchInventory(model.inventory, availablePieces(box)).missing,
+    { [key]: 1 },
   );
+  box.loose[`${key.split(":")[0]}:9999`] = 1;
   assert.equal(
-    selectIdeas(box, { family: "all", onlyMyBricks: false, savedOnly: true })[0]
-      .model.id,
-    "moon-rover",
+    matchInventory(model.inventory, availablePieces(box)).ready,
+    false,
   );
-});
-test("a two-set suggestion appears when no single set closes the two different gaps", () => {
-  const rover = models.find((m) => m.id === "moon-rover");
-  const idea = { ...rover, inventory: { "87414:0": 8, "3001:1": 7 } };
-  const suggestions = recommendSets(idea, availablePieces(sampleCollection));
-  assert.ok(suggestions.some((s) => s.sets.length === 2 && s.remaining === 0));
-  assert.ok(!suggestions.some((s) => s.sets.length === 1 && s.remaining === 0));
-});
-test("adding the four loose tyres unlocks the same rover without changing other stock", () => {
-  const box = structuredClone(sampleCollection);
-  box.loose["87414:0"] = 4;
+  box.loose[key] += 1;
   assert.equal(
-    matchInventory(
-      models.find((m) => m.id === "moon-rover").inventory,
-      availablePieces(box),
-    ).ready,
+    matchInventory(model.inventory, availablePieces(box)).ready,
     true,
   );
-  assert.equal(
-    countPieces(availablePieces(box)) -
-      countPieces(availablePieces(sampleCollection)),
-    4,
-  );
 });
-test("keep built excludes every copy, and changing quantity multiplies pieces", () => {
-  const box = structuredClone(emptyCollection);
-  box.sets["10696-1"] = { quantity: 2, keepBuilt: false };
-  assert.equal(availablePieces(box)["87414:0"], 8);
-  box.sets["10696-1"].keepBuilt = true;
-  assert.equal(availablePieces(box)["87414:0"] ?? 0, 0);
-  assert.equal(availablePieces(box, true)["87414:0"], 8);
-});
-test("saving a kept-built creation reserves its pieces and remixing releases them", () => {
+
+test("keeping a source-set build reserves its pieces; remixing releases them", () => {
   const box = structuredClone(sampleCollection);
+  const model = modelById["cute-pug"];
   const before = countPieces(availablePieces(box));
-  const model = models.find((m) => m.id === "sunny-duck");
-  box.creations.push({ id: "duck", modelId: model.id, keepBuilt: true });
+  box.creations.push({ id: "pug", modelId: model.id, keepBuilt: true });
   assert.equal(
     countPieces(availablePieces(box)),
     before - countPieces(model.inventory),
   );
+  assert.equal(
+    matchInventory(modelById.koala.inventory, availablePieces(box)).ready,
+    false,
+  );
   box.creations[0].keepBuilt = false;
   assert.equal(countPieces(availablePieces(box)), before);
 });
-test("recommendations close exactly the gaps they claim, without mutating ownership", () => {
+
+test("quantities multiply inventory, and keep built protects all copies", () => {
+  const box = structuredClone(emptyCollection);
+  box.sets["30542-1"] = { quantity: 2, keepBuilt: false };
+  assert.equal(
+    countPieces(availablePieces(box)),
+    countPieces(setById["30542-1"].inventory) * 2,
+  );
+  box.sets["30542-1"].keepBuilt = true;
+  assert.equal(countPieces(availablePieces(box)), 0);
+});
+
+test("real set recommendations close the gaps they claim without changing the collection", () => {
+  const model = modelById["shuttle-explorer"];
   const before = JSON.stringify(sampleCollection);
-  const rover = models.find((m) => m.id === "moon-rover");
   const available = availablePieces(sampleCollection);
-  const suggestions = recommendSets(rover, available);
+  const suggestions = recommendSets(model, available);
   assert.ok(suggestions.length);
   assert.equal(suggestions[0].remaining, 0);
   for (const suggestion of suggestions) {
-    const withSets = { ...available };
-    for (const set of suggestion.sets)
-      for (const [k, n] of Object.entries(set.inventory))
-        withSets[k] = (withSets[k] ?? 0) + n;
+    const next = { ...available };
+    suggestion.sets.forEach((set) => addInventory(next, set.inventory));
     assert.equal(
-      matchInventory(rover.inventory, withSets).missingCount,
+      matchInventory(model.inventory, next).missingCount,
       suggestion.remaining,
     );
   }
   assert.equal(JSON.stringify(sampleCollection), before);
 });
-test("all thumbnails, placements, and recipe inventories agree", () => {
-  const fs = require("node:fs");
-  const path = require("node:path");
-  for (const model of models) {
-    const counts = {};
-    model.placements.forEach((p) => {
-      counts[p.key] = (counts[p.key] ?? 0) + 1;
-      assert.ok(p.step >= 1 && p.step <= model.steps.length);
-    });
-    assert.deepEqual(counts, model.inventory);
-    assert.ok(fs.existsSync(path.join(__dirname, "..", "public", model.image)));
-  }
-  sets.forEach((s) => assert.ok(countPieces(s.inventory) > 0, s.id));
+
+test("two-set suggestions appear when no single set can cover a quantity gap", () => {
+  const key = "3001:1";
+  const max = Math.max(...sets.map((set) => set.inventory[key] ?? 0));
+  const model = { ...models[0], inventory: { [key]: max + 1 } };
+  const suggestions = recommendSets(model, {});
+  assert.ok(suggestions.some((s) => s.sets.length === 2 && s.remaining === 0));
+  assert.ok(!suggestions.some((s) => s.sets.length === 1 && s.remaining === 0));
 });
-test("bad or old storage is recoverable; unknown IDs and invalid quantities are discarded", () => {
+
+test("chat choices always point to current OMR models", () => {
+  for (const family of ["dragon", "dinosaur", "spaceship", "animal", "car"]) {
+    const reply = buildAssistantReply(family, undefined, []);
+    assert.ok(reply.choices.length >= 2);
+    for (const choice of reply.choices) {
+      assert.ok(choice.models.every((id) => models.some((m) => m.id === id)));
+      const result = buildAssistantReply(choice.label, choice, []);
+      assert.deepEqual(result.results, choice.models);
+    }
+  }
+});
+
+test("catalogue sets and both new and legacy saved creations survive reload", () => {
+  const box = structuredClone(sampleCollection);
+  box.sets["31088-1"] = { quantity: 2, keepBuilt: true };
+  box.creations = [
+    { id: "new", modelId: "cute-pug", keepBuilt: true },
+    { id: "old", modelId: "sunny-duck", keepBuilt: true },
+  ];
+  box.wishlist = ["shark", "sunny-duck"];
+  assert.deepEqual(readCollection(JSON.stringify(box)), box);
+  const before = countPieces(availablePieces(box));
+  box.creations[1].keepBuilt = false;
+  assert.ok(countPieces(availablePieces(box)) >= before);
+});
+
+test("invalid storage is recoverable and unknown IDs cannot invent pieces", () => {
   assert.deepEqual(readCollection("{broken"), emptyCollection);
   assert.deepEqual(readCollection('{"version":2}'), emptyCollection);
   const loaded = readCollection(
@@ -140,14 +226,47 @@ test("bad or old storage is recoverable; unknown IDs and invalid quantities are 
         fake: { quantity: 4 },
         "10696-1": { quantity: 2.8, keepBuilt: true },
       },
-      loose: { "87414:0": -3, "madeup:4": 10 },
-      creations: [{ id: "a", modelId: "fake" }],
-      wishlist: ["fake", "sunny-duck", "sunny-duck"],
+      loose: { "madeup:4": 10 },
+      wishlist: ["fake", "cute-pug", "cute-pug"],
     }),
   );
   assert.deepEqual(loaded.sets, {
     "10696-1": { quantity: 2, keepBuilt: true },
   });
   assert.deepEqual(loaded.loose, {});
-  assert.deepEqual(loaded.wishlist, ["sunny-duck"]);
+  assert.deepEqual(loaded.wishlist, ["cute-pug"]);
+});
+
+test("embedded Windows subpart paths resolve to the same Three.js names as their references", () => {
+  const { normalizeEmbeddedPaths } = require("../lib/ldraw.ts");
+  const source =
+    "0 FILE model.ldr\r\n1 16 0 0 0 1 0 0 0 1 0 0 0 1 s\\nested.dat\r\n0 FILE s\\nested.dat\r\n0 !LICENSE original licence\r\n0 FILE 48/high.dat";
+  const normalized = normalizeEmbeddedPaths(source);
+  assert.ok(normalized.includes("0 FILE parts/s/nested.dat"));
+  assert.ok(normalized.includes("0 FILE p/48/high.dat"));
+  assert.ok(normalized.includes("0 !LICENSE original licence"));
+  assert.equal(normalizeEmbeddedPaths(normalized), normalized);
+});
+
+test("shopping favours sets that finish the build over incomplete purchases", () => {
+  const suggestions = recommendSets(
+    modelById["green-dinosaur"],
+    availablePieces(sampleCollection),
+  );
+  // The sample already owns the dinosaur, so use an empty box for this purchase.
+  const needed = recommendSets(modelById["green-dinosaur"], {});
+  assert.ok(needed.length > 0);
+  assert.ok(needed.every((s) => s.remaining === 0));
+  assert.deepEqual(suggestions, []);
+});
+
+test("the extracted dragon only reserves its eight assembly pieces", () => {
+  const dragon = modelById["dragon-friend"];
+  assert.equal(dragon.source.inventoryBasis, "model");
+  assert.equal(countPieces(dragon.inventory), 8);
+  assert.equal(dragon.inventory["6133:4"], 2);
+  assert.ok(
+    !Object.keys(dragon.inventory).some((key) => key.startsWith("3001:")),
+  );
+  assert.ok(countPieces(modelById["dragon-wagon"].inventory) > 8);
 });

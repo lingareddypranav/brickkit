@@ -1,3 +1,9 @@
+# Active catalogue: real OMR builds
+
+The homepage now uses the real models documented in [omr/SOURCES.md](omr/SOURCES.md).
+The fourteen original illustrative recipes below are retained only for saved-creation compatibility.
+Use `scripts/prepare-omr.py` to add or regenerate active builds.
+
 # Offline design-challenge catalogue
 
 Set names, set images, colours, and non-spare inventories are a small snapshot of the public Rebrickable downloads, retrieved 2026-10-17:
