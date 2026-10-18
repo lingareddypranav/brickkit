@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 
 from PIL import Image
 
@@ -208,6 +209,10 @@ def main():
                         f"[Original OMR source]({source['url']})", '',
                         f"Cached source SHA-256: `{index[model['id']]['sourceSha256']}`", '']
     (FRONTEND/'public/demo/instructions/SOURCES.md').write_text('\n'.join(credits)+'\n')
+
+    # Refresh booklets from the same diagrams and index, so PDFs cannot silently
+    # retain an older step sequence after the model preparation command.
+    subprocess.run([sys.executable, str(Path(__file__).with_name('prepare-instruction-pdfs.py'))], check=True)
 
 
 if __name__ == '__main__':

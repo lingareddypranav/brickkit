@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
 import type { PictureGuide } from "@/lib/demo/instructions";
 
 export function PictureInstructions({
@@ -42,6 +42,16 @@ export function PictureInstructions({
           </span>
           <h3>{current.title}</h3>
         </div>
+        {guide.pdfUrl && (
+          <a
+            className="kit-text-button guide-pdf-link"
+            href={guide.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <BookOpen size={18} /> Open PDF booklet
+          </a>
+        )}
       </div>
       <div className="guide-stage" style={{ background }}>
         <img

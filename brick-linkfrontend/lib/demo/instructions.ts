@@ -12,6 +12,7 @@ export interface PictureGuide {
   sourceSha256: string;
   sequence: "curated" | "omr";
   modelUrl: string;
+  pdfUrl?: string;
   steps: {
     title: string;
     image: string;

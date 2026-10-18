@@ -379,3 +379,20 @@
 .picture-instructions .picture-navigation {
   margin: 12px 0 0;
 }
+
+.guide-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  color: var(--bp-blue-1);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+@media (max-width: 540px) {
+  .picture-instructions .guide-title {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+}

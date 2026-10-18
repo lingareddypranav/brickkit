@@ -3,8 +3,9 @@
 ## Picture instructions that are ready now
 
 Open a model marked **Picture instructions ready**, then choose **View instructions**
-(or **Let's build** when the collection has the pieces). Every picture and piece
-thumbnail is bundled with the frontend. These guides do not call the Python API,
+(or **Let's build** when the collection has the pieces). Every picture, piece
+thumbnail and printable PDF booklet is bundled with the frontend. Choose **Open PDF
+booklet** inside the guide to read or print the book. These guides do not call the Python API,
 search OMR, generate images, or depend on an external instruction website at runtime.
 
 | Model ID | Build | Steps | Construction order |
@@ -40,7 +41,9 @@ python3 -B brick-linkfrontend/scripts/test-instructions.py
 npm --prefix brick-linkfrontend run test:demo
 ```
 
-Requires LeoCAD and Pillow on the preparation machine, neither in the deployed app.
+Requires LeoCAD, Pillow and ReportLab on the preparation machine, none in the deployed
+app. The command also rebuilds the PDFs. To reformat existing diagrams without
+re-rendering in LeoCAD, run `python3 brick-linkfrontend/scripts/prepare-instruction-pdfs.py`.
 Pass `--leocad` if the executable is outside the default macOS application path.
 The script caches assets by model, retains credits/licences and embedded definitions,
 and checks curated placement coverage. It flattens nested model transforms and

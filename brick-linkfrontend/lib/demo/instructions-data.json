@@ -102,7 +102,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pdfUrl": "/demo/instructions/dragon-friend/instructions.pdf"
   },
   "green-dinosaur": {
     "sourceSha256": "70638927bfdab89e915a1225aa5c93ec708244f6a0ee1f942f1cf5fa182b416f",
@@ -322,7 +323,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pdfUrl": "/demo/instructions/green-dinosaur/instructions.pdf"
   },
   "space-transport": {
     "sourceSha256": "905751f960197e7305ae145e71558003357e9df8c4791084e5fbc27a68645752",
@@ -799,7 +801,8 @@
           }
         ]
       }
-    ]
+    ],
+    "pdfUrl": "/demo/instructions/space-transport/instructions.pdf"
   },
   "mini-shuttle": {
     "sourceSha256": "a7b12cbed7329d7d7cd2cb1b57292ebc9fc33fd342f47be130cfdb161793fd5e",
@@ -1267,6 +1270,7 @@
           }
         ]
       }
-    ]
+    ],
+    "pdfUrl": "/demo/instructions/mini-shuttle/instructions.pdf"
   }
 }

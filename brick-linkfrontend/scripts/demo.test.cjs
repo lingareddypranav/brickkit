@@ -282,6 +282,11 @@ test("story demo builds have complete local picture guides with matching source 
   ]) {
     const guide = instructionsFor(id);
     assert.ok(guide && guide.steps.length > 1, id);
+    assert.ok(guide.pdfUrl, `${id}: missing PDF booklet`);
+    const booklet = fs.readFileSync(
+      path.join(__dirname, "../public", guide.pdfUrl),
+    );
+    assert.equal(booklet.subarray(0, 5).toString(), "%PDF-");
     const source = fs.readFileSync(
       path.join(__dirname, "../public", modelById[id].modelUrl),
     );
