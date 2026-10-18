@@ -13,7 +13,7 @@ interface LDrawModelProps {
 
 function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
   const { scene } = useThree()
-  const groupRef = useRef<THREE.Group>()
+  const groupRef = useRef<THREE.Group | null>(null)
 
   useEffect(() => {
     console.log("[v0] Loading LDraw model from:", modelUrl)
@@ -26,7 +26,6 @@ function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
         loader.setPartsLibraryPath("/ldraw/")   // note the trailing slash
         loader.preloadMaterials("/ldraw/LDConfig.ldr")           // loads /ldraw/LDConfig.ldr
 
-        loader.setConditionalLineMaterial(THREE.LineBasicMaterial)
 
         // Load your model from anywhere (absolute or relative); subfiles come from /ldraw/
         const fullModelUrl = modelUrl.startsWith('http') ? modelUrl : `${window.location.origin}${modelUrl}`
@@ -77,7 +76,7 @@ function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
           },
           (error) => {
             console.error("[v0] Error loading LDraw model:", error)
-            onError(error.message || "Failed to load model")
+            onError(error instanceof Error ? error.message : "Failed to load model")
           },
         )
       } catch (error) {

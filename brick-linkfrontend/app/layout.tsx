@@ -7,9 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Brick Kit — Little bricks, big ideas',
+  description: 'Discover little builds you can make with the bricks in your box.',
 }
 
 export default function RootLayout({

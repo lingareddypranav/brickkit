@@ -2,8 +2,9 @@ import data from "./catalog-data.json"
 import type { Blueprint, BrickSet, Collection, Family, Part } from "./types"
 
 export const parts = data.parts as Part[]
-export const sets = data.sets as BrickSet[]
-export const models = data.models as Blueprint[]
+// Generated catalogue is checked by scripts/demo.test.cjs at the JSON boundary.
+export const sets = data.sets as unknown as BrickSet[]
+export const models = data.models as unknown as Blueprint[]
 export const partByKey = Object.fromEntries(parts.map(part => [part.key, part]))
 export const modelById = Object.fromEntries(models.map(model => [model.id, model]))
 export const setById = Object.fromEntries(sets.map(set => [set.id, set]))
