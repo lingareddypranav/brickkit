@@ -7,7 +7,9 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "test:demo": "node -r sucrase/register scripts/demo.test.cjs"
+    "test:demo": "node -r sucrase/register scripts/demo.test.cjs",
+    "predev": "node ../../scripts/sync-site.mjs",
+    "prebuild": "node ../../scripts/sync-site.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

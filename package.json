@@ -1,0 +1,14 @@
+{
+  "name": "blueprint-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix product/brick-linkfrontend run dev",
+    "build": "npm --prefix product/brick-linkfrontend run build",
+    "start": "npm --prefix product/brick-linkfrontend run start",
+    "test": "npm --prefix product/brick-linkfrontend run test:demo && python3 -B product/brick-linkfrontend/scripts/test-instructions.py",
+    "site:sync": "node scripts/sync-site.mjs"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}

@@ -7,16 +7,17 @@ const canvas = document.querySelector("[data-model-canvas]");
 const slider = document.querySelector("[data-model-slider]");
 if (!card || !canvas || !slider) throw new Error("model test missing");
 
-const LIBRARY = "./landing/ldraw/";
+const landing = new URL("../../landing/", import.meta.url);
+const LIBRARY = new URL("ldraw/", landing).href;
 const MODELS = [
-  { name: "Racecar", url: "./landing/models/blue-racer.packed.mpd" },
+  { name: "Racecar", url: new URL("models/blue-racer.packed.mpd", landing).href },
   {
     name: "Spaceship",
-    url: "./landing/models/shuttle-explorer.packed.mpd",
+    url: new URL("models/shuttle-explorer.packed.mpd", landing).href,
     shuttle: true,
     scale: 1.5,
   },
-  { name: "Dinosaur", url: "./landing/models/green-dinosaur.packed.mpd" },
+  { name: "Dinosaur", url: new URL("models/green-dinosaur.packed.mpd", landing).href },
 ];
 const LIFT = 110;
 const MODEL_SCALE = 3.15;

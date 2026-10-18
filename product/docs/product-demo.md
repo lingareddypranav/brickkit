@@ -38,7 +38,7 @@ For original booklets the app does not track the child's position inside the PDF
 ## Rebuild or add a guide
 
 The independent guide contract and lookup live in
-`brick-linkfrontend/lib/demo/instructions.ts`. Its data is generated in
+`product/brick-linkfrontend/lib/demo/instructions.ts`. Its data is generated in
 `instructions-data.json`. Presentation lives in `picture-instructions.tsx` and
 `build-guide.tsx`; replacing those components does not change the assets or collection
 rules. The catalogue generator does not overwrite the separate instruction index.
@@ -46,7 +46,7 @@ rules. The catalogue generator does not overwrite the separate instruction index
 Refresh booklet-backed catalogue entries with:
 
 ```sh
-python3 brick-linkfrontend/scripts/prepare-booklet-models.py --data-dir /path/to/rebrickable-csvs --cache /private/tmp/brickkit-booklets
+python3 product/brick-linkfrontend/scripts/prepare-booklet-models.py --data-dir /path/to/rebrickable-csvs --cache /private/tmp/brickkit-booklets
 ```
 
 This checks the original PDF's SHA-256 in a private cache and imports real retail
@@ -57,14 +57,14 @@ a discriminated union of `pictures` and `booklet`, independent of presentation.
 After refreshing the OMR models, run from the repository root:
 
 ```sh
-python3 brick-linkfrontend/scripts/prepare-instructions.py --ldraw "$LDRAW_PATH"
-python3 -B brick-linkfrontend/scripts/test-instructions.py
-npm --prefix brick-linkfrontend run test:demo
+python3 product/brick-linkfrontend/scripts/prepare-instructions.py --ldraw "$LDRAW_PATH"
+python3 -B product/brick-linkfrontend/scripts/test-instructions.py
+npm --prefix product/brick-linkfrontend run test:demo
 ```
 
 Requires LeoCAD, Pillow and ReportLab on the preparation machine, none in the deployed
 app. The command also rebuilds the PDFs. To reformat existing diagrams without
-re-rendering in LeoCAD, run `python3 brick-linkfrontend/scripts/prepare-instruction-pdfs.py`.
+re-rendering in LeoCAD, run `python3 product/brick-linkfrontend/scripts/prepare-instruction-pdfs.py`.
 Pass `--leocad` if the executable is outside the default macOS application path.
 The script caches assets by model, retains credits/licences and embedded definitions,
 and checks curated placement coverage. It flattens nested model transforms and

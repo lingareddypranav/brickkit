@@ -33,8 +33,8 @@
   background-size: var(--bp-dither-cell);
   background-blend-mode: overlay;
   image-rendering: pixelated;
-  -webkit-mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
-  mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+  -webkit-mask: url("/design-system/assets/bricks/brick-2.svg") no-repeat center / contain;
+  mask: url("/design-system/assets/bricks/brick-2.svg") no-repeat center / contain;
 }
 
 .bp-lockup .bp-wordmark {
@@ -96,8 +96,8 @@
   background-size: var(--bp-dither-cell);
   background-blend-mode: overlay;
   image-rendering: pixelated;
-  -webkit-mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
-  mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+  -webkit-mask: url("/design-system/assets/bricks/brick-2.svg") no-repeat center / contain;
+  mask: url("/design-system/assets/bricks/brick-2.svg") no-repeat center / contain;
 }
 
 .bp-lockup--on-dark .bp-mark,

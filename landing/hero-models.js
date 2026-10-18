@@ -6,13 +6,13 @@ const LIBRARY = "./ldraw/";
 const FADE_MS = 320;
 
 const MODELS = [
-  { name: "Blue Racer", url: "./models/blue-racer.mpd" },
+  { name: "Blue Racer", url: "./models/blue-racer.packed.mpd" },
   {
     name: "Space Shuttle Explorer",
-    url: "./models/shuttle-explorer.mpd",
+    url: "./models/shuttle-explorer.packed.mpd",
     shuttle: true,
   },
-  { name: "Dinosaur", url: "./models/green-dinosaur.mpd" },
+  { name: "Dinosaur", url: "./models/green-dinosaur.packed.mpd" },
 ];
 
 const stage = document.querySelector("[data-prompt-stage]");
@@ -70,7 +70,7 @@ function resize() {
       : [];
     for (const material of materials) {
       if (material.isLDrawConditionalLineMaterial) {
-        material.resolution.set(width, height);
+        material.resolution?.set(width, height);
       }
     }
   });

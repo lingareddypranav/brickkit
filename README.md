@@ -10,16 +10,41 @@ Remote: [lingareddypranav/brickkit](https://github.com/lingareddypranav/brickkit
 | [`landing/`](landing/) | Marketing page. Uses the design system styles and scripts. |
 | [`product/`](product/) | Brickkit — AI LEGO build generator (FastAPI + Next.js). |
 
-## Open it
+## Run the workspace
 
-From this folder:
+Use Node.js 20.11 or newer. Install the product's dependencies once, then run
+from this workspace root:
 
 ```bash
-npx serve .
+npm --prefix product/brick-linkfrontend ci
+npm run dev
 ```
 
-- Design system: `/design-system/`
-- Landing page: `/landing/`
+- Product: [http://localhost:3000/](http://localhost:3000/)
+- Landing page: [http://localhost:3000/landing](http://localhost:3000/landing)
+- Design system: [http://localhost:3000/design-system](http://localhost:3000/design-system)
+
+The landing page's Get Started links return to the product on the same origin.
+`npm run build` and `npm start` use the same routes in production.
+The dev and build commands copy the standalone site sources into ignored public
+folders. Edit `landing/` and `design-system/`, then run `npm run site:sync` or
+restart the dev server to refresh those static pages. The product imports shared
+design CSS directly, so its token and logo changes update without a copy step.
+
+The collection, curated builds, shopping suggestions and cached picture guides
+work without the Python API. Original LEGO dragon booklets need internet access.
+For the live OMR explorer at `/explore`, install `product/requirements.txt`, keep
+backend settings in `product/.env`, and start the API from `product/`:
+
+```bash
+cd product
+LDRAW_PATH=/path/to/ldraw python3 -m src.main
+```
+
+Run `npm test` from the workspace root for collection/catalogue checks and
+instruction preparation tests. See [the prototype architecture](product/docs/prototype-architecture.md)
+and [demo preparation](product/docs/product-demo.md) for the curated-data shortcuts,
+prepared models, PDF sources and video workflow.
 
 ## Use the design system
 

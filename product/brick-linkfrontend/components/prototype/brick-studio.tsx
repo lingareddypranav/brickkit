@@ -167,6 +167,9 @@ export default function BrickStudio() {
           <a href="/explore">
             Explore more builds <ArrowRight size={14} />
           </a>
+          <a href="/landing/index.html">
+            About Blueprint <ArrowRight size={14} />
+          </a>
         </nav>
       </aside>
 

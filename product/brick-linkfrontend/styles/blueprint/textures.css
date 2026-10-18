@@ -1,23 +1,2 @@
-.bp-dither {
-  background-image: var(--bp-texture-dither);
-  background-repeat: repeat;
-  background-size: var(--bp-dither-cell);
-  background-blend-mode: overlay;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-.bp-dither-off,
-.bp-brick-fill-light {
-  background-image: none;
-}
-
-.bp-grid-ui {
-  background-image: var(--bp-texture-grid-ui);
-  background-size: 64px 64px;
-}
-
-.bp-grid-brick {
-  background-image: var(--bp-texture-grid-brick);
-  background-size: 150px 150px;
-}
+/* Shared source; keep product behaviour and layout independent. */
+@import "../../../../design-system/styles/textures.css";

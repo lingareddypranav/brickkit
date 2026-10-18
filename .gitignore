@@ -5,3 +5,7 @@ __pycache__/
 .env.*
 node_modules/
 .next/
+
+# Prepared from the workspace sources by scripts/sync-site.mjs
+/product/brick-linkfrontend/public/design-system/
+/product/brick-linkfrontend/public/landing/

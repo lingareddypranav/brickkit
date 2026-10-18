@@ -12,6 +12,22 @@ existing real retail sets are added to the child's available inventory and ranke
 by how much of the generated build's deficit they cover. The direct “Find missing
 pieces” action opens those suggestions; there is no parent-gating button.
 
+## Shared visual foundations
+
+The workspace root contains `design-system/` (visual foundations), `landing/`
+(marketing), and `product/` (this app and Python backend). The product's
+`styles/blueprint/*.css` files import the root design-system styles rather than
+maintaining independent copies. Next's font variable is accepted by the shared
+font token; standalone pages load the same family through their stylesheet.
+Product layout CSS remains in `components/prototype/` and does not enter domain
+modules. The existing product header's optical alignment is a local layout rule.
+
+`scripts/sync-site.mjs` at the workspace root prepares the landing and foundation
+pages in ignored frontend public folders before dev/build. Their CSS, assets and
+model libraries retain the original sibling paths. `/landing` and `/design-system`
+redirect to these pages; `/` stays the product. The landing CTA links to `/` on
+the same origin. Edits to the static pages need a sync or dev restart.
+
 ## Replace the visual design without replacing the behaviour
 
 ```text
@@ -110,7 +126,7 @@ external instruction lookup. See `product-demo.md` for sources and preparation.
 2. Download Rebrickable's `sets.csv.gz`, `inventories.csv.gz`,
    `inventory_parts.csv.gz`, `parts.csv.gz`, and `colors.csv.gz` into a local data
    directory. Bulk datasets and credentials are not committed.
-3. From `brick-linkfrontend`, run:
+3. From `product/brick-linkfrontend`, run:
 
    ```bash
    python3 scripts/prepare-omr.py --data-dir /path/to/csvs --ldraw /path/to/ldraw
@@ -128,7 +144,7 @@ refuses to overwrite the OMR catalogue. Do not use it to add new homepage builds
 ## Local verification
 
 `npm run dev -- --hostname 127.0.0.1` runs the homepage. The API is only needed for
-`/explore`; start it from the repository root with `LDRAW_PATH=/path/to/ldraw
+`/explore`; start it from `product/` with `LDRAW_PATH=/path/to/ldraw
 python3 -m src.main`. The live explorer's availability also depends on OMR and
 the configured model provider.
 

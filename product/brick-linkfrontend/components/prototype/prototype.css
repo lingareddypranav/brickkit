@@ -246,7 +246,7 @@
   display: flex;
   justify-content: center;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
@@ -298,7 +298,7 @@
 
 .make-samples.kit-pane-scroll {
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .samples-pane .kit-pane-scroll {

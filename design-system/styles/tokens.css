@@ -33,7 +33,7 @@
   --bp-color-grid: color-mix(in srgb, var(--bp-blue-1) 18%, transparent);
 
   /* —— Typography —— */
-  --bp-font: "Host Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bp-font: var(--font-host, "Host Grotesk"), "Helvetica Neue", Helvetica, Arial, sans-serif;
   --bp-tracking: -0.01em; /* −1%, Figma body spec */
   --bp-tracking-wordmark: 0em; /* Figma wordmark is 0% */
 
@@ -101,10 +101,10 @@
   --bp-tap: 48px;
 
   /* —— Textures (Bayer screen on bricks / marks, not the page) —— */
-  --bp-texture-dither: url("../assets/textures/dither-bayer.svg");
+  --bp-texture-dither: url("/design-system/assets/textures/dither-bayer.svg");
   --bp-dither-cell: 8px; /* 8×8 tile, 1px cells */
-  --bp-texture-grid-ui: url("../assets/textures/grid-ui.svg");
-  --bp-texture-grid-brick: url("../assets/textures/grid-brick.svg");
+  --bp-texture-grid-ui: url("/design-system/assets/textures/grid-ui.svg");
+  --bp-texture-grid-brick: url("/design-system/assets/textures/grid-brick.svg");
 }
 
 /* Inverse surfaces: charcoal field, cream type. Same four primitives. */
