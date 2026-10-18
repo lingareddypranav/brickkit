@@ -1,0 +1,49 @@
+.bp-brick {
+  display: block;
+  height: var(--bp-brick-ui, 64px);
+  width: calc(var(--bp-brick-ui, 64px) * var(--bp-brick-ratio, 150 / 225));
+  background-color: var(--bp-brick-fill, var(--bp-color-brand));
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  -webkit-mask: var(--bp-brick-src) no-repeat center / contain;
+  mask: var(--bp-brick-src) no-repeat center / contain;
+  flex: 0 0 auto;
+}
+
+.bp-brick--1 {
+  --bp-brick-src: url("../assets/bricks/brick-1.svg");
+  --bp-brick-ratio: 150 / 225;
+}
+
+.bp-brick--2 {
+  --bp-brick-src: url("../assets/bricks/brick-2.svg");
+  --bp-brick-ratio: 300 / 225;
+}
+
+.bp-brick--4 {
+  --bp-brick-src: url("../assets/bricks/brick-4.svg");
+  --bp-brick-ratio: 600 / 225;
+}
+
+.bp-brick--sm { --bp-brick-ui: 48px; }
+.bp-brick--md { --bp-brick-ui: 64px; }
+.bp-brick--lg { --bp-brick-ui: 96px; }
+.bp-brick--native { --bp-brick-ui: 225px; }
+
+.bp-brick-fill-brand { --bp-brick-fill: var(--bp-blue-1); }
+.bp-brick-fill-accent { --bp-brick-fill: var(--bp-orange-1); }
+.bp-brick-fill-dark { --bp-brick-fill: var(--bp-dark-1); }
+.bp-brick-fill-light {
+  --bp-brick-fill: var(--bp-light-1);
+  background-image: none;
+}
+
+.bp-brick-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--bp-space-2);
+  flex-wrap: wrap;
+}

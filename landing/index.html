@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blueprint</title>
+    <link rel="stylesheet" href="../design-system/styles/index.css" />
+    <link rel="stylesheet" href="./landing.css" />
+  </head>
+  <body class="lp">
+    <header class="lp-header">
+      <a class="lp-mark" href="#top" aria-label="Blueprint">
+        <span class="bp-brick bp-brick--2 bp-brick-fill-brand" aria-hidden="true"></span>
+      </a>
+      <a class="lp-cta" href="http://localhost:3000">Get Started</a>
+    </header>
+
+    <main class="lp-main" id="top">
+      <section class="lp-hero" aria-label="Imagine a build">
+        <div class="bp-lockup bp-lockup--tile bp-lockup--on-light lp-hero-mark">
+          <span class="bp-mark" aria-hidden="true"></span>
+          <span class="bp-wordmark">Blueprint</span>
+        </div>
+
+        <h1 class="lp-hero-title">Let your imagination run wild.</h1>
+
+        <div class="lp-prompt" data-prompt>
+          <svg class="lp-prompt-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.25" fill="none" stroke="currentColor" stroke-width="1.75" />
+            <path d="M16 16.5 20 20.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+          </svg>
+          <p class="lp-prompt-line" aria-hidden="true">
+            <span class="lp-prompt-prefix">I wanna build a </span><span class="lp-prompt-word" data-prompt-word></span><span class="lp-prompt-caret" data-prompt-caret aria-hidden="true"></span>
+          </p>
+          <span class="lp-prompt-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <p class="lp-prompt-live" data-prompt-live aria-live="polite"></p>
+        </div>
+
+        <div class="lp-hero-stage" data-prompt-stage>
+          <canvas class="lp-hero-canvas" data-hero-canvas></canvas>
+        </div>
+      </section>
+
+      <section class="lp-reveal-hero" aria-label="Product message">
+        <div class="bp-reveal" data-reveal>
+          <div class="bp-reveal-copy">
+            <p class="bp-reveal-line">Blueprint helps kids build the</p>
+            <p class="bp-reveal-line">next part of their story with the</p>
+            <p class="bp-reveal-line">LEGO bricks they already own.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-founder-video" aria-label="Founder video">
+        <div class="lp-placeholder lp-founder-video__frame" aria-hidden="true">
+          <span class="lp-play" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <section class="lp-features" aria-label="Features">
+        <article class="lp-feature">
+          <div class="lp-feature-copy">
+            <h2 class="lp-feature-title">Add your sets</h2>
+            <p class="bp-body bp-muted">Tell Blueprint which bricks you have.</p>
+          </div>
+          <div class="lp-placeholder lp-demo" aria-hidden="true"></div>
+        </article>
+        <article class="lp-feature">
+          <div class="lp-feature-copy">
+            <h2 class="lp-feature-title">Imagine</h2>
+            <p class="bp-body bp-muted">Describe a character, vehicle, or scene for your story.</p>
+          </div>
+          <div class="lp-placeholder lp-demo" aria-hidden="true"></div>
+        </article>
+        <article class="lp-feature">
+          <div class="lp-feature-copy">
+            <h2 class="lp-feature-title">Get a blueprint</h2>
+            <p class="bp-body bp-muted">See an idea and step-by-step instructions using your bricks.</p>
+          </div>
+          <div class="lp-placeholder lp-demo" aria-hidden="true"></div>
+        </article>
+        <article class="lp-feature">
+          <div class="lp-feature-copy">
+            <h2 class="lp-feature-title">Make it yours</h2>
+            <p class="bp-body bp-muted">Change the design, then keep playing.</p>
+          </div>
+          <div class="lp-placeholder lp-demo" aria-hidden="true"></div>
+        </article>
+      </section>
+
+      <section class="lp-end" aria-label="Get started">
+        <div class="bp-reveal bp-reveal--center" data-reveal>
+          <div class="bp-reveal-copy">
+            <p class="bp-reveal-line">The next chapter is already</p>
+            <p class="bp-reveal-line">in your brick box.</p>
+          </div>
+        </div>
+        <a class="lp-cta lp-cta--brand" href="http://localhost:3000">Get Started</a>
+      </section>
+    </main>
+
+    <footer class="lp-footer">
+      <div class="lp-bricks" aria-hidden="true">
+        <span class="bp-brick bp-brick--2 lp-brick lp-brick--a bp-brick-fill-dark"></span>
+        <span class="bp-brick bp-brick--4 lp-brick lp-brick--b bp-brick-fill-brand"></span>
+        <span class="bp-brick bp-brick--2 lp-brick lp-brick--c bp-brick-fill-dark"></span>
+        <span class="bp-brick bp-brick--1 lp-brick lp-brick--d bp-brick-fill-accent"></span>
+        <span class="bp-brick bp-brick--2 lp-brick lp-brick--e bp-brick-fill-dark"></span>
+      </div>
+      <p class="bp-wordmark lp-word">Blueprint</p>
+
+      <div class="lp-grid" aria-hidden="true">
+        <span class="lp-cube lp-cube--1"></span>
+        <span class="lp-cube lp-cube--2"></span>
+        <span class="lp-cube lp-cube--3"></span>
+        <span class="lp-cube lp-cube--4"></span>
+
+        <span class="lp-hline lp-hline--above"></span>
+        <span class="lp-hline lp-hline--top"></span>
+        <span class="lp-hline lp-hline--bottom"></span>
+        <span class="lp-hline lp-hline--below"></span>
+
+        <span class="lp-vline lp-vline--1"></span>
+        <span class="lp-vline lp-vline--2"></span>
+        <span class="lp-vline lp-vline--3"></span>
+        <span class="lp-vline lp-vline--4"></span>
+        <span class="lp-vline lp-vline--5"></span>
+        <span class="lp-vline lp-vline--6"></span>
+        <span class="lp-vline lp-vline--7"></span>
+        <span class="lp-vline lp-vline--8"></span>
+      </div>
+    </footer>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script src="../design-system/js/reveal.js"></script>
+    <script src="./hero.js"></script>
+    <script type="module" src="./hero-models.js"></script>
+    <script src="../design-system/js/smooth-scroll.js"></script>
+  </body>
+</html>

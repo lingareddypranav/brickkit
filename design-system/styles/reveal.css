@@ -1,0 +1,207 @@
+/* Text reveal: one brick row per line. Body covers the line; studs tuck under the row above. */
+
+.ds-reveal-stage {
+  padding: var(--bp-space-8) var(--bp-space-7) var(--bp-space-6);
+  overflow: visible;
+}
+
+.ds-reveal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 196px;
+  gap: var(--bp-space-6);
+  align-items: start;
+}
+
+.bp-reveal {
+  --reveal-lh: 1.32em;
+  --reveal-stud: 14px;
+  --reveal-brick-h: 48px;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  padding-top: var(--reveal-stud);
+  overflow: visible;
+}
+
+.bp-reveal-copy,
+.bp-reveal-bricks {
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: start;
+}
+
+.bp-reveal-copy {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-family: var(--bp-font);
+  font-weight: var(--bp-weight-regular);
+  font-size: 36px;
+  letter-spacing: var(--bp-tracking);
+  line-height: 1.2;
+  color: var(--bp-dark-1);
+}
+
+.bp-reveal-text {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  text-indent: var(--reveal-indent, 0px);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.bp-reveal-line {
+  margin: 0;
+  width: max-content;
+  max-width: none;
+  height: 1.2em;
+  white-space: nowrap;
+  font-size: inherit;
+  line-height: 1.2;
+}
+
+.bp-reveal-line:first-child {
+  padding-left: var(--reveal-indent, 0px);
+}
+
+.bp-reveal-bricks {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.bp-reveal-row {
+  position: relative;
+  height: var(--reveal-lh);
+  z-index: var(--z, 1);
+}
+
+.bp-reveal-clip {
+  position: absolute;
+  left: 0;
+  top: calc(var(--reveal-stud) * -1);
+  height: var(--reveal-brick-h);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.bp-reveal-brick {
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.bp-reveal.is-playing .bp-reveal-brick {
+  animation-name: bp-reveal-drop;
+  animation-duration: var(--dur, 1400ms);
+  animation-delay: var(--delay, 0ms);
+  animation-timing-function: var(--reveal-ease, cubic-bezier(0.45, 0.05, 0.25, 1));
+  animation-fill-mode: forwards;
+}
+
+.bp-reveal-controls {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: var(--bp-space-4);
+  min-width: 0;
+}
+
+.bp-reveal-controls legend {
+  padding: 0;
+  margin-bottom: var(--bp-space-1);
+}
+
+.bp-reveal-field {
+  display: grid;
+  gap: var(--bp-space-2);
+}
+
+.bp-reveal-field .bp-caption span {
+  color: var(--bp-dark-1);
+}
+
+.bp-reveal-toggles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.bp-reveal-toggles button {
+  appearance: none;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--bp-color-border);
+  border-radius: var(--bp-radius-ui-sm);
+  background: transparent;
+  color: var(--bp-dark-1);
+  font-family: var(--bp-font);
+  font-size: var(--bp-text-caption);
+  font-weight: var(--bp-weight-medium);
+  letter-spacing: var(--bp-tracking);
+  cursor: pointer;
+}
+
+.bp-reveal-toggles button[aria-pressed="true"] {
+  background: var(--bp-dark-1);
+  border-color: var(--bp-dark-1);
+  color: var(--bp-light-1);
+}
+
+.bp-reveal-field input[type="range"] {
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--bp-blue-1);
+  cursor: pointer;
+}
+
+@keyframes bp-reveal-drop {
+  to { transform: translateY(calc(var(--reveal-brick-h) + 2px)); }
+}
+
+.bp-reveal-replay {
+  appearance: none;
+  margin-top: var(--bp-space-6);
+  height: var(--bp-tap);
+  padding: 0 var(--bp-space-4);
+  border: 0;
+  border-radius: var(--bp-radius-ui-sm);
+  background: var(--bp-dark-1);
+  color: var(--bp-light-1);
+  font-family: var(--bp-font);
+  font-size: var(--bp-text-ui);
+  font-weight: var(--bp-weight-medium);
+  letter-spacing: var(--bp-tracking);
+  cursor: pointer;
+}
+
+.bp-reveal-replay:hover { background: var(--bp-blue-1); }
+
+.bp-reveal-replay:focus-visible {
+  outline: 2px solid var(--bp-color-focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+  .ds-reveal-layout { grid-template-columns: 1fr; }
+  .ds-reveal-stage { padding: var(--bp-space-6) var(--bp-space-4) var(--bp-space-5); }
+  .bp-reveal-copy { font-size: 28px; }
+}
+
+@media (max-width: 520px) {
+  .bp-reveal-copy { font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-reveal-bricks { display: none; }
+  .bp-reveal-replay { display: none; }
+  .bp-reveal-controls { display: none; }
+}

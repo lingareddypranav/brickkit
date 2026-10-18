@@ -1,0 +1,145 @@
+/* Lockup: 2-wide brick + wordmark.
+   Open: brick only. Tiled: Figma 400 square around a 225-tall brick.
+   Wordmark cap-height matches the brick body (175/225). Descenders are not clipped. */
+
+.bp-lockup {
+  --bp-stud-h: calc(var(--bp-mark-size) * 50 / 225);
+  --bp-body-h: calc(var(--bp-mark-size) * 175 / 225);
+  --bp-wordmark-size: calc(var(--bp-body-h) / var(--bp-cap));
+  --bp-descender: calc(var(--bp-wordmark-size) * 0.28);
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: var(--bp-stud-h) var(--bp-body-h);
+  column-gap: var(--bp-mark-gap);
+  align-items: start;
+  width: max-content;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: none;
+  overflow: visible;
+  padding-bottom: var(--bp-descender);
+}
+
+.bp-mark {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: start;
+  width: calc(var(--bp-mark-size) * 300 / 225);
+  height: var(--bp-mark-size);
+  min-height: 0;
+  background-color: var(--bp-brick-fill, var(--bp-blue-1));
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  -webkit-mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+  mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+}
+
+.bp-lockup .bp-wordmark {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  box-sizing: border-box;
+  margin: 0;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  overflow: visible;
+  font-size: var(--bp-wordmark-size);
+  line-height: 1;
+  display: block;
+  text-box: trim-start cap alphabetic;
+  text-box-trim: trim-start;
+  text-box-edge: cap alphabetic;
+  color: var(--bp-wordmark-fill, var(--bp-dark-1));
+  background-image:
+    var(--bp-texture-dither),
+    linear-gradient(var(--bp-wordmark-fill, var(--bp-dark-1)), var(--bp-wordmark-fill, var(--bp-dark-1)));
+  background-repeat: repeat, no-repeat;
+  background-size: var(--bp-dither-cell), auto;
+  background-blend-mode: overlay;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  image-rendering: pixelated;
+}
+
+.bp-lockup--tile {
+  --bp-tile: calc(var(--bp-mark-size) * 400 / 225);
+  --bp-tile-pad: calc((var(--bp-tile) - var(--bp-mark-size)) / 2);
+  --bp-tile-radius: calc(var(--bp-tile) * 20 / 400);
+  grid-template-rows: var(--bp-tile-pad) var(--bp-stud-h) var(--bp-body-h) var(--bp-tile-pad);
+  padding-bottom: 0;
+}
+
+.bp-lockup--tile .bp-mark {
+  grid-row: 1 / 5;
+  width: var(--bp-tile);
+  height: var(--bp-tile);
+  border-radius: var(--bp-tile-radius);
+  background-color: var(--bp-tile-fill, var(--bp-blue-1));
+  -webkit-mask: none;
+  mask: none;
+  display: grid;
+  place-items: center;
+}
+
+.bp-lockup--tile .bp-mark::after {
+  content: "";
+  width: calc(var(--bp-mark-size) * 300 / 225);
+  height: var(--bp-mark-size);
+  background-color: var(--bp-tile-brick-fill, var(--bp-light-1));
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  -webkit-mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+  mask: url("../assets/bricks/brick-2.svg") no-repeat center / contain;
+}
+
+.bp-lockup--on-dark .bp-mark,
+.bp-lockup--on-brand .bp-mark,
+.bp-lockup--tile.bp-lockup--on-light .bp-mark::after {
+  background-image: none;
+}
+
+.bp-lockup--tile .bp-wordmark {
+  grid-row: 3;
+}
+
+.bp-lockup--lg { --bp-mark-size: 128px; }
+.bp-lockup--md { --bp-mark-size: 80px; }
+.bp-lockup--sm { --bp-mark-size: 48px; }
+.bp-lockup--xs { --bp-mark-size: 24px; } /* 8pt compact, nav / chrome */
+.bp-lockup--native { --bp-mark-size: 225px; }
+
+@media (max-width: 900px) {
+  .bp-lockup--lg { --bp-mark-size: 80px; }
+}
+
+.bp-lockup--on-light {
+  color: var(--bp-dark-1);
+  --bp-wordmark-fill: var(--bp-dark-1);
+  --bp-brick-fill: var(--bp-blue-1);
+  --bp-tile-fill: var(--bp-blue-1);
+  --bp-tile-brick-fill: var(--bp-light-1);
+}
+
+.bp-lockup--on-dark {
+  color: var(--bp-light-1);
+  --bp-wordmark-fill: var(--bp-light-1);
+  --bp-brick-fill: var(--bp-light-1);
+  --bp-tile-fill: var(--bp-light-1);
+  --bp-tile-brick-fill: var(--bp-blue-1);
+}
+
+.bp-lockup--on-brand {
+  color: var(--bp-light-1);
+  --bp-wordmark-fill: var(--bp-light-1);
+  --bp-brick-fill: var(--bp-light-1);
+  --bp-tile-fill: var(--bp-light-1);
+  --bp-tile-brick-fill: var(--bp-blue-1);
+}

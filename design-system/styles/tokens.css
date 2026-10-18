@@ -1,0 +1,119 @@
+/* Blueprint design tokens
+   Primitives come from Figma (orange1, blue1, dark1, light1).
+   Logo / brick geometry stays exact to Figma.
+   UI spacing, type (except the 20pt body spec), and layout use an 8pt grid.
+*/
+
+:root {
+  /* —— Primitives (Figma variable collection) —— */
+  --bp-orange-1: #f85f19;
+  --bp-blue-1: #3860e5;
+  --bp-dark-1: #2f2f2f;
+  --bp-light-1: #f6f4eb;
+
+  /* —— Semantic color (aliases only — no extra hues) —— */
+  --bp-color-bg: var(--bp-light-1);
+  --bp-color-bg-inverse: var(--bp-dark-1);
+  --bp-color-bg-brand: var(--bp-blue-1);
+  --bp-color-bg-accent: var(--bp-orange-1);
+
+  --bp-muted-1: color-mix(in srgb, var(--bp-dark-1) 64%, var(--bp-light-1)); /* captions on cream */
+
+  --bp-color-fg: var(--bp-dark-1);
+  --bp-color-fg-muted: color-mix(in srgb, var(--bp-dark-1) 64%, transparent);
+  --bp-color-fg-on-inverse: var(--bp-light-1);
+  --bp-color-fg-on-brand: var(--bp-light-1);
+  --bp-color-fg-on-accent: var(--bp-light-1);
+
+  --bp-color-brand: var(--bp-blue-1);
+  --bp-color-accent: var(--bp-orange-1);
+  --bp-color-border: color-mix(in srgb, var(--bp-dark-1) 16%, transparent);
+  --bp-color-border-strong: var(--bp-dark-1);
+  --bp-color-focus: var(--bp-blue-1);
+  --bp-color-grid: color-mix(in srgb, var(--bp-blue-1) 18%, transparent);
+
+  /* —— Typography —— */
+  --bp-font: "Host Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bp-tracking: -0.01em; /* −1%, Figma body spec */
+  --bp-tracking-wordmark: 0em; /* Figma wordmark is 0% */
+
+  --bp-text-display: 64px;
+  --bp-text-h1: 48px;
+  --bp-text-h2: 32px;
+  --bp-text-h3: 24px;
+  --bp-text-body: 20px; /* Figma: 20pt Host Grotesk Regular −1% */
+  --bp-text-ui: 16px;
+  --bp-text-caption: 12px;
+
+  --bp-leading-display: 1.1;
+  --bp-leading-heading: 1.2;
+  --bp-leading-body: 32px; /* 8pt: 20px type on a 32px line */
+
+  --bp-weight-regular: 400;
+  --bp-weight-medium: 500;
+  --bp-weight-semibold: 600;
+
+  /* —— 8pt spacing scale (UI / landing) —— */
+  --bp-space-0: 0px;
+  --bp-space-1: 4px;
+  --bp-space-2: 8px;
+  --bp-space-3: 16px;
+  --bp-space-4: 24px;
+  --bp-space-5: 32px;
+  --bp-space-6: 40px;
+  --bp-space-7: 48px;
+  --bp-space-8: 64px;
+  --bp-space-9: 80px;
+  --bp-space-10: 96px;
+  --bp-space-11: 128px;
+
+  --bp-space-page: var(--bp-space-8);
+  --bp-space-section: var(--bp-space-10);
+  --bp-space-stack: var(--bp-space-4);
+  --bp-space-inline: var(--bp-space-3);
+
+  /* —— Radius —— */
+  --bp-radius-ui-sm: 8px;
+  --bp-radius-ui-md: 16px;
+  --bp-radius-ui-lg: 24px;
+  --bp-radius-full: 999px;
+  --bp-radius-brick: 12px; /* Figma union corner */
+
+  /* —— Logo: brick 300×225 in an optional 400 tile (Figma). B matches body. —— */
+  --bp-mark-size: 80px;
+  --bp-stud-h: calc(var(--bp-mark-size) * 50 / 225);
+  --bp-body-h: calc(var(--bp-mark-size) * 175 / 225);
+  --bp-cap: 0.7; /* Host Grotesk B is 700/1000 em */
+  --bp-mark-gap: calc(var(--bp-mark-size) * 16 / 80);
+  --bp-wordmark-size: calc(var(--bp-body-h) / var(--bp-cap));
+
+  /* —— Brick construction (exact Figma, not 8pt) —— */
+  --bp-brick-unit: 150px;
+  --bp-brick-body: 175px;
+  --bp-brick-stud-w: 90px;
+  --bp-brick-stud-h: 50px;
+  --bp-brick-h: 225px;
+  --bp-brick-tick: 25px;
+
+  /* —— Layout —— */
+  --bp-measure: 640px;
+  --bp-page: 1152px; /* 8 × 144 */
+  --bp-tap: 48px;
+
+  /* —— Textures (Bayer screen on bricks / marks, not the page) —— */
+  --bp-texture-dither: url("../assets/textures/dither-bayer.svg");
+  --bp-dither-cell: 8px; /* 8×8 tile, 1px cells */
+  --bp-texture-grid-ui: url("../assets/textures/grid-ui.svg");
+  --bp-texture-grid-brick: url("../assets/textures/grid-brick.svg");
+}
+
+/* Inverse surfaces: charcoal field, cream type. Same four primitives. */
+.bp-inverse {
+  --bp-color-bg: var(--bp-dark-1);
+  --bp-color-fg: var(--bp-light-1);
+  --bp-color-fg-muted: color-mix(in srgb, var(--bp-light-1) 64%, transparent);
+  --bp-color-border: color-mix(in srgb, var(--bp-light-1) 16%, transparent);
+  --bp-color-border-strong: var(--bp-light-1);
+  background-color: var(--bp-color-bg);
+  color: var(--bp-color-fg);
+}
