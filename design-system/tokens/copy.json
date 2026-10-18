@@ -1,0 +1,34 @@
+{
+  "product": "Blueprint",
+  "description": "Blueprint helps kids build the next part of their story with the LEGO bricks they already own.",
+  "short": "Blueprint turns the bricks kids already own into the things they imagine.",
+  "features": [
+    {
+      "name": "Add your sets",
+      "body": "Tell Blueprint which bricks you have."
+    },
+    {
+      "name": "Imagine what happens next",
+      "body": "Describe a character, vehicle, or scene for your story."
+    },
+    {
+      "name": "Get a buildable blueprint",
+      "body": "See an idea and step-by-step instructions using your bricks."
+    },
+    {
+      "name": "Make it yours",
+      "body": "Change the design, then keep playing."
+    }
+  ],
+  "taglines": [
+    "Build what you imagine, with what you have.",
+    "Imagine it. Build it. Make it yours.",
+    "Your bricks. New stories.",
+    "Every brick has another story.",
+    "The next chapter is already in your brick box."
+  ],
+  "ui": {
+    "primary": "Start building",
+    "steps": ["Add your sets", "Imagine", "Build", "Make it yours"]
+  }
+}

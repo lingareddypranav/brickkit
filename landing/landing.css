@@ -1,0 +1,517 @@
+/* Landing page. Footer matches Figma frame "footer example" (1464 × 848).
+   Bricks bleed past the frame. The wordmark stays inside the side margins. */
+
+.lp {
+  /* Same frame math as the footer: content sits between the blue brick
+     start and the orange brick end. Header chrome lives in the gutters. */
+  --lp-w: 1464;
+  --lp-gap: 25;
+  --lp-b-a: -142;
+  --lp-b-b: calc(var(--lp-b-a) + 300 + var(--lp-gap));
+  --lp-b-c: calc(var(--lp-b-b) + 600 + var(--lp-gap));
+  --lp-b-d: calc(var(--lp-b-c) + 300 + var(--lp-gap));
+  --lp-b-e: calc(var(--lp-b-d) + 150 + var(--lp-gap));
+  /* Blue lines: content between the blue brick start and orange brick end. */
+  --lp-inset-left: calc(var(--lp-b-b) / var(--lp-w) * 100%);
+  --lp-inset-right: calc((var(--lp-w) - var(--lp-b-d) - 150) / var(--lp-w) * 100%);
+  /* Red lines: header chrome at the inner edge of the outer black bricks. */
+  --lp-chrome-left: calc((var(--lp-b-a) + 300) / var(--lp-w) * 100%);
+  --lp-chrome-right: calc((var(--lp-w) - var(--lp-b-e)) / var(--lp-w) * 100%);
+  --lp-mark-h: 48px;
+  --lp-copy-size: 36px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.lp-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: var(--lp-chrome-left) minmax(0, 1fr) var(--lp-chrome-right);
+  align-items: start;
+  padding: var(--bp-space-5) 0 var(--bp-space-3);
+  pointer-events: none;
+  background: transparent;
+}
+
+.lp-mark {
+  grid-column: 1;
+  justify-self: end;
+  pointer-events: auto;
+  display: block;
+  line-height: 0;
+}
+
+.lp-mark .bp-brick {
+  --bp-brick-ui: var(--lp-mark-h);
+}
+
+.lp-cta {
+  grid-column: 3;
+  justify-self: start;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: var(--bp-tap);
+  padding: 0 var(--bp-space-4);
+  border-radius: var(--bp-radius-ui-sm);
+  background-color: var(--bp-color-accent);
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  color: var(--bp-color-fg-on-accent);
+  font-size: var(--bp-text-ui);
+  font-weight: var(--bp-weight-medium);
+  letter-spacing: var(--bp-tracking);
+  line-height: 24px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.lp-cta:hover {
+  color: var(--bp-color-fg-on-accent);
+}
+
+.lp-cta--brand {
+  grid-column: auto;
+  justify-self: auto;
+  background-color: var(--bp-color-brand);
+  color: var(--bp-color-fg-on-brand);
+}
+
+.lp-cta--brand:hover {
+  color: var(--bp-color-fg-on-brand);
+}
+
+.lp-main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  padding: 0 var(--lp-inset-right) 0 var(--lp-inset-left);
+}
+
+.lp-hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--bp-space-7) 0 var(--bp-space-4);
+}
+
+.lp-hero-mark {
+  --bp-mark-size: 24px;
+  --bp-mark-gap: var(--bp-space-1);
+}
+
+.lp-hero-title {
+  margin: var(--bp-space-6) 0 0;
+  max-width: 18em;
+  font-family: var(--bp-font);
+  font-size: clamp(40px, 4.6vw, 56px);
+  font-weight: var(--bp-weight-semibold);
+  letter-spacing: var(--bp-tracking);
+  line-height: 1.12;
+  text-align: center;
+  color: var(--bp-dark-1);
+}
+
+/* Same 8px corner as the Get Started button and the placeholder frames. */
+.lp-prompt {
+  --lp-prompt-h: 56px;
+  --lp-prompt-border: 1px;
+  --lp-prompt-pad: 6px;
+  --lp-prompt-radius: var(--bp-radius-ui-sm);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(560px, 100%);
+  height: var(--lp-prompt-h);
+  margin-top: var(--bp-space-5);
+  padding: var(--lp-prompt-pad) var(--lp-prompt-pad) var(--lp-prompt-pad) 18px;
+  border: var(--lp-prompt-border) solid color-mix(in srgb, var(--bp-dark-1) 16%, transparent);
+  border-radius: var(--lp-prompt-radius);
+  background: var(--bp-light-1);
+  color: var(--bp-dark-1);
+}
+
+.lp-prompt-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: var(--bp-color-fg-muted);
+}
+
+.lp-prompt-line {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--bp-font);
+  font-size: var(--bp-text-ui);
+  font-weight: var(--bp-weight-regular);
+  letter-spacing: var(--bp-tracking);
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lp-prompt-caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.05em;
+  margin-left: 1px;
+  background: currentColor;
+  vertical-align: text-bottom;
+  animation: lp-caret 1s steps(1) infinite;
+}
+
+.lp-prompt-go {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: calc(var(--lp-prompt-h) - (var(--lp-prompt-border) * 2) - (var(--lp-prompt-pad) * 2));
+  height: calc(var(--lp-prompt-h) - (var(--lp-prompt-border) * 2) - (var(--lp-prompt-pad) * 2));
+  border-radius: var(--lp-prompt-radius);
+  background-color: var(--bp-blue-1);
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  color: var(--bp-light-1);
+}
+
+.lp-prompt-go svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lp-prompt-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lp-hero-stage {
+  position: relative;
+  width: min(720px, 100%);
+  height: clamp(280px, 46vw, 460px);
+  margin-top: var(--bp-space-3);
+}
+
+.lp-hero-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.lp-hero-stage.is-ready .lp-hero-canvas {
+  opacity: 1;
+}
+
+@keyframes lp-caret {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-prompt-caret { animation: none; }
+  .lp-hero-canvas { transition: none; }
+}
+
+.lp-reveal-hero {
+  width: 100%;
+  min-height: 56vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-founder-video {
+  width: 100%;
+  padding-bottom: var(--bp-space-8);
+}
+
+.lp-founder-video__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 240px;
+}
+
+.lp-play {
+  width: 0;
+  height: 0;
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 36px solid color-mix(in srgb, var(--bp-dark-1) 28%, transparent);
+}
+
+.lp-placeholder {
+  border: none;
+  border-radius: var(--bp-radius-ui-sm);
+  background: color-mix(in srgb, var(--bp-dark-1) 4%, var(--bp-light-1));
+}
+
+.lp-features {
+  width: 100%;
+  display: grid;
+  gap: var(--bp-space-10);
+  padding-top: 0;
+}
+
+.lp-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--bp-space-6);
+  align-items: center;
+}
+
+.lp-feature-copy {
+  display: grid;
+  gap: var(--bp-space-3);
+}
+
+.lp-feature-title {
+  margin: 0;
+  font-family: var(--bp-font);
+  font-size: var(--lp-copy-size);
+  font-weight: var(--bp-weight-regular);
+  letter-spacing: var(--bp-tracking);
+  line-height: 1.2;
+  color: var(--bp-dark-1);
+}
+
+.lp-demo {
+  width: 100%;
+  min-height: 320px;
+}
+
+@media (max-width: 1199px) {
+  .lp-header {
+    grid-template-columns: auto 1fr auto;
+    padding: var(--bp-space-5) var(--bp-space-4) var(--bp-space-3);
+  }
+
+  .lp-mark {
+    justify-self: start;
+  }
+
+  .lp-cta {
+    justify-self: end;
+  }
+
+  .lp-main {
+    padding: 0 var(--bp-space-4) 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .lp-reveal-hero {
+    min-height: 40vh;
+  }
+
+  .lp-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-demo {
+    min-height: 200px;
+  }
+}
+
+.lp-reveal-hero .bp-reveal {
+  width: max-content;
+  max-width: 100%;
+}
+
+.lp-reveal-hero .bp-reveal-copy,
+.lp-end .bp-reveal-copy {
+  font-size: var(--lp-copy-size);
+}
+
+.lp-end {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bp-space-5);
+  padding: var(--bp-space-8) 0 var(--bp-space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.lp-end .bp-reveal {
+  width: max-content;
+  max-width: 100%;
+}
+
+.lp-end .bp-reveal-copy {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.lp-end .bp-reveal-line:first-child {
+  padding-left: 0;
+}
+
+.lp-end .lp-cta {
+  grid-column: auto;
+  justify-self: auto;
+}
+
+.lp-footer {
+  --lp-w: 1464;
+  /* Frame is 848px tall — bottom edge crops the wordmark. */
+  --lp-brick-h: 225;
+  --lp-gap: 25;
+  --lp-brick-top: 386;
+  --lp-b-a: -142;
+  --lp-b-b: calc(var(--lp-b-a) + 300 + var(--lp-gap));
+  --lp-b-c: calc(var(--lp-b-b) + 600 + var(--lp-gap));
+  --lp-b-d: calc(var(--lp-b-c) + 300 + var(--lp-gap));
+  --lp-b-e: calc(var(--lp-b-d) + 150 + var(--lp-gap));
+  flex-shrink: 0;
+  /* Pull the empty top of the frame up; keep a little air above the brick row. */
+  margin-top: calc(var(--bp-space-6) - (var(--lp-brick-top) / var(--lp-w) * 100%));
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1464 / 848;
+  overflow: hidden;
+  background: var(--bp-light-1);
+  container-type: inline-size;
+}
+
+.lp-brick {
+  position: absolute;
+  top: calc(var(--lp-brick-top) / var(--lp-w) * 100cqw);
+  --bp-brick-ui: calc(var(--lp-brick-h) / var(--lp-w) * 100cqw);
+}
+
+.lp-brick--a { left: calc(var(--lp-b-a) / var(--lp-w) * 100cqw); }
+.lp-brick--b { left: calc(var(--lp-b-b) / var(--lp-w) * 100cqw); }
+.lp-brick--c { left: calc(var(--lp-b-c) / var(--lp-w) * 100cqw); }
+.lp-brick--d { left: calc(var(--lp-b-d) / var(--lp-w) * 100cqw); }
+.lp-brick--e { left: calc(var(--lp-b-e) / var(--lp-w) * 100cqw); }
+
+/* Construction grid from the Figma frame: dotted lines, cubes in the 25px gaps. */
+.lp-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lp-cube {
+  position: absolute;
+  top: calc((var(--lp-brick-top) - var(--lp-gap)) / var(--lp-w) * 100cqw);
+  width: calc(var(--lp-gap) / var(--lp-w) * 100cqw);
+  height: calc(var(--lp-gap) / var(--lp-w) * 100cqw);
+  background-color: var(--bp-dark-1);
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+}
+
+.lp-cube--1 { left: calc((var(--lp-b-a) + 300) / var(--lp-w) * 100cqw); }
+.lp-cube--2 { left: calc((var(--lp-b-b) + 600) / var(--lp-w) * 100cqw); }
+.lp-cube--3 { left: calc((var(--lp-b-c) + 300) / var(--lp-w) * 100cqw); }
+.lp-cube--4 { left: calc((var(--lp-b-d) + 150) / var(--lp-w) * 100cqw); }
+
+/* Figma strokes are 1px #2F2F2F, 1px dash / 2px gap. Kept at 1 device pixel so the dots stay visible as the footer scales. */
+.lp-hline,
+.lp-vline {
+  position: absolute;
+  background-color: transparent;
+}
+
+.lp-hline {
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--bp-dark-1) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+.lp-hline--above { top: calc((var(--lp-brick-top) - var(--lp-gap)) / var(--lp-w) * 100cqw); }
+.lp-hline--top { top: calc(var(--lp-brick-top) / var(--lp-w) * 100cqw); }
+.lp-hline--bottom { top: calc((var(--lp-brick-top) + var(--lp-brick-h)) / var(--lp-w) * 100cqw); }
+.lp-hline--below { top: calc((var(--lp-brick-top) + var(--lp-brick-h) + var(--lp-gap)) / var(--lp-w) * 100cqw); }
+
+.lp-vline {
+  top: calc((var(--lp-brick-top) - var(--lp-gap)) / var(--lp-w) * 100cqw);
+  width: 1px;
+  height: calc((var(--lp-brick-h) + (var(--lp-gap) * 2)) / var(--lp-w) * 100cqw);
+  transform: translateX(-50%);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--bp-dark-1) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+.lp-vline--1 { left: calc((var(--lp-b-a) + 300) / var(--lp-w) * 100cqw); }
+.lp-vline--2 { left: calc(var(--lp-b-b) / var(--lp-w) * 100cqw); }
+.lp-vline--3 { left: calc((var(--lp-b-b) + 600) / var(--lp-w) * 100cqw); }
+.lp-vline--4 { left: calc(var(--lp-b-c) / var(--lp-w) * 100cqw); }
+.lp-vline--5 { left: calc((var(--lp-b-c) + 300) / var(--lp-w) * 100cqw); }
+.lp-vline--6 { left: calc(var(--lp-b-d) / var(--lp-w) * 100cqw); }
+.lp-vline--7 { left: calc((var(--lp-b-d) + 150) / var(--lp-w) * 100cqw); }
+.lp-vline--8 { left: calc(var(--lp-b-e) / var(--lp-w) * 100cqw); }
+
+/* Figma text box: x 166.83, width 1114, inside guides at 157.79 and 1280.79. */
+.lp-word {
+  position: absolute;
+  z-index: 3;
+  left: calc(166.830078125 / var(--lp-w) * 100cqw);
+  top: calc(590.91259765625 / var(--lp-w) * 100cqw);
+  width: calc(1114 / var(--lp-w) * 100cqw);
+  margin: 0;
+  font-size: calc(277.721 / var(--lp-w) * 100cqw);
+  line-height: calc(369 / 277.721);
+  white-space: nowrap;
+  color: var(--bp-dark-1);
+}
+
+/* Same Bayer screen as the bricks, clipped to the letters. */
+.lp-word::after {
+  content: "Blueprint";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  -webkit-background-clip: text;
+  background-clip: text;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blueprint · Foundations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <link rel="stylesheet" href="./styles/foundations.css" />
+  </head>
+  <body class="ds-shell">
+    <header class="ds-nav">
+      <a class="bp-lockup bp-lockup--sm bp-lockup--on-light" href="#cover">
+        <span class="bp-mark" aria-hidden="true"></span>
+        <span class="bp-wordmark">Blueprint</span>
+      </a>
+      <nav class="ds-nav-links" aria-label="Foundations">
+        <a href="#logo">Logo</a>
+        <a href="#color">Color</a>
+        <a href="#type">Type</a>
+        <a href="#space">Space</a>
+        <a href="#bricks">Bricks</a>
+        <a href="#model">Model</a>
+        <a href="#reveal">Reveal</a>
+        <a href="#texture">Texture</a>
+        <a href="#voice">Voice</a>
+        <a href="#tokens">Tokens</a>
+      </nav>
+    </header>
+
+    <main class="ds-page">
+      <section class="ds-hero" id="cover">
+        <div class="ds-kicker">
+          <span class="ds-kicker-stud" aria-hidden="true"></span>
+          <p class="bp-label bp-muted">Foundations · v1</p>
+        </div>
+
+        <div class="bp-lockup bp-lockup--tile bp-lockup--lg bp-lockup--on-light">
+          <span class="bp-mark" aria-hidden="true"></span>
+          <h1 class="bp-wordmark">Blueprint</h1>
+        </div>
+
+        <p class="bp-lede">
+          Turns the bricks kids already own into the things they imagine.
+        </p>
+        <p class="bp-body bp-muted ds-note">
+          Four colors from Figma. Host Grotesk at −1% tracking. Logo geometry stays exact.
+          Layout, type scale, and UI spacing sit on an 8-point grid.
+        </p>
+        <div>
+          <span class="ds-chip">light1 · blue1 · dark1 · orange1</span>
+        </div>
+      </section>
+
+      <section class="ds-section" id="logo">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">01 · Logo</p>
+          <h2 class="bp-h2">Mark + wordmark</h2>
+          <p class="bp-body bp-muted">
+            Host Grotesk Semibold at 0 tracking. Cap-height of the B matches the brick body;
+            baseline matches the body bottom; descenders (the p) sit below the body and are not clipped.
+            Open lockups are brick-only. Tiled lockups keep that same brick and type size, then put the brick
+            in Figma’s 400 square (20 radius) with padding around it.
+          </p>
+        </div>
+
+        <p class="bp-label bp-muted">Open · brick only</p>
+        <div class="ds-lockup-gallery">
+          <div class="ds-lockup-stage" style="background: var(--bp-light-1)">
+            <a class="bp-lockup bp-lockup--md bp-lockup--on-light" href="#logo">
+              <span class="bp-mark" aria-hidden="true"></span>
+              <span class="bp-wordmark">Blueprint</span>
+            </a>
+          </div>
+          <div class="ds-lockup-stage bp-inverse">
+            <a class="bp-lockup bp-lockup--md bp-lockup--on-dark" href="#logo">
+              <span class="bp-mark" aria-hidden="true"></span>
+              <span class="bp-wordmark">Blueprint</span>
+            </a>
+          </div>
+        </div>
+
+        <p class="bp-label bp-muted">Tiled · brick inside the bounding box</p>
+        <div class="ds-lockup-gallery">
+          <div class="ds-lockup-stage" style="background: var(--bp-light-1)">
+            <a class="bp-lockup bp-lockup--tile bp-lockup--md bp-lockup--on-light" href="#logo">
+              <span class="bp-mark" aria-hidden="true"></span>
+              <span class="bp-wordmark">Blueprint</span>
+            </a>
+          </div>
+          <div class="ds-lockup-stage bp-inverse">
+            <a class="bp-lockup bp-lockup--tile bp-lockup--md bp-lockup--on-dark" href="#logo">
+              <span class="bp-mark" aria-hidden="true"></span>
+              <span class="bp-wordmark">Blueprint</span>
+            </a>
+          </div>
+          <div class="ds-lockup-stage" style="background: var(--bp-blue-1)">
+            <a class="bp-lockup bp-lockup--tile bp-lockup--md bp-lockup--on-brand" href="#logo">
+              <span class="bp-mark" aria-hidden="true"></span>
+              <span class="bp-wordmark">Blueprint</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ds-grid-2">
+          <article class="ds-card">
+            <p class="bp-label bp-muted">Open</p>
+            <p class="bp-body" style="margin-top: 8px">
+              Blue brick on cream, cream brick on charcoal. Use when the mark should sit on the page, not in a tile.
+            </p>
+          </article>
+          <article class="ds-card">
+            <p class="bp-label bp-muted">Tiled</p>
+            <p class="bp-body" style="margin-top: 8px">
+              Same brick and same wordmark size. Add <code>bp-lockup--tile</code> for the Figma square:
+              cream brick on blue, or blue brick on cream.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section" id="color">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">02 · Color</p>
+          <h2 class="bp-h2">Four primitives</h2>
+          <p class="bp-body bp-muted">
+            Nothing else for hue. Muted is dark1 at 64% on cream — captions and secondary type.
+            Orange is accent and CTA, never a second brand.
+          </p>
+        </div>
+
+        <div class="ds-grid-4">
+          <article class="ds-swatch">
+            <div class="ds-swatch-chip" style="background: var(--bp-light-1)"></div>
+            <div class="ds-swatch-meta">
+              <strong class="bp-ui">light1</strong>
+              <code>#F6F4EB</code>
+              <span class="bp-caption bp-muted">Paper. Default background.</span>
+            </div>
+          </article>
+          <article class="ds-swatch">
+            <div class="ds-swatch-chip" style="background: var(--bp-blue-1)"></div>
+            <div class="ds-swatch-meta">
+              <strong class="bp-ui">blue1</strong>
+              <code>#3860E5</code>
+              <span class="bp-caption bp-muted">Brand. Blueprint and mark.</span>
+            </div>
+          </article>
+          <article class="ds-swatch">
+            <div class="ds-swatch-chip" style="background: var(--bp-dark-1)"></div>
+            <div class="ds-swatch-meta">
+              <strong class="bp-ui">dark1</strong>
+              <code>#2F2F2F</code>
+              <span class="bp-caption bp-muted">Charcoal. Type and inverse.</span>
+            </div>
+          </article>
+          <article class="ds-swatch">
+            <div class="ds-swatch-chip" style="background: var(--bp-orange-1)"></div>
+            <div class="ds-swatch-meta">
+              <strong class="bp-ui">orange1</strong>
+              <code>#F85F19</code>
+              <span class="bp-caption bp-muted">Accent / CTA only.</span>
+            </div>
+          </article>
+          <article class="ds-swatch">
+            <div class="ds-swatch-chip" style="background: var(--bp-muted-1)"></div>
+            <div class="ds-swatch-meta">
+              <strong class="bp-ui">muted</strong>
+              <code>dark1 64% on light1</code>
+              <span class="bp-caption bp-muted">Captions. Secondary type. This page.</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section" id="type">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">03 · Type</p>
+          <h2 class="bp-h2">Host Grotesk, −1%</h2>
+          <p class="bp-body bp-muted">
+            One family. Body is the Figma spec: Regular 20pt, −1% tracking. The wordmark is the exception
+            at Semibold and 0 tracking. Everything else snaps to 8pt sizes.
+          </p>
+        </div>
+
+        <div class="ds-card">
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">Display</p>
+              <p class="bp-caption bp-muted">64 / 600 / −1%</p>
+            </div>
+            <p class="bp-display">Build what you imagine, with what you have.</p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">H1</p>
+              <p class="bp-caption bp-muted">48 / 600 / −1%</p>
+            </div>
+            <p class="bp-h1">Imagine it. Build it. Make it yours.</p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">H2</p>
+              <p class="bp-caption bp-muted">32 / 600 / −1%</p>
+            </div>
+            <p class="bp-h2">Your bricks. New stories.</p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">H3</p>
+              <p class="bp-caption bp-muted">24 / 500 / −1%</p>
+            </div>
+            <p class="bp-h3">Every brick has another story.</p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">Body</p>
+              <p class="bp-caption bp-muted">20 / 400 / −1% · Figma</p>
+            </div>
+            <p class="bp-body">
+              Blueprint helps kids build the next part of their story with the LEGO bricks they already own.
+            </p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">UI</p>
+              <p class="bp-caption bp-muted">16 / 500 / −1%</p>
+            </div>
+            <p class="bp-ui">Add your sets · Imagine · Build · Make it yours</p>
+          </div>
+          <div class="ds-type-row">
+            <div>
+              <p class="bp-label bp-muted">Wordmark</p>
+              <p class="bp-caption bp-muted">Semibold · 0%</p>
+            </div>
+            <p class="bp-wordmark" style="font-size: 40px">Blueprint</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="space">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">04 · Space</p>
+          <h2 class="bp-h2">8-point for UI</h2>
+          <p class="bp-body bp-muted">
+            Landing pages, type (except 20pt body), padding, and gaps use 8pt. Logo and brick drawings do not —
+            those stay on Figma’s 25 / 150 / 225 construction.
+          </p>
+        </div>
+
+        <div class="ds-card">
+          <div class="ds-space-row"><span class="bp-ui">4</span><span class="bp-caption bp-muted">space-1</span><div class="ds-space-bar" style="width: 4px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">8</span><span class="bp-caption bp-muted">space-2</span><div class="ds-space-bar" style="width: 8px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">16</span><span class="bp-caption bp-muted">space-3</span><div class="ds-space-bar" style="width: 16px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">24</span><span class="bp-caption bp-muted">space-4</span><div class="ds-space-bar" style="width: 24px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">32</span><span class="bp-caption bp-muted">space-5</span><div class="ds-space-bar" style="width: 32px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">40</span><span class="bp-caption bp-muted">space-6</span><div class="ds-space-bar" style="width: 40px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">48</span><span class="bp-caption bp-muted">space-7 · tap</span><div class="ds-space-bar" style="width: 48px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">64</span><span class="bp-caption bp-muted">space-8 · page</span><div class="ds-space-bar" style="width: 64px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">80</span><span class="bp-caption bp-muted">space-9</span><div class="ds-space-bar" style="width: 80px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">96</span><span class="bp-caption bp-muted">space-10</span><div class="ds-space-bar" style="width: 96px"></div></div>
+          <div class="ds-space-row"><span class="bp-ui">128</span><span class="bp-caption bp-muted">space-11</span><div class="ds-space-bar" style="width: 128px"></div></div>
+        </div>
+
+        <div class="ds-radius-row">
+          <div class="ds-radius-demo" style="border-radius: 8px"><span class="bp-caption">8 UI sm</span></div>
+          <div class="ds-radius-demo" style="border-radius: 12px"><span class="bp-caption">12 brick</span></div>
+          <div class="ds-radius-demo" style="border-radius: 16px"><span class="bp-caption">16 UI md</span></div>
+          <div class="ds-radius-demo" style="border-radius: 15.9584px"><span class="bp-caption">16 mark</span></div>
+          <div class="ds-radius-demo" style="border-radius: 24px"><span class="bp-caption">24 UI lg</span></div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="bricks">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">05 · Bricks</p>
+          <h2 class="bp-h2">Construction, not decoration</h2>
+          <p class="bp-body bp-muted">
+            1-, 2-, and 4-wide units from Figma: 150×225, 12px radius, 90×50 studs. Recolor with the four primitives.
+            Orange on a brick is energy, not identity.
+          </p>
+        </div>
+
+        <div class="ds-card bp-grid-brick" style="padding: var(--bp-space-7)">
+          <div class="bp-brick-row">
+            <span class="bp-brick bp-brick--1 bp-brick--lg bp-brick-fill-accent" role="img" aria-label="1-wide brick"></span>
+            <span class="bp-brick bp-brick--2 bp-brick--lg bp-brick-fill-brand" role="img" aria-label="2-wide brick"></span>
+            <span class="bp-brick bp-brick--4 bp-brick--lg bp-brick-fill-dark" role="img" aria-label="4-wide brick"></span>
+          </div>
+        </div>
+
+        <div class="ds-rules">
+          <div class="ds-rule">
+            <span class="bp-ui ds-do">Do</span>
+            <p class="bp-body">Use the SVG paths. Scale uniformly. Fill with blue, cream, charcoal, or orange.</p>
+          </div>
+          <div class="ds-rule">
+            <span class="bp-ui ds-dont">Don’t</span>
+            <p class="bp-body">Don’t round the studs into perfect circles or add LEGO wordmarks. This is a plan of a brick.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="model">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">Test · Model</p>
+          <h2 class="bp-h2">Take it apart</h2>
+          <p class="bp-body bp-muted">
+            Switch between racecar, spaceship, and dinosaur. Color is the shaded build.
+            Line drops lighting and paints every brick the page cream so only the edges remain.
+            The left of the first slider is the finished build. Sliding right lifts bricks off in reverse build order.
+          </p>
+        </div>
+        <div class="ds-card ds-model" data-model>
+          <canvas class="ds-model-canvas" data-model-canvas></canvas>
+          <div class="ds-model-controls">
+            <div class="ds-model-picks" data-model-picks>
+              <button type="button" class="bp-ui" data-model-pick="0" aria-pressed="true">Racecar</button>
+              <button type="button" class="bp-ui" data-model-pick="1" aria-pressed="false">Spaceship</button>
+              <button type="button" class="bp-ui" data-model-pick="2" aria-pressed="false">Dinosaur</button>
+            </div>
+            <div class="ds-model-picks ds-model-picks--two" data-model-looks>
+              <button type="button" class="bp-ui" data-model-look="color" aria-pressed="true">Color</button>
+              <button type="button" class="bp-ui" data-model-look="line" aria-pressed="false">Line</button>
+            </div>
+            <label class="ds-model-follow">
+              <input type="checkbox" data-model-follow-mouse />
+              <span class="bp-ui">Follow mouse</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Built</span>
+              <input type="range" min="0" max="100" value="0" data-model-slider aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Deconstruct the models" />
+              <span class="bp-caption">Apart</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Zoom</span>
+              <input type="range" min="40" max="180" value="77" data-model-zoom aria-valuemin="40" aria-valuemax="180" aria-valuenow="77" aria-label="Zoom the models" />
+              <span class="bp-caption" data-readout>77%</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Turn</span>
+              <input type="range" min="-180" max="180" value="3" data-model-turn aria-valuemin="-180" aria-valuemax="180" aria-valuenow="3" aria-label="Turn the models" />
+              <span class="bp-caption" data-readout>3°</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Tilt</span>
+              <input type="range" min="-50" max="50" value="-2" data-model-tilt aria-valuemin="-50" aria-valuemax="50" aria-valuenow="-2" aria-label="Tilt the models" />
+              <span class="bp-caption" data-readout>-2°</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Horizontal</span>
+              <input type="range" min="-100" max="100" value="1" data-model-x aria-valuemin="-100" aria-valuemax="100" aria-valuenow="1" aria-label="Move the models horizontally" />
+              <span class="bp-caption" data-readout>1</span>
+            </label>
+            <label class="ds-model-slider">
+              <span class="bp-caption">Vertical</span>
+              <input type="range" min="-100" max="100" value="20" data-model-y aria-valuemin="-100" aria-valuemax="100" aria-valuenow="20" aria-label="Move the models vertically" />
+              <span class="bp-caption" data-readout>20</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="reveal">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">06 · Reveal</p>
+          <h2 class="bp-h2">Covered, then clear</h2>
+          <p class="bp-body bp-muted">
+            The paragraph wraps with the row. 1-, 2-, and 4-wide bricks cover each
+            wrapped line — complete pieces only, never cut or cropped. Each line
+            masks its own row. The first row drops, then the next. Bricks in a row
+            start on their own time. The row above covers the studs of the row below.
+          </p>
+        </div>
+
+        <div class="ds-card ds-reveal-stage">
+          <div class="ds-reveal-layout">
+            <div class="bp-reveal" data-reveal>
+              <div class="bp-reveal-copy">
+                <p class="bp-reveal-text">Blueprint helps kids build the next part of their story with the LEGO bricks they already own.</p>
+              </div>
+            </div>
+            <fieldset class="bp-reveal-controls">
+              <legend class="bp-label bp-muted">Motion</legend>
+              <div class="bp-reveal-field">
+                <span class="bp-caption">Ease</span>
+                <div class="bp-reveal-toggles" role="group" aria-label="Ease">
+                  <button type="button" data-ease="linear" aria-pressed="false">Linear</button>
+                  <button type="button" data-ease="smooth" aria-pressed="false">Smooth</button>
+                  <button type="button" data-ease="out" aria-pressed="false">Out</button>
+                  <button type="button" data-ease="in" aria-pressed="true">In</button>
+                </div>
+              </div>
+              <label class="bp-reveal-field">
+                <span class="bp-caption">Stagger <span data-stagger-val>340</span></span>
+                <input type="range" min="0" max="800" step="20" value="340" data-stagger />
+              </label>
+              <label class="bp-reveal-field">
+                <span class="bp-caption">Spread <span data-spread-val>280</span></span>
+                <input type="range" min="0" max="600" step="20" value="280" data-spread />
+              </label>
+              <label class="bp-reveal-field">
+                <span class="bp-caption">Duration <span data-dur-val>400</span></span>
+                <input type="range" min="400" max="2400" step="50" value="400" data-dur />
+              </label>
+            </fieldset>
+          </div>
+          <button type="button" class="bp-reveal-replay" data-reveal-replay>Replay</button>
+        </div>
+      </section>
+
+      <section class="ds-section" id="texture">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">07 · Texture</p>
+          <h2 class="bp-h2">Print screen</h2>
+          <p class="bp-body bp-muted">
+            Bayer 8×8 overlay on logos and bricks only — same-hue grain, not RGB speckle, not the page.
+            Cream fills stay flat. UI grid is 8px. Brick grid is 150px with a 25px stud tick.
+          </p>
+        </div>
+
+        <div class="ds-card" style="padding: var(--bp-space-7); background-color: var(--bp-light-1)">
+          <div class="bp-brick-row">
+            <span class="bp-brick bp-brick--1 bp-brick--native bp-brick-fill-accent" role="img" aria-label="1-wide orange brick"></span>
+            <span class="bp-brick bp-brick--2 bp-brick--native bp-brick-fill-brand" role="img" aria-label="2-wide blue brick"></span>
+          </div>
+        </div>
+
+        <div class="ds-grid-2">
+          <div class="ds-card ds-texture-demo bp-grid-ui" style="min-height: 192px; background-color: var(--bp-light-1)">
+            <p class="bp-label">8pt UI grid</p>
+            <p class="bp-caption bp-muted" style="margin-top: 8px">Landing layout</p>
+          </div>
+          <div class="ds-card ds-texture-demo bp-grid-brick" style="min-height: 192px; background-color: var(--bp-light-1)">
+            <p class="bp-label">Brick grid</p>
+            <p class="bp-caption bp-muted" style="margin-top: 8px">150 unit · 25 tick</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="voice">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">08 · Voice</p>
+          <h2 class="bp-h2">What Blueprint is</h2>
+          <p class="bp-body bp-muted">
+            Use this copy on landing, empty states, and type specimens. Kids already have the bricks.
+            Blueprint is the next chapter, not a new bin.
+          </p>
+        </div>
+
+        <article class="ds-card">
+          <p class="bp-label bp-muted">Product</p>
+          <p class="bp-h3" style="margin-top: 8px">Blueprint turns the bricks kids already own into the things they imagine.</p>
+          <p class="bp-body" style="margin-top: 16px">
+            Blueprint helps kids build the next part of their story with the LEGO bricks they already own.
+          </p>
+        </article>
+
+        <div class="ds-grid-2">
+          <article class="ds-card">
+            <p class="bp-label bp-muted">01 · Add your sets</p>
+            <p class="bp-body" style="margin-top: 8px">Tell Blueprint which bricks you have.</p>
+          </article>
+          <article class="ds-card">
+            <p class="bp-label bp-muted">02 · Imagine what happens next</p>
+            <p class="bp-body" style="margin-top: 8px">Describe a character, vehicle, or scene for your story.</p>
+          </article>
+          <article class="ds-card">
+            <p class="bp-label bp-muted">03 · Get a buildable blueprint</p>
+            <p class="bp-body" style="margin-top: 8px">See an idea and step-by-step instructions using your bricks.</p>
+          </article>
+          <article class="ds-card">
+            <p class="bp-label bp-muted">04 · Make it yours</p>
+            <p class="bp-body" style="margin-top: 8px">Change the design, then keep playing.</p>
+          </article>
+        </div>
+
+        <div class="ds-card">
+          <p class="bp-label bp-muted">Taglines</p>
+          <div class="ds-type-row">
+            <span class="bp-caption bp-muted">Display</span>
+            <p class="bp-h2">Build what you imagine, with what you have.</p>
+          </div>
+          <div class="ds-type-row">
+            <span class="bp-caption bp-muted">H1</span>
+            <p class="bp-h2">Imagine it. Build it. Make it yours.</p>
+          </div>
+          <div class="ds-type-row">
+            <span class="bp-caption bp-muted">Short</span>
+            <p class="bp-h2">Your bricks. New stories.</p>
+          </div>
+          <div class="ds-type-row">
+            <span class="bp-caption bp-muted">Line</span>
+            <p class="bp-h2">Every brick has another story.</p>
+          </div>
+          <div class="ds-type-row">
+            <span class="bp-caption bp-muted">Story</span>
+            <p class="bp-h2">The next chapter is already in your brick box.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="use">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">09 · Use</p>
+          <h2 class="bp-h2">How the system behaves</h2>
+        </div>
+        <div class="ds-rules">
+          <div class="ds-rule">
+            <span class="bp-ui">Type</span>
+            <p class="bp-body">Host Grotesk everywhere. −1% on UI and body. 0% only on the wordmark.</p>
+          </div>
+          <div class="ds-rule">
+            <span class="bp-ui">Orange</span>
+            <p class="bp-body">Primary actions, highlights, one brick in a row. Never backgrounds for long reading.</p>
+          </div>
+          <div class="ds-rule">
+            <span class="bp-ui">Blue</span>
+            <p class="bp-body">Brand, mark, focus rings, construction lines. The color of a plan.</p>
+          </div>
+          <div class="ds-rule">
+            <span class="bp-ui">Tap</span>
+            <p class="bp-body">Minimum 48px targets. This is for kids’ hands on a landing page or tablet.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section" id="tokens">
+        <div class="ds-section-head">
+          <p class="bp-label bp-muted">10 · Tokens</p>
+          <h2 class="bp-h2">In code</h2>
+          <p class="bp-body bp-muted">
+            Import <code>styles/index.css</code>. Values also live in <code>tokens/tokens.json</code>.
+          </p>
+        </div>
+
+        <div class="ds-card" style="overflow: auto">
+          <table class="ds-token-table">
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Value</th>
+                <th>Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>--bp-light-1</code></td><td>#F6F4EB</td><td>Background</td></tr>
+              <tr><td><code>--bp-blue-1</code></td><td>#3860E5</td><td>Brand</td></tr>
+              <tr><td><code>--bp-dark-1</code></td><td>#2F2F2F</td><td>Type / inverse</td></tr>
+              <tr><td><code>--bp-orange-1</code></td><td>#F85F19</td><td>Accent / CTA</td></tr>
+              <tr><td><code>--bp-muted-1</code></td><td>dark1 64% · light1</td><td>Captions / secondary</td></tr>
+              <tr><td><code>--bp-tracking</code></td><td>−0.01em</td><td>Default type</td></tr>
+              <tr><td><code>--bp-text-body</code></td><td>20px</td><td>Figma body</td></tr>
+              <tr><td><code>--bp-space-2</code></td><td>8px</td><td>Base grid</td></tr>
+              <tr><td><code>--bp-radius-brick</code></td><td>12px</td><td>Brick paths</td></tr>
+              <tr><td><code>--bp-mark-size</code></td><td>brick height</td><td>Lockup scale, studs included</td></tr>
+              <tr><td><code>bp-lockup--tile</code></td><td>400 / 225</td><td>Square around the same brick</td></tr>
+              <tr><td><code>--bp-brick-unit</code></td><td>150px</td><td>1-wide brick</td></tr>
+              <tr><td><code>--bp-tap</code></td><td>48px</td><td>Min target</td></tr>
+              <tr><td><code>--bp-texture-dither</code></td><td>Bayer 8×8 overlay</td><td>Logos and bricks only</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script src="./js/reveal.js?v=9"></script>
+    <script type="module" src="./js/deconstruct.js?v=32"></script>
+  </body>
+</html>
