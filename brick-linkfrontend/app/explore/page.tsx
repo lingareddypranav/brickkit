@@ -1,5 +1,5 @@
-import LegoBuilder from "@/components/lego-builder"
+import LegoBuilder from "@/components/lego-builder";
 
 export default function Home() {
-  return <LegoBuilder />
+  return <LegoBuilder />;
 }

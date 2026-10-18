@@ -1,2 +1,314 @@
-.build-detail-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}.build-detail-grid .detail-preview{margin:0;height:270px}.build-detail-grid .detail-preview img{height:250px}.detail-decision{display:flex;flex-direction:column;align-items:start;gap:13px}.detail-badge{display:inline-flex;align-items:center;gap:7px;border-radius:99px;padding:8px 11px;font-size:12px;font-weight:650;background:#f3e6c6;color:#795b22}.detail-badge.is-ready{background:#e5eddb;color:#466638}.detail-decision h3{font-size:26px;line-height:1.2;font-weight:600;letter-spacing:-.8px;max-width:260px}.detail-decision p{font-size:13px;line-height:1.7;color:#79816f}.detail-decision .kit-text-button{min-height:32px;color:#6e7d63}.detail-section-heading{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:16px}.detail-section-heading h3{font-size:18px;font-weight:600;letter-spacing:-.4px}.missing-section{margin-top:27px;padding-top:22px;border-top:1px solid #dce0d1}.missing-section .kit-text-button{font-size:11px;color:#657952}.missing-pieces{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}.missing-piece{display:flex;align-items:center;gap:13px;border:1px solid #e0dfd1;border-radius:14px;padding:12px;background:#fffdf5}.missing-piece img{width:64px;height:60px;object-fit:contain}.missing-piece strong{font-size:13px;font-weight:650}.missing-piece p{font-size:11px;line-height:1.5;margin-top:4px;color:#838973}.protected-hint{display:flex;gap:13px;background:#f1e9d2;color:#7e6838;border-radius:14px;padding:17px;margin-top:20px}.protected-hint>svg{flex-shrink:0}.protected-hint strong{font-size:12px;font-weight:600}.protected-hint p{font-size:11px;line-height:1.7;margin-top:5px}.protected-hint .kit-text-button{min-height:30px;font-size:11px}.grown-up-section{margin-top:28px;border-top:1px solid #dce0d1;padding-top:24px}.grown-up-section>.detail-section-heading{margin-bottom:25px}.grown-up-section .kit-eyebrow{display:block;margin-bottom:8px;letter-spacing:1px;font-size:9px}.shopping-option{display:flex;gap:16px;margin:22px 0;padding-bottom:22px;border-bottom:1px solid #e3e5d9}.shopping-option>div:nth-child(2){flex:1;min-width:0}.shopping-number{width:29px;height:29px;border-radius:50%;background:#e9ecdf;color:#6b7d5b;display:grid;place-items:center;flex-shrink:0;font-size:10px}.shopping-option h4{font-size:16px;font-weight:600;letter-spacing:-.3px}.shopping-option p{font-size:12px;line-height:1.7;color:#7a8570;margin:7px 0 12px}.shop-links{display:flex;flex-direction:column;gap:8px}.shop-links a,.donor-sets a{font-size:12px;display:inline-flex;align-items:center;gap:7px;color:#3e6337;min-height:34px;text-decoration:underline;text-underline-offset:3px}.donor-sets{display:grid;gap:12px}.donor-sets article{display:flex;gap:15px;border:1px solid #dce2d1;background:#fffefa;padding:14px;border-radius:14px;align-items:center}.donor-sets img{width:100px;height:80px;object-fit:contain}.donor-sets h5{font-size:14px;font-weight:600}.donor-sets .kit-eyebrow{margin-bottom:4px}.shop-note{font-size:11px!important;line-height:1.7;color:#8c927e}.already-owned{display:flex;justify-content:space-between;align-items:center;gap:18px;background:#e8eddc;padding:17px;border-radius:14px;margin-top:18px}.already-owned strong{font-size:12px}.already-owned p{font-size:11px;margin-top:5px;color:#77836c}.already-owned .kit-button{font-size:11px;flex-shrink:0}.all-pieces{margin-top:22px;border-top:1px solid #dce0d1;padding-top:18px}.all-pieces summary{font-size:12px;cursor:pointer;min-height:35px;color:#6e7d62}
-@media(max-width:600px){.build-detail-grid{grid-template-columns:1fr;gap:20px}.build-detail-grid .detail-preview{height:210px}.build-detail-grid .detail-preview img{height:200px}.detail-decision h3{font-size:25px;max-width:100%}.detail-decision .kit-button{width:100%}.detail-decision{gap:12px}.detail-decision .kit-text-button{align-self:center}.detail-section-heading{align-items:start;flex-direction:column;gap:5px}.detail-section-heading h3{font-size:17px}.missing-pieces{grid-template-columns:1fr}.missing-piece strong{font-size:13px}.grown-up-section>.detail-section-heading>svg{display:none}.donor-sets article{gap:10px;padding:10px}.donor-sets img{width:75px;height:70px}.donor-sets h5{font-size:12px}.shopping-option{gap:11px}.already-owned{flex-direction:column;align-items:start}.already-owned .kit-button{width:100%}}
+.build-detail-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.build-detail-grid .detail-preview {
+  margin: 0;
+  height: 270px;
+}
+.build-detail-grid .detail-preview img {
+  height: 250px;
+}
+.detail-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 13px;
+}
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 99px;
+  padding: 8px 11px;
+  font-size: 12px;
+  font-weight: 650;
+  background: #f3e6c6;
+  color: #795b22;
+}
+.detail-badge.is-ready {
+  background: #e5eddb;
+  color: #466638;
+}
+.detail-decision h3 {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  max-width: 260px;
+}
+.detail-decision p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #79816f;
+}
+.detail-decision .kit-text-button {
+  min-height: 32px;
+  color: #6e7d63;
+}
+.detail-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.detail-section-heading h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.missing-section {
+  margin-top: 27px;
+  padding-top: 22px;
+  border-top: 1px solid #dce0d1;
+}
+.missing-section .kit-text-button {
+  font-size: 11px;
+  color: #657952;
+}
+.missing-pieces {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.missing-piece {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid #e0dfd1;
+  border-radius: 14px;
+  padding: 12px;
+  background: #fffdf5;
+}
+.missing-piece img {
+  width: 64px;
+  height: 60px;
+  object-fit: contain;
+}
+.missing-piece strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+.missing-piece p {
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 4px;
+  color: #838973;
+}
+.protected-hint {
+  display: flex;
+  gap: 13px;
+  background: #f1e9d2;
+  color: #7e6838;
+  border-radius: 14px;
+  padding: 17px;
+  margin-top: 20px;
+}
+.protected-hint > svg {
+  flex-shrink: 0;
+}
+.protected-hint strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.protected-hint p {
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 5px;
+}
+.protected-hint .kit-text-button {
+  min-height: 30px;
+  font-size: 11px;
+}
+.grown-up-section {
+  margin-top: 28px;
+  border-top: 1px solid #dce0d1;
+  padding-top: 24px;
+}
+.grown-up-section > .detail-section-heading {
+  margin-bottom: 25px;
+}
+.grown-up-section .kit-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  font-size: 9px;
+}
+.shopping-option {
+  display: flex;
+  gap: 16px;
+  margin: 22px 0;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #e3e5d9;
+}
+.shopping-option > div:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.shopping-number {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: #e9ecdf;
+  color: #6b7d5b;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 10px;
+}
+.shopping-option h4 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+.shopping-option p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #7a8570;
+  margin: 7px 0 12px;
+}
+.shop-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.shop-links a,
+.donor-sets a {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #3e6337;
+  min-height: 34px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.donor-sets {
+  display: grid;
+  gap: 12px;
+}
+.donor-sets article {
+  display: flex;
+  gap: 15px;
+  border: 1px solid #dce2d1;
+  background: #fffefa;
+  padding: 14px;
+  border-radius: 14px;
+  align-items: center;
+}
+.donor-sets img {
+  width: 100px;
+  height: 80px;
+  object-fit: contain;
+}
+.donor-sets h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.donor-sets .kit-eyebrow {
+  margin-bottom: 4px;
+}
+.shop-note {
+  font-size: 11px !important;
+  line-height: 1.7;
+  color: #8c927e;
+}
+.already-owned {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  background: #e8eddc;
+  padding: 17px;
+  border-radius: 14px;
+  margin-top: 18px;
+}
+.already-owned strong {
+  font-size: 12px;
+}
+.already-owned p {
+  font-size: 11px;
+  margin-top: 5px;
+  color: #77836c;
+}
+.already-owned .kit-button {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.all-pieces {
+  margin-top: 22px;
+  border-top: 1px solid #dce0d1;
+  padding-top: 18px;
+}
+.all-pieces summary {
+  font-size: 12px;
+  cursor: pointer;
+  min-height: 35px;
+  color: #6e7d62;
+}
+@media (max-width: 600px) {
+  .build-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .build-detail-grid .detail-preview {
+    height: 210px;
+  }
+  .build-detail-grid .detail-preview img {
+    height: 200px;
+  }
+  .detail-decision h3 {
+    font-size: 25px;
+    max-width: 100%;
+  }
+  .detail-decision .kit-button {
+    width: 100%;
+  }
+  .detail-decision {
+    gap: 12px;
+  }
+  .detail-decision .kit-text-button {
+    align-self: center;
+  }
+  .detail-section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .detail-section-heading h3 {
+    font-size: 17px;
+  }
+  .missing-pieces {
+    grid-template-columns: 1fr;
+  }
+  .missing-piece strong {
+    font-size: 13px;
+  }
+  .grown-up-section > .detail-section-heading > svg {
+    display: none;
+  }
+  .donor-sets article {
+    gap: 10px;
+    padding: 10px;
+  }
+  .donor-sets img {
+    width: 75px;
+    height: 70px;
+  }
+  .donor-sets h5 {
+    font-size: 12px;
+  }
+  .shopping-option {
+    gap: 11px;
+  }
+  .already-owned {
+    flex-direction: column;
+    align-items: start;
+  }
+  .already-owned .kit-button {
+    width: 100%;
+  }
+}

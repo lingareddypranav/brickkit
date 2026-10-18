@@ -1,7 +1,7 @@
 # Brick Kit: collection-aware prototype
 
 Audience: children aged 5–7, with a grown-up helping manage sets and shopping.
-Purpose: a design challenge prototype. This document specifies proposed work; the new flows are not implemented yet.
+Purpose: a design challenge prototype. The core collection-aware flows are now implemented locally. See prototype-architecture.md for the implemented boundaries, checks, and remaining prototype limits.
 
 ## Product promise
 
@@ -119,7 +119,7 @@ brick-linkfrontend/components/grown-up/      # missing pieces and shopping hando
 brick-linkfrontend/public/demo/              # local previews, MPDs, steps, PDFs
 ```
 
-Keep the catalogue, matcher, and visual components separate. That permits a future backend to replace the data source without changing the child's core journey. This is a proposed structure, not an implementation already in the repository.
+Keep the catalogue, matcher, and visual components separate. That permits a future backend to replace the data source without changing the child's core journey. The current implementation follows these boundaries; see prototype-architecture.md for the exact files.
 
 First implementation priority: one polished collection → buildable result → near match → add missing pieces → build journey. Expand the catalogue only after that journey behaves consistently. No accounts, scanning, unrestricted piece recognition, live pricing, or arbitrary 3D generation are required for the challenge.
 
