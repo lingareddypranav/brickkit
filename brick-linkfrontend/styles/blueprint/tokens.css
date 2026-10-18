@@ -1,0 +1,107 @@
+/* Blueprint design tokens — copied for the product app.
+   Texture URLs point at /public/blueprint. */
+
+:root {
+  --bp-orange-1: #f85f19;
+  --bp-blue-1: #3860e5;
+  --bp-dark-1: #2f2f2f;
+  --bp-light-1: #f6f4eb;
+
+  --bp-color-bg: var(--bp-light-1);
+  --bp-color-bg-inverse: var(--bp-dark-1);
+  --bp-color-bg-brand: var(--bp-blue-1);
+  --bp-color-bg-accent: var(--bp-orange-1);
+
+  --bp-muted-1: color-mix(in srgb, var(--bp-dark-1) 64%, var(--bp-light-1));
+
+  --bp-color-fg: var(--bp-dark-1);
+  --bp-color-fg-muted: color-mix(in srgb, var(--bp-dark-1) 64%, transparent);
+  --bp-color-fg-on-inverse: var(--bp-light-1);
+  --bp-color-fg-on-brand: var(--bp-light-1);
+  --bp-color-fg-on-accent: var(--bp-light-1);
+
+  --bp-color-brand: var(--bp-blue-1);
+  --bp-color-accent: var(--bp-orange-1);
+  --bp-color-border: color-mix(in srgb, var(--bp-dark-1) 10%, transparent);
+  --bp-color-border-strong: var(--bp-dark-1);
+  --bp-color-focus: var(--bp-blue-1);
+  --bp-color-grid: color-mix(in srgb, var(--bp-blue-1) 18%, transparent);
+
+  --bp-font: var(--font-host, "Host Grotesk"), "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --bp-tracking: -0.01em;
+  --bp-tracking-wordmark: 0em;
+
+  --bp-text-display: 64px;
+  --bp-text-h1: 48px;
+  --bp-text-h2: 32px;
+  --bp-text-h3: 24px;
+  --bp-text-body: 20px;
+  --bp-text-ui: 16px;
+  --bp-text-caption: 12px;
+
+  --bp-leading-display: 1.1;
+  --bp-leading-heading: 1.2;
+  --bp-leading-body: 32px;
+
+  --bp-weight-regular: 400;
+  --bp-weight-medium: 500;
+  --bp-weight-semibold: 600;
+
+  --bp-space-0: 0px;
+  --bp-space-1: 4px;
+  --bp-space-2: 8px;
+  --bp-space-3: 16px;
+  --bp-space-4: 24px;
+  --bp-space-5: 32px;
+  --bp-space-6: 40px;
+  --bp-space-7: 48px;
+  --bp-space-8: 64px;
+  --bp-space-9: 80px;
+  --bp-space-10: 96px;
+  --bp-space-11: 128px;
+
+  --bp-space-page: var(--bp-space-8);
+  --bp-space-section: var(--bp-space-10);
+  --bp-space-stack: var(--bp-space-4);
+  --bp-space-inline: var(--bp-space-3);
+
+  --bp-radius-ui-sm: 8px;
+  --bp-radius-ui-md: 16px;
+  --bp-radius-ui-lg: 24px;
+  --bp-radius-full: 999px;
+  --bp-radius-brick: 12px;
+
+  --bp-mark-size: 80px;
+  --bp-stud-h: calc(var(--bp-mark-size) * 50 / 225);
+  --bp-body-h: calc(var(--bp-mark-size) * 175 / 225);
+  --bp-cap: 0.7;
+  --bp-mark-gap: calc(var(--bp-mark-size) * 16 / 80);
+  --bp-wordmark-size: calc(var(--bp-body-h) / var(--bp-cap));
+
+  --bp-brick-unit: 150px;
+  --bp-brick-body: 175px;
+  --bp-brick-stud-w: 90px;
+  --bp-brick-stud-h: 50px;
+  --bp-brick-h: 225px;
+  --bp-brick-tick: 25px;
+
+  --bp-measure: 640px;
+  --bp-page: 1152px;
+  --bp-tap: 48px;
+
+  --bp-texture-dither: url("/blueprint/textures/dither-bayer.svg");
+  --bp-dither-cell: 8px;
+  --bp-texture-grid-ui: url("/blueprint/textures/grid-ui.svg");
+  --bp-texture-grid-brick: url("/blueprint/textures/grid-brick.svg");
+}
+
+.bp-inverse {
+  --bp-color-bg: var(--bp-dark-1);
+  --bp-color-fg: var(--bp-light-1);
+  --bp-color-fg-muted: color-mix(in srgb, var(--bp-light-1) 64%, transparent);
+  --bp-color-border: color-mix(in srgb, var(--bp-light-1) 16%, transparent);
+  --bp-color-border-strong: var(--bp-light-1);
+  background-color: var(--bp-color-bg);
+  color: var(--bp-color-fg);
+}

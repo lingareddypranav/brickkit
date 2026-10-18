@@ -25,12 +25,12 @@
   padding: 8px 11px;
   font-size: 12px;
   font-weight: 650;
-  background: #f3e6c6;
-  color: #795b22;
+  background: color-mix(in srgb, var(--bp-orange-1) 16%, var(--bp-light-1));
+  color: var(--bp-orange-1);
 }
 .detail-badge.is-ready {
-  background: #e5eddb;
-  color: #466638;
+  background: color-mix(in srgb, var(--bp-blue-1) 12%, var(--bp-light-1));
+  color: var(--bp-blue-1);
 }
 .detail-decision h3 {
   font-size: 26px;
@@ -42,11 +42,11 @@
 .detail-decision p {
   font-size: 13px;
   line-height: 1.7;
-  color: #79816f;
+  color: var(--bp-color-fg-muted);
 }
 .detail-decision .kit-text-button {
   min-height: 32px;
-  color: #6e7d63;
+  color: var(--bp-color-fg-muted);
 }
 .detail-section-heading {
   display: flex;
@@ -63,11 +63,11 @@
 .missing-section {
   margin-top: 27px;
   padding-top: 22px;
-  border-top: 1px solid #dce0d1;
+  border-top: 1px solid var(--bp-color-border);
 }
 .missing-section .kit-text-button {
   font-size: 11px;
-  color: #657952;
+  color: var(--bp-blue-1);
 }
 .missing-pieces {
   display: grid;
@@ -78,10 +78,10 @@
   display: flex;
   align-items: center;
   gap: 13px;
-  border: 1px solid #e0dfd1;
-  border-radius: 14px;
+  border: 1px solid var(--bp-color-border);
+  border-radius: var(--bp-radius-ui-sm);
   padding: 12px;
-  background: #fffdf5;
+  background: var(--bp-light-1);
 }
 .missing-piece img {
   width: 64px;
@@ -96,13 +96,13 @@
   font-size: 11px;
   line-height: 1.5;
   margin-top: 4px;
-  color: #838973;
+  color: var(--bp-color-fg-muted);
 }
 .protected-hint {
   display: flex;
   gap: 13px;
-  background: #f1e9d2;
-  color: #7e6838;
+  background: color-mix(in srgb, var(--bp-orange-1) 14%, var(--bp-light-1));
+  color: var(--bp-dark-1);
   border-radius: 14px;
   padding: 17px;
   margin-top: 20px;
@@ -125,7 +125,7 @@
 }
 .grown-up-section {
   margin-top: 28px;
-  border-top: 1px solid #dce0d1;
+  border-top: 1px solid var(--bp-color-border);
   padding-top: 24px;
 }
 .grown-up-section > .detail-section-heading {
@@ -142,7 +142,7 @@
   gap: 16px;
   margin: 22px 0;
   padding-bottom: 22px;
-  border-bottom: 1px solid #e3e5d9;
+  border-bottom: 1px solid var(--bp-color-border);
 }
 .shopping-option > div:nth-child(2) {
   flex: 1;
@@ -152,8 +152,8 @@
   width: 29px;
   height: 29px;
   border-radius: 50%;
-  background: #e9ecdf;
-  color: #6b7d5b;
+  background: color-mix(in srgb, var(--bp-dark-1) 8%, var(--bp-light-1));
+  color: var(--bp-dark-1);
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -167,7 +167,7 @@
 .shopping-option p {
   font-size: 12px;
   line-height: 1.7;
-  color: #7a8570;
+  color: var(--bp-color-fg-muted);
   margin: 7px 0 12px;
 }
 .shop-links {
@@ -181,7 +181,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: #3e6337;
+  color: var(--bp-blue-1);
   min-height: 34px;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -193,10 +193,10 @@
 .donor-sets article {
   display: flex;
   gap: 15px;
-  border: 1px solid #dce2d1;
-  background: #fffefa;
+  border: 1px solid var(--bp-color-border);
+  background: var(--bp-light-1);
   padding: 14px;
-  border-radius: 14px;
+  border-radius: var(--bp-radius-ui-sm);
   align-items: center;
 }
 .donor-sets img {
@@ -214,14 +214,14 @@
 .shop-note {
   font-size: 11px !important;
   line-height: 1.7;
-  color: #8c927e;
+  color: var(--bp-color-fg-muted);
 }
 .already-owned {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  background: #e8eddc;
+  background: color-mix(in srgb, var(--bp-blue-1) 10%, var(--bp-light-1));
   padding: 17px;
   border-radius: 14px;
   margin-top: 18px;
@@ -232,7 +232,7 @@
 .already-owned p {
   font-size: 11px;
   margin-top: 5px;
-  color: #77836c;
+  color: var(--bp-color-fg-muted);
 }
 .already-owned .kit-button {
   font-size: 11px;
@@ -240,14 +240,14 @@
 }
 .all-pieces {
   margin-top: 22px;
-  border-top: 1px solid #dce0d1;
+  border-top: 1px solid var(--bp-color-border);
   padding-top: 18px;
 }
 .all-pieces summary {
   font-size: 12px;
   cursor: pointer;
   min-height: 35px;
-  color: #6e7d62;
+  color: var(--bp-color-fg-muted);
 }
 @media (max-width: 600px) {
   .build-detail-grid {

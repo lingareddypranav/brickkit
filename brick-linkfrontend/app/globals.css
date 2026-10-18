@@ -1,32 +1,34 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/* Removed invalid @import "shadcn/ui/styles" that was causing the runtime error */
+@import "../styles/blueprint/tokens.css";
+@import "../styles/blueprint/type.css";
+@import "../styles/blueprint/textures.css";
+@import "../styles/blueprint/logo.css";
 
 @custom-variant dark (&:is(.dark *));
 
-/* Updated theme for LEGO AI interface with black background and cream accents */
 :root {
-  --background: oklch(0.1 0 0); /* Deep black */
-  --foreground: oklch(0.98 0 0); /* Off-white */
-  --card: oklch(0.95 0.005 85); /* Cream white */
-  --card-foreground: oklch(0.3 0 0); /* Dark gray for text on cream */
-  --popover: oklch(0.95 0.005 85);
-  --popover-foreground: oklch(0.3 0 0);
-  --primary: oklch(0.95 0.005 85); /* Cream */
-  --primary-foreground: oklch(0.2 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.88 0.005 85); /* Muted cream */
-  --muted-foreground: oklch(0.5 0 0);
-  --accent: oklch(0.92 0.005 85);
-  --accent-foreground: oklch(0.2 0 0);
+  --background: #f6f4eb;
+  --foreground: #2f2f2f;
+  --card: #f6f4eb;
+  --card-foreground: #2f2f2f;
+  --popover: #f6f4eb;
+  --popover-foreground: #2f2f2f;
+  --primary: #3860e5;
+  --primary-foreground: #f6f4eb;
+  --secondary: #2f2f2f;
+  --secondary-foreground: #f6f4eb;
+  --muted: color-mix(in srgb, #2f2f2f 12%, #f6f4eb);
+  --muted-foreground: color-mix(in srgb, #2f2f2f 64%, transparent);
+  --accent: #f85f19;
+  --accent-foreground: #f6f4eb;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.3 0 0); /* Dark border for grid */
-  --input: oklch(0.95 0.005 85);
-  --ring: oklch(0.708 0 0);
-  --grid-line: oklch(0.35 0 0); /* Grid lines */
-  --radius: 1.25rem; /* Larger radius for modern look */
+  --destructive-foreground: #f6f4eb;
+  --border: color-mix(in srgb, #2f2f2f 16%, transparent);
+  --input: #f6f4eb;
+  --ring: #3860e5;
+  --grid-line: color-mix(in srgb, #3860e5 18%, transparent);
+  --radius: 16px;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -79,8 +81,8 @@
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--bp-font);
+  --font-mono: var(--bp-font);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -121,10 +123,22 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  input,
+  textarea {
+    outline: none;
+  }
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--bp-color-bg);
+    color: var(--bp-color-fg);
+    font-family: var(--bp-font);
+    letter-spacing: var(--bp-tracking);
   }
 }
 

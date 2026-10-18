@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Blocks,
   Check,
@@ -11,7 +11,7 @@ import {
   Search,
   UnlockKeyhole,
 } from "lucide-react";
-import { models, modelById, parts, sets } from "@/lib/demo/catalog";
+import { modelById, parts, sets } from "@/lib/demo/catalog";
 import {
   availablePieces,
   countPieces,
@@ -67,11 +67,47 @@ export function BrickBoxDialog({
   onClose: () => void;
   initialTab?: "sets" | "pieces" | "made";
 }) {
+  return (
+    <KitDialog
+      open={open}
+      onClose={onClose}
+      title="My brick box"
+      description="Your sets, your extra pieces, your next big idea."
+      wide
+    >
+      <BrickBoxPanel box={box} initialTab={initialTab} onDone={onClose} />
+    </KitDialog>
+  );
+}
+
+export function BrickBoxPanel({
+  box,
+  initialTab = "sets",
+  docked = false,
+  onDone,
+  onTabChange,
+}: {
+  box: BrickBox;
+  initialTab?: "sets" | "pieces" | "made";
+  docked?: boolean;
+  onDone?: () => void;
+  onTabChange?: (tab: "sets" | "pieces" | "made") => void;
+}) {
   const [tab, setTab] = useState(initialTab);
   const [query, setQuery] = useState("");
   const [confirmReset, setConfirmReset] = useState<"sample" | "empty" | null>(
     null,
   );
+
+  useEffect(() => {
+    setTab(initialTab);
+  }, [initialTab]);
+
+  function selectTab(next: "sets" | "pieces" | "made") {
+    setTab(next);
+    setQuery("");
+    onTabChange?.(next);
+  }
   const available = availablePieces(box.collection);
   const ownedSets = Object.values(box.collection.sets).reduce(
     (sum, item) => sum + item.quantity,
@@ -87,13 +123,13 @@ export function BrickBoxDialog({
   );
 
   return (
-    <KitDialog
-      open={open}
-      onClose={onClose}
-      title="My brick box"
-      description="Your sets, your extra pieces, your next big idea."
-      wide
-    >
+    <div className={docked ? "box-pane" : undefined}>
+      {docked && (
+        <header className="box-pane-heading">
+          <p className="section-kicker">MY BRICK BOX</p>
+          <h2 id="box-heading">Your sets, extra pieces, and creations</h2>
+        </header>
+      )}
       <div className="box-summary">
         <Blocks size={22} />
         <span>
@@ -125,16 +161,12 @@ export function BrickBoxDialog({
               else if (event.key === "End") next = ids.length - 1;
               else return;
               event.preventDefault();
-              setTab(ids[next]);
-              setQuery("");
+              selectTab(ids[next]);
               document.getElementById(`box-tab-${ids[next]}`)?.focus();
             }}
             aria-selected={tab === id}
             key={id}
-            onClick={() => {
-              setTab(id);
-              setQuery("");
-            }}
+            onClick={() => selectTab(id)}
           >
             {label}
             {id === "made" && box.collection.creations.length > 0
@@ -388,9 +420,11 @@ export function BrickBoxDialog({
             </button>
           </>
         )}
-        <button className="kit-button kit-button-dark" onClick={onClose}>
-          Done <Check size={17} />
-        </button>
+        {onDone && (
+          <button className="kit-button kit-button-dark" onClick={onDone}>
+            Done <Check size={17} />
+          </button>
+        )}
       </div>
       {box.storageError && (
         <p role="status" className="kit-storage-note">
@@ -398,6 +432,6 @@ export function BrickBoxDialog({
           changes.
         </p>
       )}
-    </KitDialog>
+    </div>
   );
 }

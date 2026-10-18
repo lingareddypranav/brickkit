@@ -7,10 +7,10 @@
   height: 5px;
   flex: 1;
   border-radius: 99px;
-  background: #dce2d1;
+  background: var(--bp-color-border);
 }
 .guide-progress > span.is-complete {
-  background: #76965f;
+  background: var(--bp-blue-1);
 }
 .guide-title {
   display: flex;
@@ -33,11 +33,11 @@
 .guide-title .kit-text-button {
   font-size: 12px;
   flex-shrink: 0;
-  color: #5c7850;
+  color: var(--bp-blue-1);
 }
 .guide-stage {
   height: 330px;
-  border-radius: 17px;
+  border-radius: var(--bp-radius-ui-md);
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -58,7 +58,7 @@
 .guide-tip {
   text-align: center;
   font-size: 10px;
-  color: #849075;
+  color: var(--bp-color-fg-muted);
   margin-top: 9px;
 }
 .step-pieces {
@@ -80,7 +80,7 @@
 .step-piece {
   display: flex;
   align-items: center;
-  background: #e8ebdf;
+  background: color-mix(in srgb, var(--bp-dark-1) 6%, var(--bp-light-1));
   border-radius: 10px;
   padding: 5px 9px 5px 4px;
   gap: 3px;
@@ -92,7 +92,7 @@
 }
 .step-piece > span {
   font-size: 12px;
-  color: #6d805e;
+  color: var(--bp-color-fg-muted);
   white-space: nowrap;
 }
 .finish-lock {
@@ -100,16 +100,16 @@
   align-items: center;
   gap: 13px;
   padding: 16px;
-  background: #e7eddb;
+  background: color-mix(in srgb, var(--bp-blue-1) 10%, var(--bp-light-1));
   border-radius: 13px;
   margin: 18px 0;
-  color: #46613a;
+  color: var(--bp-dark-1);
   cursor: pointer;
 }
 .finish-lock input {
   width: 20px;
   height: 20px;
-  accent-color: #54783d;
+  accent-color: var(--bp-blue-1);
   cursor: pointer;
 }
 .finish-lock > span {
@@ -123,20 +123,20 @@
 }
 .finish-lock small {
   font-size: 11px;
-  color: #7b896f;
+  color: var(--bp-color-fg-muted);
 }
 .guide-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border-top: 1px solid #dce2d1;
+  border-top: 1px solid var(--bp-color-border);
   padding-top: 20px;
   margin-top: 16px;
 }
 .guide-actions .print-button {
   font-size: 11px;
-  color: #7f8a73;
+  color: var(--bp-color-fg-muted);
 }
 .build-celebration {
   text-align: center;
@@ -149,7 +149,7 @@
   display: flex;
   align-items: center;
   gap: 40px;
-  color: #a98a34;
+  color: var(--bp-orange-1);
   font-size: 25px;
 }
 .build-celebration > img {
@@ -166,7 +166,7 @@
 }
 .build-celebration p {
   font-size: 13px;
-  color: #7c886f;
+  color: var(--bp-color-fg-muted);
   line-height: 1.8;
   max-width: 380px;
   margin: 15px 0 23px;
@@ -174,7 +174,7 @@
 .build-celebration > .kit-text-button {
   font-size: 12px;
   margin-top: 12px;
-  color: #718264;
+  color: var(--bp-blue-1);
 }
 .scene-fallback {
   display: grid;
@@ -187,20 +187,20 @@
 }
 .scene-fallback p {
   font-size: 11px;
-  color: #5b6b52;
+  color: var(--bp-color-fg-muted);
 }
 .scene-loading {
   display: grid;
   place-items: center;
   font-size: 13px;
-  color: #6b7d60;
+  color: var(--bp-color-fg-muted);
 }
 .collection-changed {
   font-size: 12px;
   padding: 13px;
   border-radius: 10px;
-  background: #f6e5bc;
-  color: #7b5a22;
+  background: color-mix(in srgb, var(--bp-orange-1) 16%, var(--bp-light-1));
+  color: var(--bp-dark-1);
   line-height: 1.6;
 }
 .print-instructions {

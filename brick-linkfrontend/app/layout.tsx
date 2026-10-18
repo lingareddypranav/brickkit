@@ -1,27 +1,31 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type { Metadata } from "next";
+import { Host_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const hostGrotesk = Host_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-host",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: 'Brick Kit — Little bricks, big ideas',
-  description: 'Discover little builds you can make with the bricks in your box.',
-}
+  title: "Blueprint — Big ideas, already in your box",
+  description:
+    "Turn the bricks you already have into the things you imagine.",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className={hostGrotesk.variable}>
+      <body className={`${hostGrotesk.className} antialiased`}>
         {children}
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
