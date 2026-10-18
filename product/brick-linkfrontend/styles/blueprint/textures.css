@@ -1,2 +1,60 @@
 /* Shared source; keep product behaviour and layout independent. */
 @import "../../../../design-system/styles/textures.css";
+
+/* Solid brand-blue fills (landing CTA / prompt go button). */
+.bp-fill-blue {
+  background-color: var(--bp-blue-1);
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+}
+
+:is(.kit-app, .kit-dialog) :is(
+    .kit-button-dark,
+    .kit-button-accent,
+    .kit-sidebar nav > button.is-active,
+    .chat-msg--user,
+    .chat-choices > button[aria-pressed="true"],
+    .strip-icon,
+    .bricks-switch.is-on .switch-track,
+    .guide-progress > span.is-complete,
+    .idea-prompt > button
+  ) {
+  background-color: var(--bp-blue-1);
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+}
+
+/* Solid fills that keep their own color: heart, swatches, progress, dots. */
+:is(.kit-app, .kit-dialog) :is(
+    .hero-kicker > span,
+    .chat-pending span,
+    .color-swatches button:not(.color-all)
+  ) {
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+}
+
+:is(.kit-app, .kit-dialog) .wish-button.is-wished svg.lucide-heart {
+  background-color: currentColor;
+  background-image: var(--bp-texture-dither);
+  background-repeat: repeat;
+  background-size: var(--bp-dither-cell);
+  background-blend-mode: overlay;
+  image-rendering: pixelated;
+  -webkit-mask: var(--bp-heart-mask) center / contain no-repeat;
+  mask: var(--bp-heart-mask) center / contain no-repeat;
+}
+
+:is(.kit-app, .kit-dialog) .wish-button.is-wished svg.lucide-heart path {
+  fill: transparent;
+  stroke: transparent;
+}

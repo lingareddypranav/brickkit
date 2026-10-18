@@ -14,9 +14,26 @@ import math
 from pathlib import Path
 
 import requests
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 RETIRED = {'dragon-friend', 'dragon-wagon'}
+
+
+def matte_preview(jpg: Path, png: Path, keys: list[tuple[int, int, int]], tol: int = 32) -> str:
+    """Drop solid photo mattes so build cards can use the card background color."""
+    im = Image.open(jpg).convert("RGBA")
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            for kr, kg, kb in keys:
+                if abs(r - kr) <= tol and abs(g - kg) <= tol and abs(b - kb) <= tol:
+                    px[x, y] = (r, g, b, 0)
+                    break
+    png.parent.mkdir(parents=True, exist_ok=True)
+    im.save(png, optimize=True)
+    return f"/{png.relative_to(ROOT / 'public')}"
 
 
 def main():
@@ -81,14 +98,25 @@ def main():
         pdf = download(m['pdfUrl'], args.cache/f"{m['setId']}.pdf")
         assert pdf.startswith(b'%PDF-'), 'Instruction link is not a PDF'
         assert hashlib.sha256(pdf).hexdigest() == m['pdfSha256'], 'Booklet changed; review its assembly steps first'
-        image = f"/demo/sets/{m['setId']}.jpg"
-        download(row['img_url'], ROOT/'public'/image.lstrip('/'))
+        set_photo = f"/demo/sets/{m['setId']}.jpg"
+        download(row['img_url'], ROOT/'public'/set_photo.lstrip('/'))
+        matte_keys = [(255, 255, 255)]
+        if m['setId'] == '31102-1':
+            matte_keys.append((0, 0, 0))
+        elif m['setId'] == '31145-1':
+            matte_keys = [(0, 0, 0)]
+        preview = matte_preview(
+            ROOT / 'public' / set_photo.lstrip('/'),
+            ROOT / 'public' / 'demo' / 'models' / f"{m['id']}-preview.png",
+            matte_keys,
+            tol=36 if m['setId'] == '31102-1' else 32,
+        )
         sets[m['setId']] = dict(id=m['setId'], name=row['name'], pieces=int(row['num_parts']),
-                               year=int(row['year']), image=image, inventory=inventory,
+                               year=int(row['year']), image=set_photo, inventory=inventory,
                                url=f"https://rebrickable.com/sets/{m['setId']}/")
         active.append(dict(id=m['id'], name=m['name'], description=m['description'],
                            family=m['family'], tags=['dragons', m['setId'], 'brick-built'],
-                           background='#F3E0D7', image=image, minutes=max(5, math.ceil(sum(inventory.values())/6)),
+                           background='#F3E0D7', image=preview, minutes=max(5, math.ceil(sum(inventory.values())/6)),
                            steps=[], placements=[], inventory=inventory,
                            source=dict(provider='LEGO', setId=m['setId'], url=m['sourceUrl'],
                                        downloadUrl=m['pdfUrl'], author='The LEGO Group',

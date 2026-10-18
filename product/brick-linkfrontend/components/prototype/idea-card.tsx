@@ -2,13 +2,11 @@
 import {
   ArrowRight,
   Blocks,
-  BookOpen,
   Check,
   Clock3,
   Heart,
   Sparkles,
 } from "lucide-react";
-import { instructionsFor } from "@/lib/demo/instructions";
 import type { Blueprint, Match } from "@/lib/demo/types";
 
 /** Pure presentation: inventory decisions and persistence live outside this card. */
@@ -37,9 +35,17 @@ export function IdeaCard({
         </button>
         <span
           className={`build-status ${match.ready ? "status-ready" : "status-dream"}`}
+          aria-label={
+            match.ready
+              ? "Ready to build"
+              : `Need ${match.missingCount} pieces`
+          }
         >
-          {match.ready ? <Check size={14} /> : <Sparkles size={14} />}
-          {match.ready ? "Ready to build" : `Need ${match.missingCount} pieces`}
+          {match.ready ? (
+            <Check size={18} />
+          ) : (
+            <Sparkles size={18} />
+          )}
         </span>
         <button
           className={`wish-button ${saved ? "is-wished" : ""}`}
@@ -51,20 +57,9 @@ export function IdeaCard({
         </button>
       </div>
       <div className="idea-card-body">
-        <div>
-          <h3>
-            <button onClick={onOpen}>{model.name}</button>
-          </h3>
-          <p>{model.description}</p>
-        </div>
-        {instructionsFor(model.id) && (
-          <button className="instructions-ready" onClick={onOpen}>
-            <BookOpen size={15} />{" "}
-            {instructionsFor(model.id)?.kind === "booklet"
-              ? "Building booklet ready"
-              : "Picture instructions ready"}
-          </button>
-        )}
+        <h3>
+          <button onClick={onOpen}>{model.name}</button>
+        </h3>
         <div className="idea-meta">
           <span>
             <Blocks size={18} /> {match.total} pieces

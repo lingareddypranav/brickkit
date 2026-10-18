@@ -1,10 +1,12 @@
 import { models, modelById, sets } from "./catalog";
 import { addInventory, availablePieces, matchInventory } from "./inventory";
+import { instructionsFor } from "./instructions";
 import type { Blueprint, Collection, Family } from "./types";
 
 export interface IdeaFilters {
   family: Family;
   onlyMyBricks: boolean;
+  onlyInstructions?: boolean;
   savedOnly: boolean;
 }
 
@@ -24,6 +26,9 @@ export function selectIdeas(collection: Collection, filters: IdeaFilters) {
       saved: collection.wishlist.includes(model.id),
     }))
     .filter((idea) => !filters.onlyMyBricks || idea.match.ready)
+    .filter(
+      (idea) => !filters.onlyInstructions || Boolean(instructionsFor(idea.model.id)),
+    )
     .sort((a, b) => Number(b.match.ready) - Number(a.match.ready));
 }
 

@@ -1,48 +1,70 @@
 .build-detail-grid {
+  --idea-pad: 12px;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 28px;
-  align-items: center;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  align-items: stretch;
 }
 .build-detail-grid .detail-preview {
   margin: 0;
-  height: 270px;
+  height: 280px;
+  border-radius: var(--bp-radius-ui-md);
+  overflow: hidden;
 }
 .build-detail-grid .detail-preview img {
-  height: 250px;
+  height: 240px;
+  width: 90%;
+}
+.build-detail-grid .build-status {
+  top: 10px;
+  left: var(--idea-pad);
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  gap: 0;
+  display: grid;
+  place-items: center;
 }
 .detail-decision {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  gap: 13px;
-}
-.detail-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border-radius: 99px;
-  padding: 8px 11px;
-  font-size: 12px;
-  font-weight: 650;
-  background: color-mix(in srgb, var(--bp-orange-1) 16%, var(--bp-light-1));
-  color: var(--bp-orange-1);
-}
-.detail-badge.is-ready {
-  background: color-mix(in srgb, var(--bp-blue-1) 12%, var(--bp-light-1));
-  color: var(--bp-blue-1);
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-right: 0;
+  padding-bottom: var(--idea-pad);
 }
 .detail-decision h3 {
-  font-size: 26px;
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.8px;
-  max-width: 260px;
+  font-size: var(--bp-text-h2);
+  line-height: var(--bp-leading-heading);
+  font-weight: var(--bp-weight-semibold);
+  letter-spacing: var(--bp-tracking);
+  max-width: none;
+  margin: 0;
+  padding-right: 48px;
 }
 .detail-decision p {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: var(--bp-text-ui);
+  line-height: 1.5;
   color: var(--bp-color-fg-muted);
+  margin: 0;
+}
+.detail-decision .idea-meta {
+  width: 100%;
+  margin-top: 0;
+}
+.detail-decision .kit-button {
+  width: 100%;
+}
+.build-detail-grid .kit-button.preview-toggle,
+.detail-decision .kit-button.detail-cta {
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: var(--bp-text-ui);
+}
+.detail-decision .detail-cta {
+  margin-top: auto;
 }
 .detail-decision .kit-text-button {
   min-height: 32px;
@@ -65,9 +87,18 @@
   padding-top: 22px;
   border-top: 1px solid var(--bp-color-border);
 }
-.missing-section .kit-text-button {
-  font-size: 11px;
+.missing-section .missing-link {
+  font-size: var(--bp-text-ui);
+  color: var(--bp-color-fg-muted);
+  font-weight: inherit;
+  min-height: 0;
+  gap: 4px;
+}
+.missing-section .missing-link:hover {
   color: var(--bp-blue-1);
+}
+.missing-section .missing-pieces + .missing-link {
+  margin-top: var(--bp-space-4);
 }
 .missing-pieces {
   display: grid;
@@ -75,53 +106,35 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .missing-piece {
-  display: flex;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
   border: 1px solid var(--bp-color-border);
   border-radius: var(--bp-radius-ui-sm);
-  padding: 12px;
+  padding: 8px 14px 8px 10px;
   background: var(--bp-light-1);
 }
 .missing-piece img {
-  width: 64px;
-  height: 60px;
+  width: 48px;
+  height: 40px;
   object-fit: contain;
-}
-.missing-piece strong {
-  font-size: 13px;
-  font-weight: 650;
+  mix-blend-mode: multiply;
 }
 .missing-piece p {
-  font-size: 11px;
-  line-height: 1.5;
-  margin-top: 4px;
-  color: var(--bp-color-fg-muted);
-}
-.protected-hint {
-  display: flex;
-  gap: 13px;
-  background: color-mix(in srgb, var(--bp-orange-1) 14%, var(--bp-light-1));
+  margin: 0;
+  font-size: var(--bp-text-ui);
+  line-height: 1.3;
   color: var(--bp-dark-1);
-  border-radius: 14px;
-  padding: 17px;
-  margin-top: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.protected-hint > svg {
-  flex-shrink: 0;
-}
-.protected-hint strong {
-  font-size: 12px;
-  font-weight: 600;
-}
-.protected-hint p {
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 5px;
-}
-.protected-hint .kit-text-button {
-  min-height: 30px;
-  font-size: 11px;
+.missing-piece strong {
+  font-size: var(--bp-text-body);
+  font-weight: var(--bp-weight-semibold);
+  letter-spacing: var(--bp-tracking);
+  color: var(--bp-dark-1);
 }
 .supplies-section {
   margin-top: 28px;
@@ -151,7 +164,7 @@
 .shopping-number {
   width: 29px;
   height: 29px;
-  border-radius: 50%;
+  border-radius: var(--bp-radius-ui-sm);
   background: color-mix(in srgb, var(--bp-dark-1) 8%, var(--bp-light-1));
   color: var(--bp-dark-1);
   display: grid;
@@ -222,8 +235,8 @@
   align-items: center;
   gap: 18px;
   background: color-mix(in srgb, var(--bp-blue-1) 10%, var(--bp-light-1));
-  padding: 17px;
-  border-radius: 14px;
+  padding: 16px;
+  border-radius: var(--bp-radius-ui-sm);
   margin-top: 18px;
 }
 .already-owned strong {
@@ -238,10 +251,22 @@
   font-size: 11px;
   flex-shrink: 0;
 }
-.all-pieces {
-  margin-top: 22px;
+.detail-links {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--bp-space-4);
+  margin-top: 16px;
+  padding-top: 12px;
   border-top: 1px solid var(--bp-color-border);
-  padding-top: 18px;
+}
+.detail-links .omr-source,
+.detail-links .all-pieces {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  flex: 1 1 0;
+  min-width: 0;
 }
 .all-pieces summary {
   font-size: 12px;
@@ -261,7 +286,7 @@
     height: 200px;
   }
   .detail-decision h3 {
-    font-size: 25px;
+    font-size: var(--bp-text-h2);
     max-width: 100%;
   }
   .detail-decision .kit-button {
@@ -269,6 +294,12 @@
   }
   .detail-decision {
     gap: 12px;
+    padding-right: 0;
+    padding-top: 8px;
+    padding-bottom: 0;
+  }
+  .detail-decision .detail-cta {
+    margin-top: 4px;
   }
   .detail-decision .kit-text-button {
     align-self: center;
@@ -311,6 +342,10 @@
   .already-owned .kit-button {
     width: 100%;
   }
+  .detail-links {
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
 }
 
 .omr-source {
@@ -321,9 +356,19 @@
   color: var(--bp-color-fg-muted);
   line-height: 1.7;
 }
-.omr-source summary {
+.omr-source summary,
+.all-pieces summary {
   cursor: pointer;
   color: var(--bp-blue-1);
+  list-style: none;
+  font-size: var(--bp-text-ui);
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+.omr-source summary::-webkit-details-marker,
+.all-pieces summary::-webkit-details-marker {
+  display: none;
 }
 .omr-source p {
   margin-top: 10px;
@@ -340,11 +385,9 @@
 }
 .preview-toggle {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: var(--idea-pad);
+  right: var(--idea-pad);
   z-index: 2;
-  font-size: 12px;
-  min-height: 36px;
 }
 .omr-scene {
   width: 100%;

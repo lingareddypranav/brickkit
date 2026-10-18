@@ -1,2 +1,8 @@
 /* Shared source; keep product behaviour and layout independent. */
 @import "../../../../design-system/styles/logo.css";
+
+.bp-mark,
+.bp-lockup--tile .bp-mark::after {
+  -webkit-mask: url("/blueprint/bricks/brick-2.svg") no-repeat center / contain;
+  mask: url("/blueprint/bricks/brick-2.svg") no-repeat center / contain;
+}

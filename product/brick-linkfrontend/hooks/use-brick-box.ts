@@ -115,6 +115,16 @@ export function useBrickBox() {
       }),
     }));
   }
+  function removeCreation(id: string) {
+    setCollection((current) => {
+      const creation = current.creations.find((item) => item.id === id);
+      if (!creation || creation.keepBuilt) return current;
+      return {
+        ...current,
+        creations: current.creations.filter((item) => item.id !== id),
+      };
+    });
+  }
 
   return {
     collection,
@@ -126,6 +136,7 @@ export function useBrickBox() {
     toggleWish,
     saveCreation,
     toggleCreation,
+    removeCreation,
     loadSample: () => setCollection(structuredClone(sampleCollection)),
     startEmpty: () => setCollection(structuredClone(emptyCollection)),
   };

@@ -10,11 +10,17 @@ import type { Collection, Family } from "@/lib/demo/types";
 export function useBuildIdeas(collection: Collection) {
   const [family, setFamily] = useState<Family>("all");
   const [onlyMyBricks, setOnlyMyBricks] = useState(false);
+  const [onlyInstructions, setOnlyInstructions] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [promptMessage, setPromptMessage] = useState("");
   const available = availablePieces(collection);
-  const ideas = selectIdeas(collection, { family, onlyMyBricks, savedOnly });
+  const ideas = selectIdeas(collection, {
+    family,
+    onlyMyBricks,
+    onlyInstructions,
+    savedOnly,
+  });
   const readyCount = models.filter(
     (model) => matchInventory(model.inventory, available).ready,
   ).length;
@@ -38,6 +44,8 @@ export function useBuildIdeas(collection: Collection) {
     setFamily,
     onlyMyBricks,
     setOnlyMyBricks,
+    onlyInstructions,
+    setOnlyInstructions,
     savedOnly,
     setSavedOnly,
     prompt,

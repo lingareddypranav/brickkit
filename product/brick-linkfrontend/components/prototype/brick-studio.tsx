@@ -5,8 +5,6 @@ import {
   ArrowRight,
   Blocks,
   Check,
-  Heart,
-  LockKeyhole,
   Search,
   Sparkles,
 } from "lucide-react";
@@ -14,9 +12,10 @@ import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
 import { buildAssistantReply, type ChatChoice } from "@/lib/demo/chat-script";
 import { families, modelById } from "@/lib/demo/catalog";
-import { countPieces, matchInventory } from "@/lib/demo/inventory";
+import { matchInventory } from "@/lib/demo/inventory";
+import { instructionsFor } from "@/lib/demo/instructions";
 import type { Blueprint } from "@/lib/demo/types";
-import { BrickBoxPanel } from "./brick-box";
+import { BrickBoxPanel, type BoxTab } from "./brick-box";
 import { IdeaCard } from "./idea-card";
 import { BuildGuide } from "./build-guide";
 import { BuildDetail } from "./build-detail";
@@ -24,8 +23,7 @@ import "./prototype.css";
 import "./gallery.css";
 import "./guide.css";
 
-type Pane = "make" | "box" | "hero";
-type BoxTab = "sets" | "pieces" | "made";
+type Pane = "make" | "box";
 type ChatRole = "user" | "assistant";
 type ChatMessage = {
   id: string;
@@ -43,6 +41,7 @@ export default function BrickStudio() {
   const [boxTab, setBoxTab] = useState<BoxTab>("sets");
   const [building, setBuilding] = useState<Blueprint | null>(null);
   const [selected, setSelected] = useState<Blueprint | null>(null);
+  const [needed, setNeeded] = useState<Blueprint | null>(null);
   const [chatting, setChatting] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [pending, setPending] = useState(false);
@@ -53,11 +52,8 @@ export default function BrickStudio() {
     (s, x) => s + x.quantity,
     0,
   );
-  const protectedCount =
-    Object.values(box.collection.sets).filter((set) => set.keepBuilt).length +
-    box.collection.creations.filter((model) => model.keepBuilt).length;
-
   function openBox(tab: BoxTab = "sets") {
+    setNeeded(null);
     setBoxTab(tab);
     setPane("box");
   }
@@ -156,21 +152,36 @@ export default function BrickStudio() {
             My brick box
             <span>{ownedSets}</span>
           </button>
-          <button
-            className={pane === "hero" ? "is-active" : ""}
-            aria-current={pane === "hero" ? "page" : undefined}
-            onClick={() => setPane("hero")}
-          >
-            Hero
-            <em>demo</em>
-          </button>
-          <a href="/explore">
-            Explore more builds <ArrowRight size={14} />
-          </a>
-          <a href="/landing/index.html">
+          <a href="/landing/index.html#credits">
             About Blueprint <ArrowRight size={14} />
           </a>
         </nav>
+        <div className="kit-sidebar-filters">
+          <button
+            type="button"
+            className={`kit-sidebar-switch bricks-switch ${ideas.onlyInstructions ? "is-on" : ""}`}
+            role="switch"
+            aria-checked={ideas.onlyInstructions}
+            onClick={() => ideas.setOnlyInstructions(!ideas.onlyInstructions)}
+          >
+            Instruction ready
+            <span className="switch-track" aria-hidden="true">
+              <span>{ideas.onlyInstructions && <Check size={11} />}</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            className={`kit-sidebar-switch bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
+            role="switch"
+            aria-checked={ideas.onlyMyBricks}
+            onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
+          >
+            Use my bricks
+            <span className="switch-track" aria-hidden="true">
+              <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
+            </span>
+          </button>
+        </div>
       </aside>
 
       <main className="kit-pane">
@@ -240,6 +251,23 @@ export default function BrickStudio() {
                         className="chat-results"
                         aria-label="Blueprint ideas"
                       >
+                        {ideas.onlyInstructions &&
+                          !message.results.some((id) => instructionsFor(id)) && (
+                            <div className="gallery-empty">
+                              <p>
+                                None of these ideas have picture instructions
+                                yet.
+                              </p>
+                              <button
+                                className="kit-button kit-button-outline"
+                                onClick={() =>
+                                  ideas.setOnlyInstructions(false)
+                                }
+                              >
+                                Show all ideas
+                              </button>
+                            </div>
+                          )}
                         {ideas.onlyMyBricks &&
                           !message.results.some(
                             (id) =>
@@ -263,15 +291,25 @@ export default function BrickStudio() {
                             </div>
                           )}
                         {message.results
-                          .filter(
-                            (id) =>
-                              !ideas.onlyMyBricks ||
-                              (modelById[id] &&
+                          .filter((id) => {
+                            if (
+                              ideas.onlyInstructions &&
+                              !instructionsFor(id)
+                            )
+                              return false;
+                            if (
+                              ideas.onlyMyBricks &&
+                              !(
+                                modelById[id] &&
                                 matchInventory(
                                   modelById[id].inventory,
                                   ideas.available,
-                                ).ready),
-                          )
+                                ).ready
+                              )
+                            )
+                              return false;
+                            return true;
+                          })
                           .map((modelId) => {
                             const model = modelById[modelId];
                             if (!model) return null;
@@ -315,7 +353,7 @@ export default function BrickStudio() {
                 sendChat();
               }}
             >
-              <Search size={18} />
+              <Search size={18} strokeWidth={1.75} aria-hidden />
               <input
                 aria-label="What would you like to build?"
                 placeholder={
@@ -327,7 +365,7 @@ export default function BrickStudio() {
                 onChange={(e) => ideas.setPrompt(e.target.value)}
               />
               <button type="submit" aria-label="Send idea">
-                <ArrowRight size={20} />
+                <ArrowRight size={18} strokeWidth={2} aria-hidden />
               </button>
             </form>
 
@@ -347,7 +385,6 @@ export default function BrickStudio() {
                       aria-pressed={ideas.family === family.id}
                       onClick={() => {
                         ideas.setFamily(family.id);
-                        ideas.setSavedOnly(false);
                       }}
                     >
                       <span
@@ -366,80 +403,73 @@ export default function BrickStudio() {
                     </button>
                   ))}
                 </div>
-                <div className="idea-controls">
-                  <button
-                    className={`bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
-                    role="switch"
-                    aria-checked={ideas.onlyMyBricks}
-                    onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
-                  >
-                    <span className="switch-track">
-                      <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
-                    </span>
-                    <span>Use my bricks</span>
-                  </button>
-                  <button
-                    className={`saved-filter ${ideas.savedOnly ? "is-active" : ""}`}
-                    aria-pressed={ideas.savedOnly}
-                    onClick={() => ideas.setSavedOnly(!ideas.savedOnly)}
-                  >
-                    <Heart
-                      size={16}
-                      fill={ideas.savedOnly ? "currentColor" : "none"}
-                    />{" "}
-                    Saved <span>{box.collection.wishlist.length}</span>
-                  </button>
+                <div className="prompt-feedback-slot" role="status" aria-live="polite">
+                  {ideas.promptMessage ? (
+                    <p className="prompt-feedback">{ideas.promptMessage}</p>
+                  ) : null}
                 </div>
-                {ideas.promptMessage && (
-                  <p className="prompt-feedback" role="status">
-                    {ideas.promptMessage}
-                  </p>
-                )}
-                <div className="kit-pane-scroll make-samples">
-                  {ideas.ideas.length ? (
-                    <div
-                      className="idea-carousel"
-                      aria-busy={!box.hydrated}
-                      aria-label="Build ideas"
-                    >
-                      {ideas.ideas.map((idea) => (
-                        <IdeaCard
-                          key={idea.model.id}
-                          {...idea}
-                          onOpen={() => setSelected(idea.model)}
-                          onSave={() => box.toggleWish(idea.model.id)}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="gallery-empty">
-                      <Blocks size={38} />
-                      <h3>
-                        {ideas.savedOnly
-                          ? "A little room for dreams"
-                          : "Let’s find your next adventure"}
-                      </h3>
-                      <p>
-                        {ideas.savedOnly
-                          ? "Tap a heart to save an idea. You can include ideas that need more pieces, too."
-                          : "Your box doesn’t have all the pieces for these ideas yet. Add your sets, or explore something new."}
-                      </p>
-                      <div>
-                        <button
-                          className="kit-button kit-button-light"
-                          onClick={() => openBox("sets")}
-                        >
-                          Open my brick box
-                        </button>
-                        <button
-                          className="kit-button kit-button-outline"
-                          onClick={() => ideas.setOnlyMyBricks(false)}
-                        >
-                          Show more ideas <Sparkles size={16} />
-                        </button>
+                <div className="make-samples">
+                  <div className="make-samples-scroll">
+                    {ideas.ideas.length ? (
+                      <div
+                        className="idea-carousel"
+                        aria-busy={!box.hydrated}
+                        aria-label="Build ideas"
+                      >
+                        {ideas.ideas.map((idea) => (
+                          <IdeaCard
+                            key={idea.model.id}
+                            {...idea}
+                            onOpen={() => setSelected(idea.model)}
+                            onSave={() => box.toggleWish(idea.model.id)}
+                          />
+                        ))}
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="gallery-empty">
+                        <Blocks size={38} />
+                        <h3>Let’s find your next adventure</h3>
+                        {ideas.onlyInstructions ? (
+                          <>
+                            <p>
+                              None of these ideas have picture instructions
+                              yet.
+                            </p>
+                            <button
+                              className="kit-button kit-button-outline"
+                              onClick={() =>
+                                ideas.setOnlyInstructions(false)
+                              }
+                            >
+                              Show all ideas
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <p>
+                              Your box doesn’t have all the pieces for these
+                              ideas yet. Add your sets, or explore something
+                              new.
+                            </p>
+                            <div>
+                              <button
+                                className="kit-button kit-button-light"
+                                onClick={() => openBox("sets")}
+                              >
+                                Open my brick box
+                              </button>
+                              <button
+                                className="kit-button kit-button-outline"
+                                onClick={() => ideas.setOnlyMyBricks(false)}
+                              >
+                                Show more ideas <Sparkles size={16} />
+                              </button>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -453,83 +483,13 @@ export default function BrickStudio() {
               initialTab={boxTab}
               docked
               onTabChange={setBoxTab}
+              onOpenModel={setSelected}
+              needed={needed}
+              onClearNeeded={() => setNeeded(null)}
             />
           </section>
         )}
 
-        {pane === "hero" && (
-          <section className="hero-pane kit-pane-scroll">
-            <div className="studio-hero">
-              <div>
-                <p className="hero-kicker">
-                  <span /> A little imagination goes a long way
-                </p>
-                <h1>
-                  Big ideas.
-                  <br />
-                  <span>Already in your box.</span>
-                </h1>
-                <p className="hero-description">
-                  Turn the bricks you have into something
-                  <br className="desktop-break" /> you haven’t imagined yet.
-                </p>
-                <button
-                  className="hero-box-link"
-                  onClick={() => openBox("sets")}
-                >
-                  Take a peek in my brick box <ArrowRight size={18} />
-                </button>
-              </div>
-              <div className="hero-world" aria-hidden="true">
-                <span className="orbit orbit-one" />
-                <span className="orbit orbit-two" />
-                <span className="hero-star star-one">✦</span>
-                <img
-                  src={modelById["shuttle-explorer"].image}
-                  className="hero-rocket"
-                  alt=""
-                />
-                <span className="hero-star star-two">✦</span>
-                <span className="hero-caption">
-                  a box full of
-                  <br />
-                  what ifs.
-                </span>
-              </div>
-            </div>
-            <div className="collection-strip">
-              <div className="strip-icon">
-                <Blocks size={22} />
-              </div>
-              <div>
-                <strong>Your next adventure starts here.</strong>
-                <p>
-                  {box.hydrated ? (
-                    <>
-                      {ideas.readyCount} mini builds ready ·{" "}
-                      {countPieces(ideas.available)} pieces to play with
-                      {protectedCount > 0 && (
-                        <span className="protected-summary">
-                          {" "}
-                          · <LockKeyhole size={12} /> {protectedCount} kept
-                          built
-                        </span>
-                      )}
-                    </>
-                  ) : (
-                    "Opening your brick box…"
-                  )}
-                </p>
-              </div>
-              <button
-                className="kit-text-button"
-                onClick={() => openBox("sets")}
-              >
-                Edit my box <ArrowRight size={16} />
-              </button>
-            </div>
-          </section>
-        )}
       </main>
 
       {selected && (
@@ -541,6 +501,11 @@ export default function BrickStudio() {
           model={selected}
           box={box}
           onClose={() => setSelected(null)}
+          onFindPieces={() => {
+            setNeeded(selected);
+            setSelected(null);
+            setPane("box");
+          }}
           onManageBox={(tab) => {
             setSelected(null);
             openBox(tab);

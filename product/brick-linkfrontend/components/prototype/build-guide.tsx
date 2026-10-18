@@ -1,12 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import {
   ArrowRight,
-  CheckCheck,
+  BookOpen,
   ExternalLink,
-  LockKeyhole,
 } from "lucide-react";
 import type { BrickBox } from "@/hooks/use-brick-box";
 import { availablePieces, matchInventory } from "@/lib/demo/inventory";
@@ -22,6 +21,18 @@ const ModelScene = dynamic(() => import("./model-scene"), {
   ssr: false,
   loading: () => <div className="scene-loading">Opening your model…</div>,
 });
+
+const CONFETTI: (CSSProperties & Record<"--dx" | "--delay" | "--piece", string>)[] = [
+  { left: "8%", "--dx": "-36px", "--delay": "0s", "--piece": "var(--bp-blue-1)" },
+  { left: "18%", "--dx": "16px", "--delay": "0.05s", "--piece": "var(--bp-orange-1)", width: 10, height: 10, borderRadius: 99 },
+  { left: "28%", "--dx": "-18px", "--delay": "0.1s", "--piece": "var(--bp-dark-1)" },
+  { left: "38%", "--dx": "24px", "--delay": "0s", "--piece": "var(--bp-orange-1)" },
+  { left: "48%", "--dx": "-10px", "--delay": "0.08s", "--piece": "var(--bp-blue-1)", width: 10, height: 10, borderRadius: 99 },
+  { left: "58%", "--dx": "20px", "--delay": "0.04s", "--piece": "var(--bp-orange-1)" },
+  { left: "68%", "--dx": "-22px", "--delay": "0.12s", "--piece": "var(--bp-blue-1)" },
+  { left: "78%", "--dx": "28px", "--delay": "0s", "--piece": "var(--bp-dark-1)", width: 10, height: 10, borderRadius: 99 },
+  { left: "88%", "--dx": "-14px", "--delay": "0.06s", "--piece": "var(--bp-orange-1)" },
+];
 
 type Props = {
   model: Blueprint;
@@ -43,7 +54,6 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
   const [step, setStep] = useState(0);
   const lastStep =
     guide?.kind !== "pictures" || step === guide.steps.length - 1;
-  const [keepBuilt, setKeepBuilt] = useState(true);
   const [saved, setSaved] = useState(false);
   const [in3D, setIn3D] = useState(false);
   const ready = matchInventory(
@@ -54,30 +64,33 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
     <KitDialog
       open
       onClose={onClose}
-      title={saved ? "Look what you made!" : `Let’s build ${model.name}`}
-      description={
-        saved
-          ? "A new adventure for your shelf."
-          : ready
-            ? "Grab your bricks and build together."
-            : "Explore the steps. Build when your bricks are ready."
+      title={saved ? "Congrats!" : `Let’s build ${model.name}`}
+      headingAction={
+        !saved && guide?.kind === "pictures" && guide.pdfUrl ? (
+          <a
+            className="kit-icon-button"
+            href={guide.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open PDF booklet"
+          >
+            <BookOpen size={20} />
+          </a>
+        ) : null
       }
       wide
     >
       {saved ? (
-        <div className="build-celebration">
+        <div className="build-celebration is-done">
+          <div className="celebration-confetti" aria-hidden="true">
+            {CONFETTI.map((piece) => (
+              <span key={String(piece.left)} style={piece} />
+            ))}
+          </div>
           <img src={model.image} alt={model.name} />
           <h3>You made {model.name}!</h3>
-          <p>
-            {keepBuilt
-              ? "Its pieces are saved for this creation until you’re ready to remix."
-              : "Your pieces are ready for another adventure."}
-          </p>
           <button className="kit-button kit-button-dark" onClick={onShelf}>
             Visit my creations <ArrowRight size={18} />
-          </button>
-          <button className="kit-text-button" onClick={onClose}>
-            Dream up something else
           </button>
         </div>
       ) : (
@@ -89,6 +102,12 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
               background={model.background}
               step={step}
               onStep={setStep}
+              canFinish={ready}
+              onFinish={() => {
+                if (!ready || saved) return;
+                box.saveCreation(model.id, true);
+                setSaved(true);
+              }}
             />
           ) : guide?.kind === "booklet" ? (
             <BookletInstructions model={model} guide={guide} />
@@ -147,29 +166,7 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
               </p>
             </>
           )}
-          {lastStep && (
-            <label className="finish-lock">
-              <input
-                type="checkbox"
-                checked={keepBuilt}
-                onChange={(e) => setKeepBuilt(e.target.checked)}
-              />
-              <LockKeyhole size={20} />
-              <span>
-                <strong>Keep my {model.name.toLowerCase()} built</strong>
-                <small>
-                  Save these bricks for this creation until I’m ready to remix.
-                </small>
-              </span>
-            </label>
-          )}
-          {!ready && lastStep && (
-            <p className="collection-changed" role="status">
-              You can look through every step. Add or free up the missing pieces
-              in your brick box before saving this creation.
-            </p>
-          )}
-          {lastStep && (
+          {guide?.kind !== "pictures" && lastStep && (
             <div className="guide-actions">
               <button
                 className="kit-button kit-button-outline"
@@ -182,11 +179,11 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
                 disabled={!ready}
                 onClick={() => {
                   if (!ready || saved) return;
-                  box.saveCreation(model.id, keepBuilt);
+                  box.saveCreation(model.id, true);
                   setSaved(true);
                 }}
               >
-                I made it! <CheckCheck size={19} />
+                I made it
               </button>
             </div>
           )}

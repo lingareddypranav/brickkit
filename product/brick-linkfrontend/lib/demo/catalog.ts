@@ -42,7 +42,7 @@ export const families: {
   { id: "animals", label: "Animal friends", model: "cute-pug" },
   { id: "dinosaurs", label: "Dinosaurs", model: "apatosaurus" },
   { id: "dragons", label: "Dragons", model: "brick-dragon" },
-  { id: "space", label: "Out of this world", model: "shuttle-explorer" },
+  { id: "space", label: "Space", model: "shuttle-explorer" },
 ];
 
 export function findFamily(prompt: string): Family | null {

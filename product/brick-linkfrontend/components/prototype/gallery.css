@@ -24,7 +24,7 @@
 .family-choices > button > span {
   width: 65px;
   height: 65px;
-  border-radius: 50%;
+  border-radius: var(--bp-radius-ui-sm);
   display: grid;
   place-items: center;
   transition: transform 0.2s;
@@ -43,29 +43,38 @@
   align-items: center;
   gap: var(--bp-space-2);
   align-self: flex-start;
-  min-height: 0;
-  max-height: 0;
-  margin: 0;
+  min-height: var(--bp-tap);
+  margin: 0 var(--bp-space-6) var(--bp-space-2);
   padding: 0 var(--bp-space-2);
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
   color: var(--bp-dark-1);
   font-size: var(--bp-text-ui);
   font-weight: var(--bp-weight-medium);
-  border-radius: var(--bp-radius-full);
+  border-radius: var(--bp-radius-ui-sm);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition:
-    opacity 0.28s ease,
-    max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    min-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--make-chat-fade, 0.32s ease),
+    visibility var(--make-chat-fade, 0.32s ease);
 }
 
 .make-pane.is-chatting .chat-back {
-  min-height: var(--bp-tap);
-  max-height: var(--bp-tap);
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  margin: 0 var(--bp-space-6) var(--bp-space-2);
+}
+
+.make-pane:not(.is-chatting) .chat-back {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .chat-back:hover {
@@ -85,7 +94,6 @@
 
 .chat-msg--user {
   align-self: flex-end;
-  background: var(--bp-blue-1);
   color: var(--bp-light-1);
   border-radius: 16px 16px 4px 16px;
   padding: 12px 16px;
@@ -148,7 +156,7 @@
   min-height: var(--bp-tap);
   padding: 8px 16px;
   border: 1px solid var(--bp-color-border);
-  border-radius: var(--bp-radius-full);
+  border-radius: var(--bp-radius-ui-sm);
   background: var(--bp-light-1);
   color: var(--bp-dark-1);
   font-size: var(--bp-text-ui);
@@ -161,7 +169,6 @@
 }
 
 .chat-choices > button[aria-pressed="true"] {
-  background: var(--bp-blue-1);
   color: var(--bp-light-1);
   border-color: var(--bp-blue-1);
 }
@@ -171,17 +178,31 @@
 }
 
 .chat-results {
+  --idea-card-shadow-spread: 8px;
   display: flex;
   align-items: stretch;
   gap: 16px;
   width: 100%;
   overflow-x: auto;
-  padding: 4px 2px 12px;
-  scrollbar-width: thin;
+  overflow-y: visible;
+  padding: var(--bp-space-2) 2px
+    calc(var(--bp-space-5) + var(--idea-card-shadow-spread, 8px));
+  scrollbar-width: none;
+}
+.chat-results::-webkit-scrollbar {
+  display: none;
 }
 
 .chat-results .idea-card {
-  flex: 0 0 min(280px, 78vw);
+  flex: 0 0 min(300px, 82vw);
+}
+.chat-results .idea-meta {
+  gap: 10px;
+}
+.chat-results .idea-meta > button {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
 }
 
 .chat-results .idea-art {
@@ -201,28 +222,46 @@
   }
 }
 
+/* Matches landing `.lp-prompt` (hero search bar). */
 .idea-prompt {
+  --idea-prompt-h: 56px;
+  --idea-prompt-border: 1px;
+  --idea-prompt-pad: 6px;
+  --idea-prompt-radius: var(--bp-radius-ui-sm);
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
-  border: 1px solid var(--bp-color-border);
+  height: var(--idea-prompt-h);
+  padding: var(--idea-prompt-pad) var(--idea-prompt-pad) var(--idea-prompt-pad)
+    18px;
+  border: var(--idea-prompt-border) solid
+    color-mix(in srgb, var(--bp-dark-1) 16%, transparent);
+  border-radius: var(--idea-prompt-radius);
   background: var(--bp-light-1);
-  border-radius: var(--bp-radius-ui-md);
-  padding: 12px 12px 12px 20px;
   max-width: none;
+  color: var(--bp-dark-1);
+}
+.idea-prompt > svg {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
   color: var(--bp-color-fg-muted);
 }
 .idea-prompt:focus-within {
-  border-color: var(--bp-color-border);
+  border-color: color-mix(in srgb, var(--bp-dark-1) 16%, transparent);
   box-shadow: none;
   outline: none;
 }
 .idea-prompt input {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
-  min-height: var(--bp-tap);
+  min-height: 0;
+  font-family: var(--bp-font);
   font-size: var(--bp-text-ui);
+  font-weight: var(--bp-weight-regular);
+  letter-spacing: var(--bp-tracking);
+  line-height: 24px;
   background: transparent;
   color: var(--bp-dark-1);
   outline: none;
@@ -237,13 +276,23 @@
   color: var(--bp-color-fg-muted);
 }
 .idea-prompt > button {
-  width: var(--bp-tap);
-  min-height: var(--bp-tap);
-  border-radius: 50%;
-  background: var(--bp-blue-1);
-  color: var(--bp-light-1);
+  flex: 0 0 auto;
   display: grid;
   place-items: center;
+  width: calc(
+    var(--idea-prompt-h) - (var(--idea-prompt-border) * 2) -
+      (var(--idea-prompt-pad) * 2)
+  );
+  height: calc(
+    var(--idea-prompt-h) - (var(--idea-prompt-border) * 2) -
+      (var(--idea-prompt-pad) * 2)
+  );
+  border-radius: var(--idea-prompt-radius);
+  color: var(--bp-light-1);
+}
+.idea-prompt > button svg {
+  width: 18px;
+  height: 18px;
 }
 .idea-controls {
   display: flex;
@@ -262,13 +311,21 @@
   font-size: var(--bp-text-ui);
   color: var(--bp-color-fg-muted);
 }
+.kit-sidebar-switch.bricks-switch {
+  display: flex;
+  width: auto;
+  align-self: stretch;
+  justify-content: space-between;
+  gap: var(--bp-space-2);
+  color: var(--bp-color-fg);
+}
 .bricks-switch.is-on {
   color: var(--bp-dark-1);
 }
 .switch-track {
   height: 23px;
   width: 39px;
-  border-radius: 99px;
+  border-radius: var(--bp-radius-ui-sm);
   background: color-mix(in srgb, var(--bp-dark-1) 20%, var(--bp-light-1));
   padding: 3px;
   display: block;
@@ -277,14 +334,11 @@
   height: 17px;
   width: 17px;
   background: var(--bp-light-1);
-  border-radius: 50%;
+  border-radius: calc(var(--bp-radius-ui-sm) - 3px);
   display: grid;
   place-items: center;
   color: var(--bp-dark-1);
   transition: transform 0.15s;
-}
-.bricks-switch.is-on .switch-track {
-  background: var(--bp-blue-1);
 }
 .bricks-switch.is-on .switch-track > span {
   transform: translateX(16px);
@@ -310,7 +364,7 @@
 .saved-filter > span {
   font-size: 10px;
   background: color-mix(in srgb, var(--bp-dark-1) 8%, var(--bp-light-1));
-  border-radius: 20px;
+  border-radius: var(--bp-radius-ui-sm);
   padding: 3px 7px;
 }
 .results-count {
@@ -322,7 +376,7 @@
   font-size: var(--bp-text-caption);
   color: var(--bp-dark-1);
   line-height: 1.7;
-  margin: 0 0 12px;
+  margin: 0;
 }
 .gallery-empty {
   text-align: center;
@@ -390,8 +444,7 @@
     height: 56px;
   }
   .idea-prompt {
-    padding-left: 12px;
-    gap: 8px;
+    gap: 10px;
   }
   .idea-prompt input {
     font-size: 16px;
