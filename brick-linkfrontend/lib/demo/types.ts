@@ -1,5 +1,5 @@
 export type Inventory = Record<string, number>
-export type Family = "all" | "rides" | "animals" | "space"
+export type Family = "all" | "rides" | "animals" | "dinosaurs" | "dragons" | "space"
 export type Shape = "brick" | "plate" | "slope" | "round" | "wheel" | "tyre" | "axle"
 
 export interface Part {

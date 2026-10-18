@@ -66,7 +66,7 @@ model('little-bus','Sunshine bus','Room for an imaginary friend.','rides','#E8D8
 model('sunny-duck','Sunny duck','A little friend for your desk.','animals','#EBD89A',
       ['Start with two feet','Build a sunny body','Add the head','Give your duck a beak'],
       [p('3004',25,x,0,0,1) for x in [-.5,.5]]+[p('3001',14,0,3,0,2),p('3003',14,0,6,-1,3),p('3004',25,0,9,-1.5,4,90),p('3003',14,0,6,1,3)])
-model('little-dino','Little dino','A friendly, stompy sort of dinosaur.','animals','#C7D8B5',
+model('little-dino','Little dino','A friendly, stompy sort of dinosaur.','dinosaurs','#C7D8B5',
       ['Make two stompy feet','Build the body','Add a head and tail','One little dino!'],
       [p('3004',2,x,0,0,1) for x in [-.5,.5]]+[p('3001',2,0,3,0,2),p('3003',2,0,6,-1,3),p('3004',2,0,9,-1.5,4,90),p('3004',2,0,3,2.5,3,90)])
 model('little-rocket','Pocket rocket','Next stop: your very own moon.','space','#CFCAE5',
@@ -75,6 +75,32 @@ model('little-rocket','Pocket rocket','Next stop: your very own moon.','space','
 model('moon-rover','Moon explorer','Eight wheels for very big moon missions.','space','#C5D5E9',
       ['Make a long base','Add eight moon wheels','Build the explorers cabin','Add a bright roof','Your mission can begin!'],
       chassis(8,8)+[p('3001',1,0,2,z,3) for z in [-2,2]]+[p('3020',15,0,5,2,4),p('3003',15,0,5,-3,4),p('3003',14,0,5,-1,4),p('3020',15,0,8,-2,5)])
+
+model('long-neck','Leafy long-neck','Tall enough to nibble the clouds.','dinosaurs','#C5D6AB',
+      ['Start with stompy feet','Add a green body','Build a tall neck','A head above the trees'],
+      [p('3004',2,x,0,z,1) for x in [-.5,.5] for z in [-1,1]]+[p('3001',2,0,3,0,2),p('3003',2,0,6,-1,3),p('3003',2,0,9,-1,3),p('3004',2,0,12,-1.5,4,90),p('3004',2,0,3,2.5,2,90)])
+model('triceratops','Tiny triceratops','Three horns. One very kind dinosaur.','dinosaurs','#D4D2B4',
+      ['Make four little feet','Build a sturdy body','Add a big head','Give your dino three horns'],
+      [p('3005',2,x,0,z,1) for x in [-.5,.5] for z in [-1.5,1.5]]+[p('3001',2,0,3,0,2),p('3003',2,0,6,-1,3),p('3003',14,0,9,-1,3),p('3062b',15,-.5,12,-1.5,4),p('3062b',15,.5,12,-1.5,4),p('3062b',15,0,12,-.5,4)])
+
+def dragon(color):
+    return [p('3004',color,x,0,0,1) for x in [-.5,.5]]+[p('3001',color,0,3,0,2),p('3003',color,0,6,-1,2),p('3020',color,-2,6,1,3,90),p('3020',color,2,6,1,3,90),p('3004',color,0,9,-1.5,4,90),p('3039',14,0,4,3,4)]
+model('pocket-dragon','Fern the dragon','A pocket-sized keeper of tiny treasures.','dragons','#C8D7B7',
+      ['Give Fern two feet','Build a dragon body','Add two mighty wings','A nose and a golden tail'],dragon(2))
+model('ember-dragon','Ember the dragon','A little firecracker with a friendly face.','dragons','#E2C1AD',
+      ['Make two little feet','Build Ember’s body','Time for dragon wings','Add the finishing touches'],dragon(4))
+model('star-skimmer','Star skimmer','A spaceship for your next daydream.','space','#C4D1E4',
+      ['Start with the spaceship base','Add a blue body','Spread the wings','Put on the cockpit'],
+      [p('3795',15,0,0,0,1),p('3001',1,0,1,0,2),p('3020',15,-2,4,0,3,90),p('3020',15,2,4,0,3,90),p('3039',4,0,5,-1,4),p('3003',15,0,5,1,4)])
+model('moon-shuttle','Moon shuttle','A little ship with a very big destination.','space','#D3C9E0',
+      ['Make a launch-ready base','Add a bright body','Give your shuttle wings','Close the cabin'],
+      [p('3795',15,0,0,0,1),p('3001',4,0,1,0,2),p('3020',1,-2,4,1,3,90),p('3020',1,2,4,1,3,90),p('3039',15,0,4,-1,4),p('3003',14,0,5,1,4)])
+model('little-pup','Button the puppy','Always ready for a little adventure.','animals','#DCC9AC',
+      ['Make four tiny paws','Build Button’s body','Add a little head','Give Button two ears'],
+      [p('3005',25,x,0,z,1) for x in [-.5,.5] for z in [-1.5,1.5]]+[p('3001',25,0,3,0,2),p('3003',25,0,6,-1,3),p('3005',0,-.5,9,-.5,4),p('3005',0,.5,9,-.5,4)])
+model('tiny-tug','Tiny tugboat','Set sail across the living-room sea.','rides','#BFD5D5',
+      ['Make a little hull','Build the blue deck','Add a cabin','All aboard!'],
+      [p('3795',15,0,0,0,1),p('3001',1,0,1,0,2),p('3003',15,0,4,0,3),p('3062b',4,0,7,.5,4),p('3039',1,0,4,-2,4)])
 
 keys = set(k for m in models for k in m['inventory'])
 # A few extra colour choices make the piece picker useful without a giant catalogue.

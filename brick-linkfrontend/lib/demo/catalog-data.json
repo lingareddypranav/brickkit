@@ -37,6 +37,18 @@
       "shape": "brick"
     },
     {
+      "key": "3001:25",
+      "part": "3001",
+      "color": 25,
+      "name": "Big brick",
+      "colorName": "Orange",
+      "hex": "#FE8A18",
+      "width": 2,
+      "depth": 4,
+      "height": 3,
+      "shape": "brick"
+    },
+    {
       "key": "3001:4",
       "part": "3001",
       "color": 4,
@@ -91,6 +103,18 @@
       "name": "Square brick",
       "colorName": "Green",
       "hex": "#237841",
+      "width": 2,
+      "depth": 2,
+      "height": 3,
+      "shape": "brick"
+    },
+    {
+      "key": "3003:25",
+      "part": "3003",
+      "color": 25,
+      "name": "Square brick",
+      "colorName": "Orange",
+      "hex": "#FE8A18",
       "width": 2,
       "depth": 2,
       "height": 3,
@@ -169,12 +193,60 @@
       "shape": "brick"
     },
     {
+      "key": "3005:0",
+      "part": "3005",
+      "color": 0,
+      "name": "Tiny brick",
+      "colorName": "Black",
+      "hex": "#05131D",
+      "width": 1,
+      "depth": 1,
+      "height": 3,
+      "shape": "brick"
+    },
+    {
+      "key": "3005:2",
+      "part": "3005",
+      "color": 2,
+      "name": "Tiny brick",
+      "colorName": "Green",
+      "hex": "#237841",
+      "width": 1,
+      "depth": 1,
+      "height": 3,
+      "shape": "brick"
+    },
+    {
+      "key": "3005:25",
+      "part": "3005",
+      "color": 25,
+      "name": "Tiny brick",
+      "colorName": "Orange",
+      "hex": "#FE8A18",
+      "width": 1,
+      "depth": 1,
+      "height": 3,
+      "shape": "brick"
+    },
+    {
       "key": "3020:0",
       "part": "3020",
       "color": 0,
       "name": "Flat brick",
       "colorName": "Black",
       "hex": "#05131D",
+      "width": 2,
+      "depth": 4,
+      "height": 1,
+      "shape": "plate"
+    },
+    {
+      "key": "3020:1",
+      "part": "3020",
+      "color": 1,
+      "name": "Flat brick",
+      "colorName": "Blue",
+      "hex": "#0055BF",
       "width": 2,
       "depth": 4,
       "height": 1,
@@ -191,6 +263,54 @@
       "depth": 4,
       "height": 1,
       "shape": "plate"
+    },
+    {
+      "key": "3020:2",
+      "part": "3020",
+      "color": 2,
+      "name": "Flat brick",
+      "colorName": "Green",
+      "hex": "#237841",
+      "width": 2,
+      "depth": 4,
+      "height": 1,
+      "shape": "plate"
+    },
+    {
+      "key": "3020:4",
+      "part": "3020",
+      "color": 4,
+      "name": "Flat brick",
+      "colorName": "Red",
+      "hex": "#C91A09",
+      "width": 2,
+      "depth": 4,
+      "height": 1,
+      "shape": "plate"
+    },
+    {
+      "key": "3039:1",
+      "part": "3039",
+      "color": 1,
+      "name": "Roof brick",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "width": 2,
+      "depth": 2,
+      "height": 3,
+      "shape": "slope"
+    },
+    {
+      "key": "3039:14",
+      "part": "3039",
+      "color": 14,
+      "name": "Roof brick",
+      "colorName": "Yellow",
+      "hex": "#F2CD37",
+      "width": 2,
+      "depth": 2,
+      "height": 3,
+      "shape": "slope"
     },
     {
       "key": "3039:15",
@@ -215,6 +335,30 @@
       "depth": 2,
       "height": 3,
       "shape": "slope"
+    },
+    {
+      "key": "3062b:15",
+      "part": "3062b",
+      "color": 15,
+      "name": "Round brick",
+      "colorName": "White",
+      "hex": "#FFFFFF",
+      "width": 1,
+      "depth": 1,
+      "height": 3,
+      "shape": "round"
+    },
+    {
+      "key": "3062b:4",
+      "part": "3062b",
+      "color": 4,
+      "name": "Round brick",
+      "colorName": "Red",
+      "hex": "#C91A09",
+      "width": 1,
+      "depth": 1,
+      "height": 3,
+      "shape": "round"
     },
     {
       "key": "3795:15",
@@ -1737,7 +1881,7 @@
       "id": "little-dino",
       "name": "Little dino",
       "description": "A friendly, stompy sort of dinosaur.",
-      "family": "animals",
+      "family": "dinosaurs",
       "tags": [],
       "background": "#C7D8B5",
       "image": "/demo/models/little-dino.svg",
@@ -2083,6 +2227,635 @@
         "3003:15": 1,
         "3003:14": 1
       }
+    },
+    {
+      "id": "long-neck",
+      "name": "Leafy long-neck",
+      "description": "Tall enough to nibble the clouds.",
+      "family": "dinosaurs",
+      "tags": [],
+      "background": "#C5D6AB",
+      "image": "/demo/models/long-neck.svg",
+      "minutes": 8,
+      "steps": [
+        "Start with stompy feet",
+        "Add a green body",
+        "Build a tall neck",
+        "A head above the trees"
+      ],
+      "placements": [
+        {
+          "key": "3004:2",
+          "x": -0.5,
+          "y": 0,
+          "z": -1,
+          "step": 1
+        },
+        {
+          "key": "3004:2",
+          "x": -0.5,
+          "y": 0,
+          "z": 1,
+          "step": 1
+        },
+        {
+          "key": "3004:2",
+          "x": 0.5,
+          "y": 0,
+          "z": -1,
+          "step": 1
+        },
+        {
+          "key": "3004:2",
+          "x": 0.5,
+          "y": 0,
+          "z": 1,
+          "step": 1
+        },
+        {
+          "key": "3001:2",
+          "x": 0,
+          "y": 3,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:2",
+          "x": 0,
+          "y": 6,
+          "z": -1,
+          "step": 3
+        },
+        {
+          "key": "3003:2",
+          "x": 0,
+          "y": 9,
+          "z": -1,
+          "step": 3
+        },
+        {
+          "key": "3004:2",
+          "x": 0,
+          "y": 12,
+          "z": -1.5,
+          "step": 4,
+          "rotate": 90
+        },
+        {
+          "key": "3004:2",
+          "x": 0,
+          "y": 3,
+          "z": 2.5,
+          "step": 2,
+          "rotate": 90
+        }
+      ],
+      "inventory": {
+        "3004:2": 6,
+        "3001:2": 1,
+        "3003:2": 2
+      }
+    },
+    {
+      "id": "triceratops",
+      "name": "Tiny triceratops",
+      "description": "Three horns. One very kind dinosaur.",
+      "family": "dinosaurs",
+      "tags": [],
+      "background": "#D4D2B4",
+      "image": "/demo/models/triceratops.svg",
+      "minutes": 8,
+      "steps": [
+        "Make four little feet",
+        "Build a sturdy body",
+        "Add a big head",
+        "Give your dino three horns"
+      ],
+      "placements": [
+        {
+          "key": "3005:2",
+          "x": -0.5,
+          "y": 0,
+          "z": -1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:2",
+          "x": -0.5,
+          "y": 0,
+          "z": 1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:2",
+          "x": 0.5,
+          "y": 0,
+          "z": -1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:2",
+          "x": 0.5,
+          "y": 0,
+          "z": 1.5,
+          "step": 1
+        },
+        {
+          "key": "3001:2",
+          "x": 0,
+          "y": 3,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:2",
+          "x": 0,
+          "y": 6,
+          "z": -1,
+          "step": 3
+        },
+        {
+          "key": "3003:14",
+          "x": 0,
+          "y": 9,
+          "z": -1,
+          "step": 3
+        },
+        {
+          "key": "3062b:15",
+          "x": -0.5,
+          "y": 12,
+          "z": -1.5,
+          "step": 4
+        },
+        {
+          "key": "3062b:15",
+          "x": 0.5,
+          "y": 12,
+          "z": -1.5,
+          "step": 4
+        },
+        {
+          "key": "3062b:15",
+          "x": 0,
+          "y": 12,
+          "z": -0.5,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3005:2": 4,
+        "3001:2": 1,
+        "3003:2": 1,
+        "3003:14": 1,
+        "3062b:15": 3
+      }
+    },
+    {
+      "id": "pocket-dragon",
+      "name": "Fern the dragon",
+      "description": "A pocket-sized keeper of tiny treasures.",
+      "family": "dragons",
+      "tags": [],
+      "background": "#C8D7B7",
+      "image": "/demo/models/pocket-dragon.svg",
+      "minutes": 8,
+      "steps": [
+        "Give Fern two feet",
+        "Build a dragon body",
+        "Add two mighty wings",
+        "A nose and a golden tail"
+      ],
+      "placements": [
+        {
+          "key": "3004:2",
+          "x": -0.5,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3004:2",
+          "x": 0.5,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3001:2",
+          "x": 0,
+          "y": 3,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:2",
+          "x": 0,
+          "y": 6,
+          "z": -1,
+          "step": 2
+        },
+        {
+          "key": "3020:2",
+          "x": -2,
+          "y": 6,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3020:2",
+          "x": 2,
+          "y": 6,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3004:2",
+          "x": 0,
+          "y": 9,
+          "z": -1.5,
+          "step": 4,
+          "rotate": 90
+        },
+        {
+          "key": "3039:14",
+          "x": 0,
+          "y": 4,
+          "z": 3,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3004:2": 3,
+        "3001:2": 1,
+        "3003:2": 1,
+        "3020:2": 2,
+        "3039:14": 1
+      }
+    },
+    {
+      "id": "ember-dragon",
+      "name": "Ember the dragon",
+      "description": "A little firecracker with a friendly face.",
+      "family": "dragons",
+      "tags": [],
+      "background": "#E2C1AD",
+      "image": "/demo/models/ember-dragon.svg",
+      "minutes": 8,
+      "steps": [
+        "Make two little feet",
+        "Build Ember\u2019s body",
+        "Time for dragon wings",
+        "Add the finishing touches"
+      ],
+      "placements": [
+        {
+          "key": "3004:4",
+          "x": -0.5,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3004:4",
+          "x": 0.5,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3001:4",
+          "x": 0,
+          "y": 3,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:4",
+          "x": 0,
+          "y": 6,
+          "z": -1,
+          "step": 2
+        },
+        {
+          "key": "3020:4",
+          "x": -2,
+          "y": 6,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3020:4",
+          "x": 2,
+          "y": 6,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3004:4",
+          "x": 0,
+          "y": 9,
+          "z": -1.5,
+          "step": 4,
+          "rotate": 90
+        },
+        {
+          "key": "3039:14",
+          "x": 0,
+          "y": 4,
+          "z": 3,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3004:4": 3,
+        "3001:4": 1,
+        "3003:4": 1,
+        "3020:4": 2,
+        "3039:14": 1
+      }
+    },
+    {
+      "id": "star-skimmer",
+      "name": "Star skimmer",
+      "description": "A spaceship for your next daydream.",
+      "family": "space",
+      "tags": [],
+      "background": "#C4D1E4",
+      "image": "/demo/models/star-skimmer.svg",
+      "minutes": 8,
+      "steps": [
+        "Start with the spaceship base",
+        "Add a blue body",
+        "Spread the wings",
+        "Put on the cockpit"
+      ],
+      "placements": [
+        {
+          "key": "3795:15",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3001:1",
+          "x": 0,
+          "y": 1,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3020:15",
+          "x": -2,
+          "y": 4,
+          "z": 0,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3020:15",
+          "x": 2,
+          "y": 4,
+          "z": 0,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3039:4",
+          "x": 0,
+          "y": 5,
+          "z": -1,
+          "step": 4
+        },
+        {
+          "key": "3003:15",
+          "x": 0,
+          "y": 5,
+          "z": 1,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3795:15": 1,
+        "3001:1": 1,
+        "3020:15": 2,
+        "3039:4": 1,
+        "3003:15": 1
+      }
+    },
+    {
+      "id": "moon-shuttle",
+      "name": "Moon shuttle",
+      "description": "A little ship with a very big destination.",
+      "family": "space",
+      "tags": [],
+      "background": "#D3C9E0",
+      "image": "/demo/models/moon-shuttle.svg",
+      "minutes": 8,
+      "steps": [
+        "Make a launch-ready base",
+        "Add a bright body",
+        "Give your shuttle wings",
+        "Close the cabin"
+      ],
+      "placements": [
+        {
+          "key": "3795:15",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3001:4",
+          "x": 0,
+          "y": 1,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3020:1",
+          "x": -2,
+          "y": 4,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3020:1",
+          "x": 2,
+          "y": 4,
+          "z": 1,
+          "step": 3,
+          "rotate": 90
+        },
+        {
+          "key": "3039:15",
+          "x": 0,
+          "y": 4,
+          "z": -1,
+          "step": 4
+        },
+        {
+          "key": "3003:14",
+          "x": 0,
+          "y": 5,
+          "z": 1,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3795:15": 1,
+        "3001:4": 1,
+        "3020:1": 2,
+        "3039:15": 1,
+        "3003:14": 1
+      }
+    },
+    {
+      "id": "little-pup",
+      "name": "Button the puppy",
+      "description": "Always ready for a little adventure.",
+      "family": "animals",
+      "tags": [],
+      "background": "#DCC9AC",
+      "image": "/demo/models/little-pup.svg",
+      "minutes": 8,
+      "steps": [
+        "Make four tiny paws",
+        "Build Button\u2019s body",
+        "Add a little head",
+        "Give Button two ears"
+      ],
+      "placements": [
+        {
+          "key": "3005:25",
+          "x": -0.5,
+          "y": 0,
+          "z": -1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:25",
+          "x": -0.5,
+          "y": 0,
+          "z": 1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:25",
+          "x": 0.5,
+          "y": 0,
+          "z": -1.5,
+          "step": 1
+        },
+        {
+          "key": "3005:25",
+          "x": 0.5,
+          "y": 0,
+          "z": 1.5,
+          "step": 1
+        },
+        {
+          "key": "3001:25",
+          "x": 0,
+          "y": 3,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:25",
+          "x": 0,
+          "y": 6,
+          "z": -1,
+          "step": 3
+        },
+        {
+          "key": "3005:0",
+          "x": -0.5,
+          "y": 9,
+          "z": -0.5,
+          "step": 4
+        },
+        {
+          "key": "3005:0",
+          "x": 0.5,
+          "y": 9,
+          "z": -0.5,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3005:25": 4,
+        "3001:25": 1,
+        "3003:25": 1,
+        "3005:0": 2
+      }
+    },
+    {
+      "id": "tiny-tug",
+      "name": "Tiny tugboat",
+      "description": "Set sail across the living-room sea.",
+      "family": "rides",
+      "tags": [],
+      "background": "#BFD5D5",
+      "image": "/demo/models/tiny-tug.svg",
+      "minutes": 8,
+      "steps": [
+        "Make a little hull",
+        "Build the blue deck",
+        "Add a cabin",
+        "All aboard!"
+      ],
+      "placements": [
+        {
+          "key": "3795:15",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "step": 1
+        },
+        {
+          "key": "3001:1",
+          "x": 0,
+          "y": 1,
+          "z": 0,
+          "step": 2
+        },
+        {
+          "key": "3003:15",
+          "x": 0,
+          "y": 4,
+          "z": 0,
+          "step": 3
+        },
+        {
+          "key": "3062b:4",
+          "x": 0,
+          "y": 7,
+          "z": 0.5,
+          "step": 4
+        },
+        {
+          "key": "3039:1",
+          "x": 0,
+          "y": 4,
+          "z": -2,
+          "step": 4
+        }
+      ],
+      "inventory": {
+        "3795:15": 1,
+        "3001:1": 1,
+        "3003:15": 1,
+        "3062b:4": 1,
+        "3039:1": 1
+      }
     }
   ],
   "sample": {
@@ -2102,10 +2875,21 @@
       "4600:0": 2,
       "4624:71": 4,
       "3001:14": 1,
-      "3004:2": 4,
+      "3004:2": 6,
       "3003:15": 2,
       "3003:4": 1,
-      "3039:4": 1
+      "3039:4": 1,
+      "3005:2": 4,
+      "3062b:15": 3,
+      "3020:2": 2,
+      "3039:14": 1,
+      "3004:4": 3,
+      "3020:4": 2,
+      "3020:1": 2,
+      "3005:25": 1,
+      "3001:25": 1,
+      "3003:25": 1,
+      "3062b:4": 1
     },
     "creations": [],
     "wishlist": []

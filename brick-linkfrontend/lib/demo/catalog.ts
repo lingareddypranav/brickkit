@@ -14,6 +14,8 @@ export const families: { id: Family; label: string; model: string }[] = [
   { id: "all", label: "Surprise me", model: "pocket-racer" },
   { id: "rides", label: "Things that go", model: "pocket-racer" },
   { id: "animals", label: "Animal friends", model: "sunny-duck" },
+  { id: "dinosaurs", label: "Dinosaurs", model: "long-neck" },
+  { id: "dragons", label: "Dragons", model: "pocket-dragon" },
   { id: "space", label: "Out of this world", model: "little-rocket" },
 ]
 
@@ -21,8 +23,10 @@ export function findFamily(prompt: string): Family | null {
   const words = prompt.toLowerCase().match(/[a-z]+/g) ?? []
   const aliases: Record<string, Family> = {
     car: "rides", cars: "rides", race: "rides", racer: "rides", truck: "rides", boat: "rides", bus: "rides", vehicle: "rides",
-    animal: "animals", animals: "animals", duck: "animals", ducks: "animals", dog: "animals", cat: "animals", bird: "animals", dinosaur: "animals", dino: "animals", dragon: "animals",
-    space: "space", rocket: "space", rockets: "space", spaceship: "space", rover: "space", moon: "space", astronaut: "space",
+    animal: "animals", animals: "animals", duck: "animals", ducks: "animals", dog: "animals", cat: "animals", bird: "animals",
+    dinosaur: "dinosaurs", dinosaurs: "dinosaurs", dinasour: "dinosaurs", dinasours: "dinosaurs", dino: "dinosaurs", trex: "dinosaurs", triceratops: "dinosaurs",
+    dragon: "dragons", dragons: "dragons",
+    space: "space", rocket: "space", rockets: "space", spaceship: "space", spaceships: "space", shuttle: "space", rover: "space", moon: "space", astronaut: "space",
   }
   return words.map(word => aliases[word]).find(Boolean) ?? null
 }

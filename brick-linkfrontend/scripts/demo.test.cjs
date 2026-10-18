@@ -4,13 +4,40 @@ const { models, sets, sampleCollection, emptyCollection } = require('../lib/demo
 const { availablePieces, matchInventory, recommendSets, countPieces } = require('../lib/demo/inventory.ts')
 const { readCollection } = require('../lib/demo/state.ts')
 
-test('sample gives five ready builds and the rover needs exactly four tyres', () => {
+test('sample makes the small builds ready and the rover needs exactly four tyres', () => {
   const available = availablePieces(sampleCollection)
   for (const model of models) {
     const match = matchInventory(model.inventory, available)
     if (model.id === 'moon-rover') assert.deepEqual(match.missing, { '87414:0': 4 })
     else assert.equal(match.ready, true, model.id)
   }
+})
+test('catalogue includes distinct dinosaurs, dragons, and spaceships', () => {
+  const { findFamily } = require('../lib/demo/catalog.ts')
+  const { selectIdeas } = require('../lib/demo/selectors.ts')
+  for (const family of ['dinosaurs', 'dragons', 'space']) {
+    const ideas = selectIdeas(sampleCollection, {family,onlyMyBricks:false,savedOnly:false})
+    assert.ok(ideas.length >= 2, family)
+    assert.ok(ideas.every(x => x.model.family === family))
+  }
+  assert.equal(findFamily('I want dragons'), 'dragons')
+  assert.equal(findFamily('two spaceships'), 'space')
+  assert.equal(findFamily('dinasours please'), 'dinosaurs')
+  assert.equal(findFamily('a birthday cake'), null)
+})
+test('strict filtering excludes near matches; saved-only filtering preserves ownership', () => {
+  const { selectIdeas } = require('../lib/demo/selectors.ts')
+  const box = structuredClone(sampleCollection)
+  box.wishlist = ['moon-rover']
+  assert.deepEqual(selectIdeas(box,{family:'all',onlyMyBricks:true,savedOnly:true}), [])
+  assert.equal(selectIdeas(box,{family:'all',onlyMyBricks:false,savedOnly:true})[0].model.id,'moon-rover')
+})
+test('a two-set suggestion appears when no single set closes the two different gaps', () => {
+  const rover = models.find(m => m.id === 'moon-rover')
+  const idea = {...rover,inventory:{'87414:0':8,'3001:1':7}}
+  const suggestions = recommendSets(idea,availablePieces(sampleCollection))
+  assert.ok(suggestions.some(s => s.sets.length === 2 && s.remaining === 0))
+  assert.ok(!suggestions.some(s => s.sets.length === 1 && s.remaining === 0))
 })
 test('adding the four loose tyres unlocks the same rover without changing other stock', () => {
   const box = structuredClone(sampleCollection)
