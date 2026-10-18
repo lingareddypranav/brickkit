@@ -2,11 +2,13 @@
 import {
   ArrowRight,
   Blocks,
+  BookOpen,
   Check,
   Clock3,
   Heart,
   Sparkles,
 } from "lucide-react";
+import { instructionsFor } from "@/lib/demo/instructions";
 import type { Blueprint, Match } from "@/lib/demo/types";
 
 /** Pure presentation: inventory decisions and persistence live outside this card. */
@@ -55,6 +57,11 @@ export function IdeaCard({
           </h3>
           <p>{model.description}</p>
         </div>
+        {instructionsFor(model.id) && (
+          <button className="instructions-ready" onClick={onOpen}>
+            <BookOpen size={15} /> Picture instructions ready
+          </button>
+        )}
         <div className="idea-meta">
           <span>
             <Blocks size={18} /> {match.total} pieces

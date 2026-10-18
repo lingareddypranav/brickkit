@@ -546,6 +546,7 @@ export default function BrickStudio() {
       )}
       {building && (
         <BuildGuide
+          key={building.id}
           model={building}
           box={box}
           onClose={() => setBuilding(null)}

@@ -45,7 +45,7 @@ test("every gallery build is a real, attributed OMR file with a rendered preview
     assert.ok(file.includes(`0 !LICENSE ${model.source.license}`));
     assert.ok(!model.image.endsWith(".svg"));
     assert.deepEqual(model.placements, []);
-    assert.deepEqual(model.steps, []); // No fabricated recipe instructions.
+    assert.deepEqual(model.steps, []); // Cached OMR guides use the separate instruction index.
   }
 });
 
@@ -269,4 +269,62 @@ test("the extracted dragon only reserves its eight assembly pieces", () => {
     !Object.keys(dragon.inventory).some((key) => key.startsWith("3001:")),
   );
   assert.ok(countPieces(modelById["dragon-wagon"].inventory) > 8);
+});
+
+test("story demo builds have complete local picture guides with matching source files", () => {
+  const crypto = require("node:crypto");
+  const { instructionsFor } = require("../lib/demo/instructions.ts");
+  for (const id of [
+    "dragon-friend",
+    "green-dinosaur",
+    "mini-shuttle",
+    "space-transport",
+  ]) {
+    const guide = instructionsFor(id);
+    assert.ok(guide && guide.steps.length > 1, id);
+    const source = fs.readFileSync(
+      path.join(__dirname, "../public", modelById[id].modelUrl),
+    );
+    assert.equal(
+      guide.sourceSha256,
+      crypto.createHash("sha256").update(source).digest("hex"),
+    );
+    const prepared = fs.readFileSync(
+      path.join(__dirname, "../public", guide.modelUrl),
+      "utf8",
+    );
+    const main = prepared.split("0 FILE ")[1];
+    assert.equal(
+      (main.match(/^0 STEP$/gm) ?? []).length + 1,
+      guide.steps.length,
+    );
+    const pictureHashes = new Set();
+    for (const step of guide.steps) {
+      assert.ok(step.title && step.pieces.length);
+      const picture = fs.readFileSync(
+        path.join(__dirname, "../public", step.image),
+      );
+      assert.equal(picture.subarray(1, 4).toString(), "PNG");
+      pictureHashes.add(
+        crypto.createHash("sha256").update(picture).digest("hex"),
+      );
+      for (const piece of step.pieces) {
+        assert.ok(piece.count > 0 && piece.name);
+        assert.ok(
+          !/^\d+$/.test(piece.color),
+          `Missing colour name: ${piece.id}`,
+        );
+        assert.ok(
+          fs.statSync(path.join(__dirname, "../public", piece.image)).size >
+            100,
+        );
+      }
+    }
+    assert.equal(
+      pictureHashes.size,
+      guide.steps.length,
+      "Repeated final pictures cannot stand in for missing steps",
+    );
+  }
+  assert.equal(instructionsFor("not-a-prepared-model"), undefined);
 });

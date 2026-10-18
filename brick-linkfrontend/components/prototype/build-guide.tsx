@@ -11,6 +11,9 @@ import {
 import type { BrickBox } from "@/hooks/use-brick-box";
 import { availablePieces, matchInventory } from "@/lib/demo/inventory";
 import type { Blueprint } from "@/lib/demo/types";
+import { instructionsFor } from "@/lib/demo/instructions";
+import { PictureInstructions } from "./picture-instructions";
+import "./guide.css";
 import { KitDialog } from "./kit-dialog";
 import { LegacyBuildGuide } from "./legacy-build-guide";
 
@@ -35,6 +38,9 @@ export function BuildGuide(props: Props) {
 }
 
 function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
+  const guide = instructionsFor(model.id);
+  const [step, setStep] = useState(0);
+  const lastStep = !guide || step === guide.steps.length - 1;
   const [keepBuilt, setKeepBuilt] = useState(true);
   const [saved, setSaved] = useState(false);
   const [in3D, setIn3D] = useState(false);
@@ -50,7 +56,9 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
       description={
         saved
           ? "A new adventure for your shelf."
-          : "Grab your bricks and build together."
+          : ready
+            ? "Grab your bricks and build together."
+            : "Explore the steps. Build when your bricks are ready."
       }
       wide
     >
@@ -72,86 +80,112 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
         </div>
       ) : (
         <>
-          <div className="guide-title">
-            <div>
-              <span className="kit-eyebrow">
-                SET {model.source!.setId.split("-")[0]}
-              </span>
-              <h3>Your building buddy</h3>
-            </div>
-            <button className="kit-text-button" onClick={() => setIn3D(!in3D)}>
-              {in3D ? "Picture view" : "Spin in 3D"}
-            </button>
-          </div>
-          <div className="guide-stage" style={{ background: model.background }}>
-            {in3D ? (
-              <ModelScene model={model} />
-            ) : (
-              <img src={model.image} alt={model.name} />
-            )}
-          </div>
-          <p className="omr-guide-intro">
-            Open the building instructions with your building buddy. You can
-            keep this model beside you and turn it around in 3D while you build.
-          </p>
-          <div className="omr-instructions">
-            <a
-              className="kit-button kit-button-outline"
-              href={model.source!.instructionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Find LEGO instructions <ExternalLink size={16} />
-            </a>
-            <a
-              className="kit-text-button"
-              href={model.source!.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See the original model <ExternalLink size={14} />
-            </a>
-          </div>
-          <p className="guide-tip">
-            Choose this model’s version in the instructions. Some older sets may
-            not have a booklet online.
-          </p>
-          <label className="finish-lock">
-            <input
-              type="checkbox"
-              checked={keepBuilt}
-              onChange={(e) => setKeepBuilt(e.target.checked)}
+          {guide ? (
+            <PictureInstructions
+              guide={guide}
+              name={model.name}
+              background={model.background}
+              step={step}
+              onStep={setStep}
             />
-            <LockKeyhole size={20} />
-            <span>
-              <strong>Keep my {model.name.toLowerCase()} built</strong>
-              <small>
-                Save these bricks for this creation until I’m ready to remix.
-              </small>
-            </span>
-          </label>
-          {!ready && (
+          ) : (
+            <>
+              <div className="guide-title">
+                <div>
+                  <span className="kit-eyebrow">
+                    SET {model.source!.setId.split("-")[0]}
+                  </span>
+                  <h3>Your building buddy</h3>
+                </div>
+                <button
+                  className="kit-text-button"
+                  onClick={() => setIn3D(!in3D)}
+                >
+                  {in3D ? "Picture view" : "Spin in 3D"}
+                </button>
+              </div>
+              <div
+                className="guide-stage"
+                style={{ background: model.background }}
+              >
+                {in3D ? (
+                  <ModelScene model={model} />
+                ) : (
+                  <img src={model.image} alt={model.name} />
+                )}
+              </div>
+              <p className="omr-guide-intro">
+                Open the building instructions with your building buddy. You can
+                keep this model beside you and turn it around in 3D while you
+                build.
+              </p>
+              <div className="omr-instructions">
+                <a
+                  className="kit-button kit-button-outline"
+                  href={model.source!.instructionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Find LEGO instructions <ExternalLink size={16} />
+                </a>
+                <a
+                  className="kit-text-button"
+                  href={model.source!.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  See the original model <ExternalLink size={14} />
+                </a>
+              </div>
+              <p className="guide-tip">
+                Choose this model’s version in the instructions. Some older sets
+                may not have a booklet online.
+              </p>
+            </>
+          )}
+          {lastStep && (
+            <label className="finish-lock">
+              <input
+                type="checkbox"
+                checked={keepBuilt}
+                onChange={(e) => setKeepBuilt(e.target.checked)}
+              />
+              <LockKeyhole size={20} />
+              <span>
+                <strong>Keep my {model.name.toLowerCase()} built</strong>
+                <small>
+                  Save these bricks for this creation until I’m ready to remix.
+                </small>
+              </span>
+            </label>
+          )}
+          {!ready && lastStep && (
             <p className="collection-changed" role="status">
-              Your brick box changed. Make these pieces available again before
-              saving your creation.
+              You can look through every step. Add or free up the missing pieces
+              in your brick box before saving this creation.
             </p>
           )}
-          <div className="guide-actions">
-            <button className="kit-button kit-button-outline" onClick={onClose}>
-              Build later
-            </button>
-            <button
-              className="kit-button kit-button-dark"
-              disabled={!ready}
-              onClick={() => {
-                if (!ready || saved) return;
-                box.saveCreation(model.id, keepBuilt);
-                setSaved(true);
-              }}
-            >
-              I made it! <CheckCheck size={19} />
-            </button>
-          </div>
+          {lastStep && (
+            <div className="guide-actions">
+              <button
+                className="kit-button kit-button-outline"
+                onClick={onClose}
+              >
+                Build later
+              </button>
+              <button
+                className="kit-button kit-button-dark"
+                disabled={!ready}
+                onClick={() => {
+                  if (!ready || saved) return;
+                  box.saveCreation(model.id, keepBuilt);
+                  setSaved(true);
+                }}
+              >
+                I made it! <CheckCheck size={19} />
+              </button>
+            </div>
+          )}
         </>
       )}
     </KitDialog>

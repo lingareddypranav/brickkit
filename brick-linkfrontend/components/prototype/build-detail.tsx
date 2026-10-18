@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  BookOpen,
   Check,
   ExternalLink,
   Heart,
@@ -19,6 +20,7 @@ import {
   matchInventory,
   recommendSets,
 } from "@/lib/demo/inventory";
+import { instructionsFor } from "@/lib/demo/instructions";
 import { protectedSources } from "@/lib/demo/selectors";
 import type { Blueprint } from "@/lib/demo/types";
 import { KitDialog } from "./kit-dialog";
@@ -126,6 +128,11 @@ export function BuildDetail({
               }}
             >
               <ShoppingBag size={18} /> Find missing pieces
+            </button>
+          )}
+          {instructionsFor(model.id) && onBuild && (
+            <button className="kit-button kit-button-outline" onClick={onBuild}>
+              <BookOpen size={18} /> View instructions
             </button>
           )}
           <button
