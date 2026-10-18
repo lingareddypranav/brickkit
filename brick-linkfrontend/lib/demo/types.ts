@@ -26,6 +26,7 @@ export interface Part {
   depth: number;
   height: number;
   shape: Shape;
+  image?: string;
 }
 export interface Placement {
   key: string;
@@ -47,6 +48,19 @@ export interface Blueprint {
   steps: string[];
   placements: Placement[];
   inventory: Inventory;
+  modelUrl?: string;
+  source?: {
+    provider: "LDraw OMR";
+    setId: string;
+    url: string;
+    downloadUrl: string;
+    author: string;
+    license: string;
+    sha256: string;
+    inventoryBasis: "source-set" | "model";
+    instructionsUrl: string;
+    submodel?: string;
+  };
 }
 export interface BrickSet {
   id: string;

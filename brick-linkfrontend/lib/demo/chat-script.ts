@@ -1,4 +1,4 @@
-import { findFamily, modelById } from "./catalog";
+import { families, findFamily, modelById, models } from "./catalog";
 import type { Family } from "./types";
 
 export type ChatChoice = {
@@ -7,161 +7,68 @@ export type ChatChoice = {
   family?: Exclude<Family, "all">;
   models?: string[];
 };
-
 export type AssistantReply = {
   text: string;
   choices?: ChatChoice[];
   results?: string[];
 };
 
-const FAMILY_CHOICES: ChatChoice[] = [
-  { id: "family-dragons", label: "A dragon", family: "dragons" },
-  { id: "family-space", label: "Something from space", family: "space" },
-  { id: "family-rides", label: "Something that goes", family: "rides" },
-  { id: "family-dinos", label: "A dinosaur", family: "dinosaurs" },
-  { id: "family-animals", label: "An animal friend", family: "animals" },
-];
-
-const SCRIPT: Record<
-  Exclude<Family, "all">,
-  { question: string; choices: ChatChoice[] }
-> = {
-  dragons: {
-    question:
-      "A dragon! I can already see little wings and a long tail hiding in your brick box. What kind of dragon?",
-    choices: [
-      { id: "dragon-cute", label: "Tiny and cute", models: ["pocket-dragon"] },
-      {
-        id: "dragon-fire",
-        label: "Big and fire-breathing",
-        models: ["ember-dragon"],
-      },
-      {
-        id: "dragon-both",
-        label: "Show me both",
-        models: ["pocket-dragon", "ember-dragon"],
-      },
-    ],
-  },
-  space: {
-    question:
-      "Outer space it is. Which mission should we blueprint with the bricks you already have?",
-    choices: [
-      { id: "space-rocket", label: "A little rocket", models: ["little-rocket"] },
-      { id: "space-rover", label: "A moon rover", models: ["moon-rover"] },
-      {
-        id: "space-skimmer",
-        label: "A star skimmer",
-        models: ["star-skimmer"],
-      },
-      {
-        id: "space-few",
-        label: "Show me a few",
-        models: ["little-rocket", "moon-rover", "star-skimmer", "moon-shuttle"],
-      },
-    ],
-  },
-  rides: {
-    question: "Something that goes! What kind of ride sounds fun?",
-    choices: [
-      { id: "ride-racer", label: "A fast racer", models: ["pocket-racer"] },
-      { id: "ride-bus", label: "A sunshine bus", models: ["little-bus"] },
-      { id: "ride-tug", label: "A tiny tugboat", models: ["tiny-tug"] },
-      {
-        id: "ride-few",
-        label: "Show me a few",
-        models: ["pocket-racer", "little-bus", "tiny-tug"],
-      },
-    ],
-  },
-  dinosaurs: {
-    question: "Dinosaurs are a great pick. Who should stomp into the story?",
-    choices: [
-      { id: "dino-neck", label: "A long-neck", models: ["long-neck"] },
-      { id: "dino-little", label: "A little dino", models: ["little-dino"] },
-      {
-        id: "dino-tri",
-        label: "A triceratops",
-        models: ["triceratops"],
-      },
-      {
-        id: "dino-few",
-        label: "Show me a few",
-        models: ["long-neck", "little-dino", "triceratops"],
-      },
-    ],
-  },
-  animals: {
-    question: "An animal friend! Who should we build?",
-    choices: [
-      { id: "animal-duck", label: "A sunny duck", models: ["sunny-duck"] },
-      { id: "animal-pup", label: "A little puppy", models: ["little-pup"] },
-      {
-        id: "animal-both",
-        label: "Show me both",
-        models: ["sunny-duck", "little-pup"],
-      },
-    ],
-  },
+const FAMILY_CHOICES: ChatChoice[] = families
+  .filter((f) => f.id !== "all")
+  .map((f) => ({
+    id: `family-${f.id}`,
+    label: f.label,
+    family: f.id as Exclude<Family, "all">,
+  }));
+const QUESTIONS: Record<Exclude<Family, "all">, string> = {
+  dragons:
+    "A dragon adventure! Would you like a dragon friend or a whole castle wagon?",
+  dinosaurs: "Let’s go back in time. Who should stomp into the story?",
+  space: "Outer space it is! Which mission sounds fun?",
+  animals: "An animal friend! Who should we build?",
+  rides: "Something that goes! Pick your next ride.",
 };
 
-function matchChoice(text: string, choices?: ChatChoice[]) {
-  const needle = text.trim().toLowerCase();
-  if (!needle || !choices?.length) return undefined;
-  return choices.find(
-    (choice) =>
-      choice.label.toLowerCase() === needle ||
-      needle.includes(choice.label.toLowerCase()) ||
-      choice.label.toLowerCase().includes(needle),
-  );
-}
-
-function otherFamilies(family?: Exclude<Family, "all">) {
-  return FAMILY_CHOICES.filter((choice) => choice.family !== family);
-}
-
-function resultReply(
-  modelsIds: string[],
-  family?: Exclude<Family, "all">,
-): AssistantReply {
-  return {
-    text: "Here are some blueprints from your box. Tap one to see how to build it.",
-    results: modelsIds,
-    choices: otherFamilies(family),
-  };
-}
-
+/** Choices come from the catalogue, so new OMR imports never leave stale recipe IDs. */
 export function buildAssistantReply(
   text: string,
   choice: ChatChoice | undefined,
   history: { role: "user" | "assistant"; choices?: ChatChoice[] }[],
 ): AssistantReply {
-  const lastAssistant = [...history]
-    .reverse()
-    .find((message) => message.role === "assistant");
-  const picked = choice ?? matchChoice(text, lastAssistant?.choices);
-
-  if (picked?.models?.length) {
-    const fromModel = picked.models
-      .map((id) => modelById[id]?.family)
-      .find(Boolean);
-    return resultReply(picked.models, picked.family ?? fromModel);
+  const last = [...history].reverse().find((m) => m.role === "assistant");
+  const needle = text.trim().toLowerCase();
+  const picked =
+    choice ?? last?.choices?.find((c) => c.label.toLowerCase() === needle);
+  const exact = models.find((m) => m.name.toLowerCase() === needle);
+  if (picked?.models?.length || exact) {
+    const results = (picked?.models ?? [exact!.id]).filter(
+      (id) => !!modelById[id],
+    );
+    return {
+      text: "Here are the blueprints I made for you. The badge shows which ones fit your brick box. Tap one to take a closer look.",
+      results,
+      choices: FAMILY_CHOICES,
+    };
   }
-
-  if (picked?.family) {
-    const script = SCRIPT[picked.family];
-    return { text: script.question, choices: script.choices };
-  }
-
-  const family = findFamily(text);
+  const family = picked?.family ?? findFamily(text);
   if (family && family !== "all") {
-    const script = SCRIPT[family];
-    return { text: script.question, choices: script.choices };
+    const options = models.filter((m) => m.family === family);
+    return {
+      text: QUESTIONS[family],
+      choices: [
+        ...options
+          .slice(0, 3)
+          .map((m) => ({ id: `build-${m.id}`, label: m.name, models: [m.id] })),
+        {
+          id: `all-${family}`,
+          label: "Show me all of them",
+          models: options.map((m) => m.id),
+        },
+      ],
+    };
   }
-
   return {
-    text: "I like that idea. Pick a kind of build and I’ll find blueprints in your box.",
+    text: "Pick a kind of adventure and I’ll find a build for you.",
     choices: FAMILY_CHOICES,
   };
 }
-

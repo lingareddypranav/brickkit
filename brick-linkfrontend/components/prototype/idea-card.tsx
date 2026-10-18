@@ -60,7 +60,7 @@ export function IdeaCard({
             <Blocks size={18} /> {match.total} pieces
           </span>
           <span>
-            <Clock3 size={18} /> {model.minutes} min
+            <Clock3 size={18} /> ~{model.minutes} min
           </span>
           <button onClick={onOpen} aria-label={`Open ${model.name}`}>
             <ArrowRight size={20} />

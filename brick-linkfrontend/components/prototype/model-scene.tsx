@@ -1,11 +1,13 @@
 "use client";
 
-import { Component, type ReactNode, useMemo } from "react";
+import { Component, type ReactNode, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Bounds, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
+import { LDrawConditionalLineMaterial } from "three/addons/materials/LDrawConditionalLineMaterial.js";
+import { LDrawLoader } from "three/addons/loaders/LDrawLoader.js";
 import * as THREE from "three";
-import { partByKey } from "@/lib/demo/catalog";
-import type { Blueprint, Placement } from "@/lib/demo/types";
+import { normalizeEmbeddedPaths } from "@/lib/ldraw";
+import type { Blueprint } from "@/lib/demo/types";
 
 class SceneBoundary extends Component<
   { children: ReactNode; fallback: ReactNode },
@@ -20,131 +22,105 @@ class SceneBoundary extends Component<
   }
 }
 
-function Brick({ piece }: { piece: Placement }) {
-  const part = partByKey[piece.key];
-  const height = part.height * 0.4;
-  const wheel = part.shape === "wheel";
-  const tyre = part.shape === "tyre";
-  if (wheel || tyre)
-    return (
-      <group position={[piece.x, 0.55, piece.z]} rotation={[0, Math.PI / 2, 0]}>
-        {tyre ? (
-          <mesh castShadow>
-            <torusGeometry args={[0.48, 0.16, 10, 24]} />
-            <meshStandardMaterial color="#292E34" roughness={0.85} />
-          </mesh>
-        ) : (
-          <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
-            <cylinderGeometry args={[0.35, 0.35, 0.25, 20]} />
-            <meshStandardMaterial color={part.hex} roughness={0.4} />
-          </mesh>
-        )}
-      </group>
-    );
-  return (
-    <group
-      position={[piece.x, piece.y * 0.4, piece.z]}
-      rotation={[0, ((piece.rotate ?? 0) * Math.PI) / 180, 0]}
-    >
-      <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
-        <boxGeometry
-          args={[part.width * 0.98, height * 0.98, part.depth * 0.98]}
-        />
-        <meshStandardMaterial color={part.hex} roughness={0.38} />
-      </mesh>
-      {Array.from({ length: part.width }, (_, x) =>
-        Array.from({ length: part.depth }, (_, z) => (
-          <mesh
-            key={`${x}:${z}`}
-            position={[
-              x - (part.width - 1) / 2,
-              height + 0.065,
-              z - (part.depth - 1) / 2,
-            ]}
-            castShadow
-          >
-            <cylinderGeometry args={[0.28, 0.28, 0.13, 16]} />
-            <meshStandardMaterial color={part.hex} roughness={0.38} />
-          </mesh>
-        )),
-      )}
-    </group>
-  );
+function dispose(group: THREE.Group) {
+  const geometries = new Set<THREE.BufferGeometry>();
+  const materials = new Set<THREE.Material>();
+  group.traverse((object) => {
+    const mesh = object as THREE.Mesh;
+    if (mesh.geometry) geometries.add(mesh.geometry);
+    if (mesh.material)
+      (Array.isArray(mesh.material) ? mesh.material : [mesh.material]).forEach(
+        (m) => materials.add(m),
+      );
+  });
+  geometries.forEach((g) => g.dispose());
+  materials.forEach((m) => m.dispose());
 }
 
+/** Loads the actual MPD geometry. Inventory matching remains in lib/demo. */
 export default function ModelScene({
   model,
-  step,
 }: {
   model: Blueprint;
-  step: number;
+  step?: number;
 }) {
-  const framing = useMemo(() => {
-    let minX = Infinity,
-      maxX = -Infinity,
-      minZ = Infinity,
-      maxZ = -Infinity,
-      maxY = 0;
-    for (const piece of model.placements) {
-      const part = partByKey[piece.key];
-      const width = piece.rotate === 90 ? part.depth : part.width,
-        depth = piece.rotate === 90 ? part.width : part.depth;
-      minX = Math.min(minX, piece.x - width / 2);
-      maxX = Math.max(maxX, piece.x + width / 2);
-      minZ = Math.min(minZ, piece.z - depth / 2);
-      maxZ = Math.max(maxZ, piece.z + depth / 2);
-      maxY = Math.max(maxY, (piece.y + part.height) * 0.4);
-    }
-    return {
-      center: new THREE.Vector3((minX + maxX) / 2, maxY / 2, (minZ + maxZ) / 2),
-      scale: 5 / Math.max(maxX - minX, maxZ - minZ, maxY),
-    };
-  }, [model]);
-  return (
-    <SceneBoundary
-      fallback={
-        <div className="scene-fallback">
-          <img
-            src={`/demo/steps/${model.id}-${step + 1}.svg`}
-            alt={`${model.name}, step ${step + 1}`}
-          />
-          <p>The picture view is ready on this device.</p>
-        </div>
+  const [group, setGroup] = useState<THREE.Group | null>(null);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    let active = true;
+    let loaded: THREE.Group | undefined;
+    setGroup(null);
+    setError(false);
+    async function load() {
+      try {
+        const loader = new LDrawLoader();
+        loader.setConditionalLineMaterial(LDrawConditionalLineMaterial);
+        loader.setPartsLibraryPath("/ldraw/");
+        await loader.preloadMaterials("/ldraw/LDConfig.ldr");
+        const source = (await new THREE.FileLoader().loadAsync(
+          model.modelUrl!,
+        )) as string;
+        loaded = await new Promise<THREE.Group>((resolve, reject) => {
+          loader.parse(normalizeEmbeddedPaths(source), resolve, reject);
+        });
+        if (!active) {
+          dispose(loaded);
+          return;
+        }
+        loaded.rotation.x = Math.PI;
+        loaded.updateMatrixWorld(true);
+        const bounds = new THREE.Box3().setFromObject(loaded);
+        const size = bounds.getSize(new THREE.Vector3());
+        loaded.position.sub(bounds.getCenter(new THREE.Vector3()));
+        const framed = new THREE.Group();
+        framed.add(loaded);
+        framed.scale.setScalar(5 / Math.max(size.x, size.y, size.z, 1));
+        setGroup(framed);
+      } catch (error) {
+        console.warn("OMR model could not load", error);
+        if (active) setError(true);
       }
-    >
-      <Canvas
-        shadows
-        camera={{ position: [7, 6, 9], fov: 35 }}
-        gl={{ antialias: true }}
+    }
+    void load();
+    return () => {
+      active = false;
+      if (loaded) dispose(loaded);
+    };
+  }, [model.modelUrl]);
+  const fallback = (
+    <div className="scene-fallback">
+      <img src={model.image} alt={model.name} />
+      <p>The picture view is ready. 3D needs the LDraw parts library.</p>
+    </div>
+  );
+  if (error) return fallback;
+  return (
+    <SceneBoundary fallback={fallback}>
+      <div
+        className="omr-scene"
         aria-label={`Interactive 3D view of ${model.name}`}
       >
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[5, 8, 6]} intensity={2.2} castShadow />
-        <directionalLight position={[-5, 3, -4]} intensity={1} />
-        <Bounds fit clip observe margin={1.35}>
-          <group scale={framing.scale}>
-            <group
-              position={[
-                -framing.center.x,
-                -framing.center.y,
-                -framing.center.z,
-              ]}
-            >
-              {model.placements
-                .filter((piece) => piece.step <= step + 1)
-                .map((piece, i) => (
-                  <Brick piece={piece} key={i} />
-                ))}
-            </group>
-          </group>
-        </Bounds>
-        <OrbitControls
-          makeDefault
-          enablePan={false}
-          minDistance={2}
-          maxDistance={19}
-        />
-      </Canvas>
+        <Canvas
+          camera={{ position: [6, 4, 7], fov: 35 }}
+          gl={{ antialias: true }}
+        >
+          <ambientLight intensity={1.6} />
+          <directionalLight position={[6, 10, 8]} intensity={2.4} />
+          <directionalLight position={[-5, 3, -4]} intensity={1.1} />
+          {group && <primitive object={group} />}
+          <OrbitControls
+            makeDefault
+            enablePan={false}
+            minDistance={3}
+            maxDistance={20}
+          />
+        </Canvas>
+        {!group && (
+          <p className="omr-scene-status" role="status">
+            Opening your model…
+          </p>
+        )}
+      </div>
     </SceneBoundary>
   );
 }

@@ -37,7 +37,8 @@
   gap: var(--bp-space-1);
 }
 
-.kit-sidebar nav > button {
+.kit-sidebar nav > button,
+.kit-sidebar nav > a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -350,7 +351,8 @@
     flex-direction: row;
     flex: 1;
   }
-  .kit-sidebar nav > button {
+  .kit-sidebar nav > button,
+  .kit-sidebar nav > a {
     white-space: nowrap;
     margin-inline: 0;
     padding: 0 var(--bp-space-2);
@@ -1525,4 +1527,8 @@
   .idea-prompt input {
     font-size: 16px;
   }
+}
+
+.kit-sidebar nav > a {
+  text-decoration: none;
 }

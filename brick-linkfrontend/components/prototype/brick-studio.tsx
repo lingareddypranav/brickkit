@@ -12,10 +12,7 @@ import {
 } from "lucide-react";
 import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
-import {
-  buildAssistantReply,
-  type ChatChoice,
-} from "@/lib/demo/chat-script";
+import { buildAssistantReply, type ChatChoice } from "@/lib/demo/chat-script";
 import { families, modelById } from "@/lib/demo/catalog";
 import { countPieces, matchInventory } from "@/lib/demo/inventory";
 import type { Blueprint } from "@/lib/demo/types";
@@ -50,7 +47,7 @@ export default function BrickStudio() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [pending, setPending] = useState(false);
   const threadRef = useRef<HTMLDivElement>(null);
-  const replyTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const replyTimer = useRef<number | null>(null);
   const messageId = useRef(0);
   const ownedSets = Object.values(box.collection.sets).reduce(
     (s, x) => s + x.quantity,
@@ -167,6 +164,9 @@ export default function BrickStudio() {
             Hero
             <em>demo</em>
           </button>
+          <a href="/explore">
+            Explore more builds <ArrowRight size={14} />
+          </a>
         </nav>
       </aside>
 
@@ -214,7 +214,11 @@ export default function BrickStudio() {
                       <p>{message.text}</p>
                     </div>
                     {message.choices && message.choices.length > 0 && (
-                      <div className="chat-choices" role="group" aria-label="Choose an answer">
+                      <div
+                        className="chat-choices"
+                        role="group"
+                        aria-label="Choose an answer"
+                      >
                         {message.choices.map((choice) => (
                           <button
                             key={choice.id}
@@ -229,24 +233,61 @@ export default function BrickStudio() {
                       </div>
                     )}
                     {message.results && message.results.length > 0 && (
-                      <div className="chat-results" aria-label="Blueprint ideas">
-                        {message.results.map((modelId) => {
-                          const model = modelById[modelId];
-                          if (!model) return null;
-                          return (
-                            <IdeaCard
-                              key={model.id}
-                              model={model}
-                              match={matchInventory(
-                                model.inventory,
+                      <div
+                        className="chat-results"
+                        aria-label="Blueprint ideas"
+                      >
+                        {ideas.onlyMyBricks &&
+                          !message.results.some(
+                            (id) =>
+                              modelById[id] &&
+                              matchInventory(
+                                modelById[id].inventory,
                                 ideas.available,
-                              )}
-                              saved={box.collection.wishlist.includes(model.id)}
-                              onOpen={() => setSelected(model)}
-                              onSave={() => box.toggleWish(model.id)}
-                            />
-                          );
-                        })}
+                              ).ready,
+                          ) && (
+                            <div className="gallery-empty">
+                              <p>
+                                Your box needs a few more pieces for these
+                                builds.
+                              </p>
+                              <button
+                                className="kit-button kit-button-outline"
+                                onClick={() => ideas.setOnlyMyBricks(false)}
+                              >
+                                Show ideas that need more pieces
+                              </button>
+                            </div>
+                          )}
+                        {message.results
+                          .filter(
+                            (id) =>
+                              !ideas.onlyMyBricks ||
+                              (modelById[id] &&
+                                matchInventory(
+                                  modelById[id].inventory,
+                                  ideas.available,
+                                ).ready),
+                          )
+                          .map((modelId) => {
+                            const model = modelById[modelId];
+                            if (!model) return null;
+                            return (
+                              <IdeaCard
+                                key={model.id}
+                                model={model}
+                                match={matchInventory(
+                                  model.inventory,
+                                  ideas.available,
+                                )}
+                                saved={box.collection.wishlist.includes(
+                                  model.id,
+                                )}
+                                onOpen={() => setSelected(model)}
+                                onSave={() => box.toggleWish(model.id)}
+                              />
+                            );
+                          })}
                       </div>
                     )}
                   </div>
@@ -441,7 +482,7 @@ export default function BrickStudio() {
                 <span className="orbit orbit-two" />
                 <span className="hero-star star-one">✦</span>
                 <img
-                  src="/demo/models/star-skimmer.svg"
+                  src={modelById["shuttle-explorer"].image}
                   className="hero-rocket"
                   alt=""
                 />

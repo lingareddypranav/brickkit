@@ -9,7 +9,7 @@ import type { Collection, Family } from "@/lib/demo/types";
 /** UI-independent state for a collection-aware gallery. Contains no markup or styles. */
 export function useBuildIdeas(collection: Collection) {
   const [family, setFamily] = useState<Family>("all");
-  const [onlyMyBricks, setOnlyMyBricks] = useState(true);
+  const [onlyMyBricks, setOnlyMyBricks] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [promptMessage, setPromptMessage] = useState("");

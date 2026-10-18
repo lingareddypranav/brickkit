@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import dynamic from "next/dynamic";
+
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -8,7 +10,7 @@ import {
   Heart,
   LockKeyhole,
   Sparkles,
-  Users,
+  ShoppingBag,
 } from "lucide-react";
 import type { BrickBox } from "@/hooks/use-brick-box";
 import { partByKey } from "@/lib/demo/catalog";
@@ -21,6 +23,8 @@ import { protectedSources } from "@/lib/demo/selectors";
 import type { Blueprint } from "@/lib/demo/types";
 import { KitDialog } from "./kit-dialog";
 import "./build.css";
+
+const ModelScene = dynamic(() => import("./model-scene"), { ssr: false });
 
 export function BuildDetail({
   model,
@@ -35,12 +39,22 @@ export function BuildDetail({
   onManageBox: (tab: "sets" | "pieces") => void;
   onBuild?: () => void;
 }) {
-  const [grownUp, setGrownUp] = useState(false);
+  const suppliesRef = useRef<HTMLElement>(null);
+  const [showAllPieces, setShowAllPieces] = useState(false);
+  const [in3D, setIn3D] = useState(false);
+  const [showSupplies, setShowSupplies] = useState(false);
   const available = availablePieces(box.collection);
   const match = matchInventory(model.inventory, available);
   const suggestions = recommendSets(model, available);
   const protectedBricks = protectedSources(model, box.collection);
   const saved = box.collection.wishlist.includes(model.id);
+  useEffect(() => {
+    if (showSupplies)
+      suppliesRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+  }, [showSupplies]);
   return (
     <KitDialog
       open
@@ -54,7 +68,19 @@ export function BuildDetail({
           className="detail-preview"
           style={{ background: model.background }}
         >
-          <img src={model.image} alt={model.name} />
+          {in3D ? (
+            <ModelScene model={model} step={0} />
+          ) : (
+            <img src={model.image} alt={model.name} />
+          )}
+          {model.modelUrl && (
+            <button
+              className="kit-button kit-button-light preview-toggle"
+              onClick={() => setIn3D(!in3D)}
+            >
+              {in3D ? "Picture view" : "Spin in 3D"}
+            </button>
+          )}
         </div>
         <div className="detail-decision">
           <span className={`detail-badge ${match.ready ? "is-ready" : ""}`}>
@@ -89,9 +115,17 @@ export function BuildDetail({
           ) : (
             <button
               className="kit-button kit-button-dark"
-              onClick={() => setGrownUp(true)}
+              aria-expanded={showSupplies}
+              aria-controls="model-supplies"
+              onClick={() => {
+                setShowSupplies(true);
+                suppliesRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
             >
-              <Users size={18} /> Show a grown-up
+              <ShoppingBag size={18} /> Find missing pieces
             </button>
           )}
           <button
@@ -104,6 +138,26 @@ export function BuildDetail({
           </button>
         </div>
       </div>
+      {model.source && (
+        <details className="omr-source">
+          <summary>Build details &amp; credits</summary>
+          <p>
+            {model.source.inventoryBasis === "model"
+              ? "This blueprint has its own checked piece list."
+              : "For this prototype we check and reserve the full source set’s inventory. Alternate builds may need fewer pieces."}{" "}
+            Colour and quantity both count. Source set: {model.source.setId}.
+          </p>
+          <p>
+            Some builds need a grown-up’s help. The time shown is an estimate.
+          </p>
+          <a href={model.source.url} target="_blank" rel="noopener noreferrer">
+            View the original on LDraw OMR <ExternalLink size={13} />
+          </a>
+          <p>
+            Model by {model.source.author}. {model.source.license}
+          </p>
+        </details>
+      )}
       {!match.ready && (
         <section className="missing-section" aria-labelledby="missing-heading">
           <div className="detail-section-heading">
@@ -116,21 +170,39 @@ export function BuildDetail({
             </button>
           </div>
           <div className="missing-pieces">
-            {Object.entries(match.missing).map(([key, n]) => (
-              <div className="missing-piece" key={key}>
-                <img src={`/demo/parts/${key.replace(":", "-")}.svg`} alt="" />
-                <div>
-                  <strong>
-                    {n} × {partByKey[key].name}
-                  </strong>
-                  <p>
-                    {partByKey[key].colorName} · {available[key] ?? 0} already
-                    in your box
-                  </p>
+            {Object.entries(match.missing)
+              .slice(0, showAllPieces ? undefined : 6)
+              .map(([key, n]) => (
+                <div className="missing-piece" key={key}>
+                  <img
+                    src={
+                      partByKey[key].image ??
+                      `/demo/parts/${key.replace(":", "-")}.svg`
+                    }
+                    alt=""
+                  />
+                  <div>
+                    <strong>
+                      {n} × {partByKey[key].name}
+                    </strong>
+                    <p>
+                      {partByKey[key].colorName} · {available[key] ?? 0} already
+                      in your box
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
+          {Object.keys(match.missing).length > 6 && (
+            <button
+              className="kit-text-button"
+              onClick={() => setShowAllPieces(!showAllPieces)}
+            >
+              {showAllPieces
+                ? "Show fewer pieces"
+                : `See all ${Object.keys(match.missing).length} kinds of pieces`}
+            </button>
+          )}
         </section>
       )}
       {protectedBricks.length > 0 && (
@@ -151,52 +223,38 @@ export function BuildDetail({
           </div>
         </div>
       )}
-      {grownUp && !match.ready && (
+      {showSupplies && !match.ready && (
         <section
-          className="grown-up-section"
-          aria-labelledby="grown-up-heading"
+          className="supplies-section"
+          id="model-supplies"
+          ref={suppliesRef}
+          aria-labelledby="supplies-heading"
         >
           <div className="detail-section-heading">
             <div>
-              <span className="kit-eyebrow">A LITTLE HELP FROM A GROWN-UP</span>
-              <h3 id="grown-up-heading">A few ways to make it happen</h3>
+              <span className="kit-eyebrow">FINISH YOUR BLUEPRINT</span>
+              <h3 id="supplies-heading">Sets that help with this build</h3>
             </div>
-            <Users size={25} />
+            <ShoppingBag size={25} />
           </div>
-          <div className="shopping-option">
-            <div className="shopping-number">01</div>
-            <div>
-              <h4>Just the missing pieces</h4>
-              <p>
-                Find the {match.missingCount} pieces above without adding a
-                whole set.
-              </p>
-              <div className="shop-links">
-                {Object.entries(match.missing).map(([key, n]) => (
-                  <a
-                    key={key}
-                    href={`https://www.bricklink.com/v2/catalog/catalogitem.page?P=${encodeURIComponent(partByKey[key].part)}#T=S`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Find {n} {partByKey[key].name.toLowerCase()}
-                    {n > 1 ? "s" : ""} <ExternalLink size={13} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+          <p className="supplies-intro">
+            You already have {match.have} of the {match.total} checklist pieces.
+            These are real sets that add pieces missing from your build. We
+            count what is already in your box first.
+          </p>
           {suggestions.map((suggestion, index) => (
             <div
               className="shopping-option"
               key={suggestion.sets.map((set) => set.id).join("+")}
             >
-              <div className="shopping-number">0{index + 2}</div>
+              <div className="shopping-number">
+                {String(index + 1).padStart(2, "0")}
+              </div>
               <div>
                 <h4>
                   {suggestion.sets.length === 1
-                    ? "One set that can help"
-                    : "Two sets that work together"}
+                    ? "Add one set"
+                    : "Add two sets"}
                 </h4>
                 <p>
                   {suggestion.remaining === 0
@@ -233,15 +291,33 @@ export function BuildDetail({
               </div>
             </div>
           ))}
+          <details className="all-pieces individual-supplies">
+            <summary>
+              Or shop for just the {match.missingCount} missing pieces
+            </summary>
+            <div className="shop-links">
+              {Object.entries(match.missing).map(([key, n]) => (
+                <a
+                  key={key}
+                  href={`https://www.bricklink.com/v2/search.page?q=${encodeURIComponent(`${partByKey[key].colorName} ${partByKey[key].name}`)}&tab=P#T=P`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Find {n} {partByKey[key].name.toLowerCase()}
+                  {n > 1 ? "s" : ""} <ExternalLink size={13} />
+                </a>
+              ))}
+            </div>
+          </details>
           {!suggestions.length && (
             <p>
               No complete set suggestion in this little catalogue yet. The
-              individual pieces above can still help.
+              individual pieces can still help.
             </p>
           )}
           <p className="shop-note">
-            Check colour, quantity, price, and availability with the seller.
-            Visiting a shop won’t add anything to your brick box.
+            Check colour, quantity, price, and availability with the seller. Add
+            a set to your brick box after you have it.
           </p>
           <div className="already-owned">
             <div>

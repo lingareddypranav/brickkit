@@ -22,81 +22,6 @@ import type { BrickBox } from "@/hooks/use-brick-box";
 import type { BrickSet } from "@/lib/demo/types";
 import { KitDialog } from "./kit-dialog";
 
-const extraSets: BrickSet[] = [
-  {
-    id: "31120-1",
-    name: "Sunset Camper Van",
-    pieces: 344,
-    year: 2024,
-    image: "/demo/sets/11001-1.jpg",
-    url: "#",
-    inventory: { "3001:14": 4, "3004:1": 8, "3020:15": 2 },
-  },
-  {
-    id: "41728-1",
-    name: "Heartlake City Diner",
-    pieces: 217,
-    year: 2023,
-    image: "/demo/sets/11017-1.jpg",
-    url: "#",
-    inventory: { "3003:14": 6, "3004:25": 10, "3023:4": 4 },
-  },
-  {
-    id: "60337-1",
-    name: "Express Passenger Train",
-    pieces: 764,
-    year: 2022,
-    image: "/demo/sets/11019-1.jpg",
-    url: "#",
-    inventory: { "3001:1": 8, "3007:71": 2, "3020:0": 4 },
-  },
-  {
-    id: "31140-1",
-    name: "Magical Unicorn",
-    pieces: 145,
-    year: 2024,
-    image: "/demo/sets/10698-1.jpg",
-    url: "#",
-    inventory: { "3004:226": 6, "3005:25": 12, "3023:85": 4 },
-  },
-  {
-    id: "21251-1",
-    name: "Steve’s Desert Expedition",
-    pieces: 92,
-    year: 2025,
-    image: "/demo/sets/11014-1.jpg",
-    url: "#",
-    inventory: { "3003:2": 4, "3004:15": 6, "3022:4": 2 },
-  },
-  {
-    id: "43217-1",
-    name: "Aurora Castle",
-    pieces: 510,
-    year: 2024,
-    image: "/demo/sets/10696-1.jpg",
-    url: "#",
-    inventory: { "3001:70": 4, "3009:14": 2, "3010:1": 6 },
-  },
-  {
-    id: "42154-1",
-    name: "Midnight Roadster",
-    pieces: 660,
-    year: 2023,
-    image: "/demo/sets/11001-1.jpg",
-    url: "#",
-    inventory: { "3001:29": 2, "3002:25": 2, "3021:14": 4 },
-  },
-  {
-    id: "71427-1",
-    name: "Larry’s Dream Balloon",
-    pieces: 221,
-    year: 2025,
-    image: "/demo/sets/11017-1.jpg",
-    url: "#",
-    inventory: { "3004:321": 8, "3005:1": 6, "3023:320": 3 },
-  },
-];
-
 function Counter({
   value,
   onDecrease,
@@ -263,13 +188,10 @@ export function BrickBoxPanel({
     (sum, item) => sum + item.quantity,
     0,
   );
-  const listedSets = [
-    ...sets,
-    ...extraSets.filter((set) => box.collection.sets[set.id]),
-  ].filter((set) =>
+  const listedSets = sets.filter((set) =>
     `${set.name} ${set.id}`.toLowerCase().includes(query.toLowerCase()),
   );
-  const popupSets = extraSets.filter((set) =>
+  const popupSets = sets.filter((set) =>
     `${set.name} ${set.id}`.toLowerCase().includes(addQuery.toLowerCase()),
   );
   const listedParts = parts.filter((part) =>
@@ -418,7 +340,10 @@ export function BrickBoxPanel({
               {listedParts.map((part) => (
                 <article className="piece-card" key={part.key}>
                   <img
-                    src={`/demo/parts/${part.key.replace(":", "-")}.svg`}
+                    src={
+                      part.image ??
+                      `/demo/parts/${part.key.replace(":", "-")}.svg`
+                    }
                     alt=""
                   />
                   <h3>{part.name}</h3>

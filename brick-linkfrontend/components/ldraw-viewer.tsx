@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Canvas, useThree } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import * as THREE from "three"
+import { LDrawConditionalLineMaterial } from "three/addons/materials/LDrawConditionalLineMaterial.js";
 import { LDrawLoader } from "three/addons/loaders/LDrawLoader.js"
 
 interface LDrawModelProps {
@@ -21,10 +22,11 @@ function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
     const loadModel = async () => {
       try {
         const loader = new LDrawLoader()
+        loader.setConditionalLineMaterial(LDrawConditionalLineMaterial)
 
         // Parts library root that contains /parts, /p, and LDConfig.ldr:
         loader.setPartsLibraryPath("/ldraw/")   // note the trailing slash
-        loader.preloadMaterials("/ldraw/LDConfig.ldr")           // loads /ldraw/LDConfig.ldr
+        await loader.preloadMaterials("/ldraw/LDConfig.ldr")           // loads /ldraw/LDConfig.ldr
 
 
         // Load your model from anywhere (absolute or relative); subfiles come from /ldraw/
@@ -52,8 +54,7 @@ function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
                 console.log("[v0] Model bounding box:", { center, size })
                 console.log("[v0] Model size details:", { x: size.x, y: size.y, z: size.z })
 
-                // Don't center the model - keep it at origin so camera can see it
-                // group.position.sub(center)
+
 
                 const maxDim = Math.max(size.x, size.y, size.z)
                 if (maxDim > 0) {
@@ -64,6 +65,9 @@ function LDrawModel({ modelUrl, onError }: LDrawModelProps) {
 
                 // Fix upside-down orientation by rotating 180 degrees around X axis
                 group.rotation.x = Math.PI
+                group.updateMatrixWorld(true)
+                const rotatedCenter = new THREE.Box3().setFromObject(group).getCenter(new THREE.Vector3())
+                group.position.sub(rotatedCenter)
 
                 groupRef.current = group
                 scene.add(group)

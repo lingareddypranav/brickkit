@@ -9,7 +9,11 @@ export const partByKey = Object.fromEntries(
   parts.map((part) => [part.key, part]),
 );
 export const modelById = Object.fromEntries(
-  models.map((model) => [model.id, model]),
+  // Existing saved creations keep their original inventory reservations.
+  [...(data.legacyModels as unknown as Blueprint[]), ...models].map((model) => [
+    model.id,
+    model,
+  ]),
 );
 export const setById = Object.fromEntries(sets.map((set) => [set.id, set]));
 export const sampleCollection = data.sample as Collection;
@@ -30,15 +34,15 @@ export const families: {
   {
     id: "all",
     label: "Surprise me",
-    model: "pocket-racer",
+    model: "blue-racer",
     image: "/demo/models/surprise-present.svg",
     background: "#E8D4C4",
   },
-  { id: "rides", label: "Things that go", model: "pocket-racer" },
-  { id: "animals", label: "Animal friends", model: "sunny-duck" },
-  { id: "dinosaurs", label: "Dinosaurs", model: "long-neck" },
-  { id: "dragons", label: "Dragons", model: "pocket-dragon" },
-  { id: "space", label: "Out of this world", model: "little-rocket" },
+  { id: "rides", label: "Things that go", model: "blue-racer" },
+  { id: "animals", label: "Animal friends", model: "cute-pug" },
+  { id: "dinosaurs", label: "Dinosaurs", model: "apatosaurus" },
+  { id: "dragons", label: "Dragons", model: "dragon-friend" },
+  { id: "space", label: "Out of this world", model: "shuttle-explorer" },
 ];
 
 export function findFamily(prompt: string): Family | null {

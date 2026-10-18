@@ -98,8 +98,11 @@ export function recommendSets(
       a.sets.reduce((s, x) => s + x.pieces, 0) -
         b.sets.reduce((s, x) => s + x.pieces, 0),
   );
+  // If a purchase can finish this build, don't distract with incomplete options.
+  const complete = suggestions.filter((item) => item.remaining === 0);
+  const ranked = complete.length ? complete : suggestions;
   // A pair earns a place only when it closes a gap that either single leaves.
-  return suggestions
+  return ranked
     .filter(
       (item) =>
         item.sets.length === 1 ||

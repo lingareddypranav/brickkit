@@ -123,15 +123,15 @@
   min-height: 30px;
   font-size: 11px;
 }
-.grown-up-section {
+.supplies-section {
   margin-top: 28px;
   border-top: 1px solid var(--bp-color-border);
   padding-top: 24px;
 }
-.grown-up-section > .detail-section-heading {
+.supplies-section > .detail-section-heading {
   margin-bottom: 25px;
 }
-.grown-up-section .kit-eyebrow {
+.supplies-section .kit-eyebrow {
   display: block;
   margin-bottom: 8px;
   letter-spacing: 1px;
@@ -287,7 +287,7 @@
   .missing-piece strong {
     font-size: 13px;
   }
-  .grown-up-section > .detail-section-heading > svg {
+  .supplies-section > .detail-section-heading > svg {
     display: none;
   }
   .donor-sets article {
@@ -311,4 +311,70 @@
   .already-owned .kit-button {
     width: 100%;
   }
+}
+
+.omr-source {
+  margin-top: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--bp-color-border);
+  font-size: 12px;
+  color: var(--bp-color-fg-muted);
+  line-height: 1.7;
+}
+.omr-source summary {
+  cursor: pointer;
+  color: var(--bp-blue-1);
+}
+.omr-source p {
+  margin-top: 10px;
+}
+.omr-source a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--bp-blue-1);
+  margin-top: 10px;
+}
+.build-detail-grid .detail-preview {
+  position: relative;
+}
+.preview-toggle {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  font-size: 12px;
+  min-height: 36px;
+}
+.omr-scene {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.omr-scene-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  font-size: 13px;
+}
+.omr-guide-intro {
+  margin: 18px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--bp-color-fg-muted);
+}
+.omr-instructions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.supplies-intro {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--bp-color-fg-muted);
+  margin-bottom: 18px;
 }
