@@ -1,0 +1,311 @@
+[
+  {
+    "id": "shuttle-explorer",
+    "name": "Space Shuttle Explorer",
+    "family": "space",
+    "description": "Launch a satellite and send an astronaut into orbit.",
+    "setId": "31066-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/555",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31066-1_Shuttle.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "cute-pug",
+    "name": "Cute Pug",
+    "family": "animals",
+    "description": "A wrinkly little friend and a bright red fire hydrant.",
+    "setId": "30542-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/554",
+    "downloadUrl": "https://library.ldraw.org/library/omr/30542-1_Cute-Pug.mpd",
+    "camera": [
+      30,
+      225
+    ]
+  },
+  {
+    "id": "shark",
+    "name": "Shark & Crab",
+    "family": "animals",
+    "description": "Dive into a deep-sea adventure with two ocean friends.",
+    "setId": "31088-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1139",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31088-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "blue-racer",
+    "name": "Blue Racer",
+    "family": "rides",
+    "description": "A speedy racer with an engine under the spoiler.",
+    "setId": "31027-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/223",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31027-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "dragon-friend",
+    "name": "Castle Dragon",
+    "family": "dragons",
+    "description": "A green dragon with bright red wings. A small assembly from Dragon Wagon.",
+    "setId": "6056-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1466",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6056-1.mpd",
+    "camera": [
+      20,
+      225
+    ],
+    "submodel": "6056 - Dragon.ldr",
+    "inventory": {
+      "6027:2": 1,
+      "6028:2": 1,
+      "6127:2": 1,
+      "6128:2": 1,
+      "6129c01:2": 1,
+      "6133:4": 2,
+      "6126a:57": 1
+    }
+  },
+  {
+    "id": "green-dinosaur",
+    "name": "Green Dinosaur",
+    "family": "dinosaurs",
+    "description": "A stomping dinosaur with a long, swishing tail.",
+    "setId": "7219-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/162",
+    "downloadUrl": "https://library.ldraw.org/library/omr/7219-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "space-transport",
+    "name": "Space Transport",
+    "family": "space",
+    "description": "A classic blue spaceship with a yellow canopy and a space pilot.",
+    "setId": "918-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/102",
+    "downloadUrl": "https://library.ldraw.org/library/omr/918-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "blue-kart",
+    "name": "Dune Buggy",
+    "family": "rides",
+    "description": "Big wheels, a tiny body, and a wide-open road.",
+    "setId": "31027-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/223",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31027-1_Kart.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "snow-groomer",
+    "name": "Snow Groomer",
+    "family": "rides",
+    "description": "Clear a snowy path with the big front blade.",
+    "setId": "31027-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/223",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31027-1_Snow-Groomer.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "koala",
+    "name": "Koala",
+    "family": "animals",
+    "description": "A cuddly climber with big round ears.",
+    "setId": "30542-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/554",
+    "downloadUrl": "https://library.ldraw.org/library/omr/30542-1_Koala.mpd",
+    "camera": [
+      30,
+      225
+    ]
+  },
+  {
+    "id": "turkey",
+    "name": "Turkey",
+    "family": "animals",
+    "description": "A proud little bird with a fan of feathers.",
+    "setId": "30542-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/554",
+    "downloadUrl": "https://library.ldraw.org/library/omr/30542-1_Turkey.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "apatosaurus",
+    "name": "Apatosaurus",
+    "family": "dinosaurs",
+    "description": "Stretch up high with this long-necked dinosaur.",
+    "setId": "7210-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/160",
+    "downloadUrl": "https://library.ldraw.org/library/omr/7210-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "pteranodon",
+    "name": "Pteranodon",
+    "family": "dinosaurs",
+    "description": "Spread your wings for a prehistoric adventure.",
+    "setId": "7209-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/159",
+    "downloadUrl": "https://library.ldraw.org/library/omr/7209-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "dragon-wagon",
+    "name": "Dragon Wagon",
+    "family": "dragons",
+    "description": "A castle wagon carrying a very special passenger.",
+    "setId": "6056-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1466",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6056-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "mini-jet",
+    "name": "Mini Jet",
+    "family": "rides",
+    "description": "Take off with a little red-and-white jet.",
+    "setId": "6741-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/536",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6741-1_Jet.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "mini-shuttle",
+    "name": "Mini Space Shuttle",
+    "family": "space",
+    "description": "A little shuttle for a big imaginary mission.",
+    "setId": "6741-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/536",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6741-1_Shuttle.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "speedboat",
+    "name": "Speedboat",
+    "family": "rides",
+    "description": "Skim across the water in a red speedboat.",
+    "setId": "6741-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/536",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6741-1_Speedboat.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "space-rover",
+    "name": "Space Rover",
+    "family": "space",
+    "description": "Explore a new planet with a rolling space laboratory.",
+    "setId": "31066-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/555",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31066-1_Rover.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "moon-base",
+    "name": "Moon Base",
+    "family": "space",
+    "description": "Make a home for your next space expedition.",
+    "setId": "31066-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/555",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31066-1_Space-Base.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "angler-fish",
+    "name": "Angler Fish",
+    "family": "animals",
+    "description": "Meet a mysterious fish from the very deep sea.",
+    "setId": "31088-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1139",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31088-1_Angler-Fish.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "squid",
+    "name": "Giant Squid",
+    "family": "animals",
+    "description": "Wave your tentacles through an underwater world.",
+    "setId": "31088-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1139",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31088-1_Squid.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "whale",
+    "name": "Whale",
+    "family": "animals",
+    "description": "A big blue ocean friend with a sweeping tail.",
+    "setId": "31088-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/1139",
+    "downloadUrl": "https://library.ldraw.org/library/omr/31088-1_Whale.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  },
+  {
+    "id": "super-nova",
+    "name": "Super Nova II",
+    "family": "space",
+    "description": "Blast off in a scout ship from the stars.",
+    "setId": "6832-1",
+    "sourceUrl": "https://library.ldraw.org/omr/sets/169",
+    "downloadUrl": "https://library.ldraw.org/library/omr/6832-1.mpd",
+    "camera": [
+      30,
+      45
+    ]
+  }
+]
