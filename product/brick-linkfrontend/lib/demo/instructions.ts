@@ -10,6 +10,7 @@ export interface InstructionPiece {
 
 export interface PictureGuide {
   kind: "pictures";
+  // SHA-256 of UTF-8 source text with LF line endings, stable across Git checkouts.
   sourceSha256: string;
   sequence: "curated" | "omr";
   modelUrl: string;

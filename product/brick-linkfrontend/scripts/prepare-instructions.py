@@ -103,6 +103,23 @@ def optimize(path):
         img.save(path, optimize=True)
 
 
+def part_label(library, name):
+    """Follow LDraw rename aliases; catalogue maintenance notes are not kid-facing names."""
+    part_file = library/'parts'/name.replace('\\', '/')
+    seen = set()
+    label = 'LEGO piece'
+    while part_file.is_file() and part_file not in seen:
+        seen.add(part_file)
+        label = part_file.read_text(errors='replace').splitlines()[0].removeprefix('0 ').strip()
+        alias = re.fullmatch(r'~Moved to (\S+)', label)
+        if not alias:
+            break
+        part_file = library/'parts'/(alias[1]+'.dat')
+    if label.startswith('~Moved to '):
+        label = 'LEGO piece'
+    return re.sub(r'\s+', ' ', label.lstrip('~').replace('(Obsolete)', '')).strip()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ldraw', required=True, type=Path)
@@ -165,10 +182,7 @@ def main():
             for (color, name), count in Counter((l.split(maxsplit=14)[1], l.split(maxsplit=14)[14]) for l in step).items():
                 slug = re.sub(r'[^a-zA-Z0-9_-]', '-', name.removesuffix('.dat'))+'-'+color
                 thumb = part_dir/(slug+'.png')
-                label = name
-                part_file = args.ldraw/'parts'/name.replace('\\', '/')
-                if part_file.exists():
-                    label = part_file.read_text(errors='replace').splitlines()[0].removeprefix('0 ').strip()
+                label = part_label(args.ldraw, name)
                 if not thumb.exists():
                     piece_model = part_dir/(slug+'.ldr')
                     piece_model.write_text('0 Piece preview\n'+placement(color, [0, 0, 0], IDENTITY, name)+'\n')
@@ -182,7 +196,7 @@ def main():
             guide.append({'title': spec.get('titles', [])[i] if spec.get('titles') else
                           f'Add {len(step)} '+('piece' if len(step)==1 else 'pieces'),
                           'image': '/'+str(img.relative_to(FRONTEND/'public')), 'pieces': pieces})
-        index[model_id] = {'kind': 'pictures', 'sourceSha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+        index[model_id] = {'kind': 'pictures', 'sourceSha256': hashlib.sha256(text.encode('utf-8')).hexdigest(),
                            'sequence': 'curated' if 'groups' in spec else 'omr',
                            'modelUrl': '/'+str(guide_model.relative_to(FRONTEND/'public')),
                            'steps': guide}

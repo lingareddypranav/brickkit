@@ -304,7 +304,10 @@ test("story demo builds have complete local picture guides with matching source 
     );
     assert.equal(
       guide.sourceSha256,
-      crypto.createHash("sha256").update(source).digest("hex"),
+      crypto
+        .createHash("sha256")
+        .update(source.toString("utf8").replace(/\r\n?/g, "\n"))
+        .digest("hex"),
     );
     const prepared = fs.readFileSync(
       path.join(__dirname, "../public", guide.modelUrl),
@@ -327,6 +330,7 @@ test("story demo builds have complete local picture guides with matching source 
       );
       for (const piece of step.pieces) {
         assert.ok(piece.count > 0 && piece.name);
+        assert.doesNotMatch(piece.name, /~|Moved to|Obsolete/i);
         assert.ok(
           !/^\d+$/.test(piece.color),
           `Missing colour name: ${piece.id}`,
