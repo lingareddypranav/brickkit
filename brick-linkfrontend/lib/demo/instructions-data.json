@@ -1,0 +1,1272 @@
+{
+  "dragon-friend": {
+    "sourceSha256": "430f2b8d0c50f386caa2c5b9a7d492366adf2c355147d4b524baef67855093cb",
+    "sequence": "curated",
+    "modelUrl": "/demo/instructions/dragon-friend/guide.mpd",
+    "steps": [
+      {
+        "title": "Find the dragon body",
+        "image": "/demo/instructions/dragon-friend/step01.png",
+        "pieces": [
+          {
+            "id": "75174-2",
+            "name": "Animal Dragon Body",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/75174-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Click on the tail",
+        "image": "/demo/instructions/dragon-friend/step02.png",
+        "pieces": [
+          {
+            "id": "6028-2",
+            "name": "Animal Dragon Tail",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/6028-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Add the lower jaw",
+        "image": "/demo/instructions/dragon-friend/step03.png",
+        "pieces": [
+          {
+            "id": "6027-2",
+            "name": "Animal Dragon Head",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/6027-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Give your dragon two arms",
+        "image": "/demo/instructions/dragon-friend/step04.png",
+        "pieces": [
+          {
+            "id": "6127-2",
+            "name": "Animal Dragon Arm Right",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/6127-2.png"
+          },
+          {
+            "id": "6128-2",
+            "name": "Animal Dragon Arm Left",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/6128-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Add one red wing",
+        "image": "/demo/instructions/dragon-friend/step05.png",
+        "pieces": [
+          {
+            "id": "6133-4",
+            "name": "Animal Dragon Wing",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/6133-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add the other red wing",
+        "image": "/demo/instructions/dragon-friend/step06.png",
+        "pieces": [
+          {
+            "id": "6133-4",
+            "name": "Animal Dragon Wing",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/6133-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Time for fire breath!",
+        "image": "/demo/instructions/dragon-friend/step07.png",
+        "pieces": [
+          {
+            "id": "6126a-38",
+            "name": "Minifig Flame with Pegs",
+            "color": "Trans Neon Orange",
+            "count": 1,
+            "image": "/demo/instructions/parts/6126a-38.png"
+          }
+        ]
+      }
+    ]
+  },
+  "green-dinosaur": {
+    "sourceSha256": "70638927bfdab89e915a1225aa5c93ec708244f6a0ee1f942f1cf5fa182b416f",
+    "sequence": "curated",
+    "modelUrl": "/demo/instructions/green-dinosaur/guide.mpd",
+    "steps": [
+      {
+        "title": "Start with the green plate",
+        "image": "/demo/instructions/green-dinosaur/step01.png",
+        "pieces": [
+          {
+            "id": "3020-2",
+            "name": "Plate  2 x  4",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Turn it over. Add two feet",
+        "image": "/demo/instructions/green-dinosaur/step02.png",
+        "pieces": [
+          {
+            "id": "3665-2",
+            "name": "~Moved to 3665a",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/3665-2.png"
+          },
+          {
+            "id": "4286-2",
+            "name": "Slope Brick 33  3 x  1",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/4286-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Build up the body",
+        "image": "/demo/instructions/green-dinosaur/step03.png",
+        "pieces": [
+          {
+            "id": "3660-2",
+            "name": "~Moved to 3660a",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/3660-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Add the green slopes",
+        "image": "/demo/instructions/green-dinosaur/step04.png",
+        "pieces": [
+          {
+            "id": "3040b-2",
+            "name": "Slope Brick 45  2 x  1",
+            "color": "Green",
+            "count": 4,
+            "image": "/demo/instructions/parts/3040b-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Build the shoulders",
+        "image": "/demo/instructions/green-dinosaur/step05.png",
+        "pieces": [
+          {
+            "id": "3002-71",
+            "name": "Brick  2 x  3",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3002-71.png"
+          },
+          {
+            "id": "3040b-2",
+            "name": "Slope Brick 45  2 x  1",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/3040b-2.png"
+          },
+          {
+            "id": "3298-2",
+            "name": "Slope Brick 33  3 x  2",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/3298-2.png"
+          },
+          {
+            "id": "3021-2",
+            "name": "Plate  2 x  3",
+            "color": "Green",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-2.png"
+          }
+        ]
+      },
+      {
+        "title": "Add a swishy tail",
+        "image": "/demo/instructions/green-dinosaur/step06.png",
+        "pieces": [
+          {
+            "id": "30389b-71",
+            "name": "Hinge Brick  2 x  2 Locking with Axlehole and Single Finger",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/30389b-71.png"
+          },
+          {
+            "id": "30386-71",
+            "name": "Hinge Brick  1 x  2 Locking Double, Two Finger End with  9 Teeth",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/30386-71.png"
+          },
+          {
+            "id": "30365-71",
+            "name": "Hinge Brick  1 x  2 Locking with Dual Finger On End",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/30365-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Build the neck and mouth",
+        "image": "/demo/instructions/green-dinosaur/step07.png",
+        "pieces": [
+          {
+            "id": "3660-71",
+            "name": "~Moved to 3660a",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3660-71.png"
+          },
+          {
+            "id": "3021-71",
+            "name": "Plate  2 x  3",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-71.png"
+          },
+          {
+            "id": "3022-71",
+            "name": "Plate  2 x  2",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Add four white teeth",
+        "image": "/demo/instructions/green-dinosaur/step08.png",
+        "pieces": [
+          {
+            "id": "6141-15",
+            "name": "Plate  1 x  1 Round",
+            "color": "White",
+            "count": 4,
+            "image": "/demo/instructions/parts/6141-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Build the head",
+        "image": "/demo/instructions/green-dinosaur/step09.png",
+        "pieces": [
+          {
+            "id": "3039-71",
+            "name": "Slope Brick 45  2 x  2",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3039-71.png"
+          },
+          {
+            "id": "4070-71",
+            "name": "Brick  1 x  1 with Headlight",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/4070-71.png"
+          },
+          {
+            "id": "3004-71",
+            "name": "Brick  1 x  2",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3004-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Add two eyes",
+        "image": "/demo/instructions/green-dinosaur/step10.png",
+        "pieces": [
+          {
+            "id": "6141-0",
+            "name": "Plate  1 x  1 Round",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/6141-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add the little arms. Roar!",
+        "image": "/demo/instructions/green-dinosaur/step11.png",
+        "pieces": [
+          {
+            "id": "4286-2",
+            "name": "Slope Brick 33  3 x  1",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/4286-2.png"
+          }
+        ]
+      }
+    ]
+  },
+  "space-transport": {
+    "sourceSha256": "905751f960197e7305ae145e71558003357e9df8c4791084e5fbc27a68645752",
+    "sequence": "omr",
+    "modelUrl": "/demo/instructions/space-transport/guide.mpd",
+    "steps": [
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/space-transport/step01.png",
+        "pieces": [
+          {
+            "id": "3035-7",
+            "name": "Plate  4 x  8",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3035-7.png"
+          },
+          {
+            "id": "3829c01-7",
+            "name": "Car Steering Stand and Wheel (Complete)",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3829c01-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/space-transport/step02.png",
+        "pieces": [
+          {
+            "id": "3660-7",
+            "name": "~Moved to 3660a",
+            "color": "Light Grey",
+            "count": 10,
+            "image": "/demo/instructions/parts/3660-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/space-transport/step03.png",
+        "pieces": [
+          {
+            "id": "3034-7",
+            "name": "Plate  2 x  8",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3034-7.png"
+          },
+          {
+            "id": "3020-7",
+            "name": "Plate  2 x  4",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3020-7.png"
+          },
+          {
+            "id": "3832-7",
+            "name": "Plate  2 x 10",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3832-7.png"
+          },
+          {
+            "id": "3795-7",
+            "name": "Plate  2 x  6",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3795-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 8 pieces",
+        "image": "/demo/instructions/space-transport/step04.png",
+        "pieces": [
+          {
+            "id": "3934-7",
+            "name": "Wing  4 x  8 Right",
+            "color": "Light Grey",
+            "count": 3,
+            "image": "/demo/instructions/parts/3934-7.png"
+          },
+          {
+            "id": "3933-7",
+            "name": "Wing  4 x  8 Left",
+            "color": "Light Grey",
+            "count": 3,
+            "image": "/demo/instructions/parts/3933-7.png"
+          },
+          {
+            "id": "3666-7",
+            "name": "Plate  1 x  6",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3666-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 5 pieces",
+        "image": "/demo/instructions/space-transport/step05.png",
+        "pieces": [
+          {
+            "id": "3022-7",
+            "name": "Plate  2 x  2",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-7.png"
+          },
+          {
+            "id": "3024-7",
+            "name": "Plate  1 x  1",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3024-7.png"
+          },
+          {
+            "id": "3023-7",
+            "name": "~Moved to 3023b",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3023-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/space-transport/step06.png",
+        "pieces": [
+          {
+            "id": "3021-7",
+            "name": "Plate  2 x  3",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3021-7.png"
+          },
+          {
+            "id": "3940-7",
+            "name": "~Moved to 3940b",
+            "color": "Light Grey",
+            "count": 3,
+            "image": "/demo/instructions/parts/3940-7.png"
+          },
+          {
+            "id": "3941-7",
+            "name": "Brick  2 x  2 Round without Reinforcement",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3941-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 4 pieces",
+        "image": "/demo/instructions/space-transport/step07.png",
+        "pieces": [
+          {
+            "id": "3839a-7",
+            "name": "Plate  1 x  2 with Handles Type 1",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3839a-7.png"
+          },
+          {
+            "id": "3024-36",
+            "name": "Plate  1 x  1",
+            "color": "Trans Red",
+            "count": 2,
+            "image": "/demo/instructions/parts/3024-36.png"
+          },
+          {
+            "id": "3010p41-7",
+            "name": "Brick  1 x  4 with Homemaker Stove Switch Pattern",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3010p41-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/space-transport/step08.png",
+        "pieces": [
+          {
+            "id": "3939p91-1",
+            "name": "Slope Brick 33  3 x  6 with Classic Space Large Pattern",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3939p91-1.png"
+          },
+          {
+            "id": "3010p918-1",
+            "name": "Brick  1 x  4 with \"LL918\" Pattern",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3010p918-1.png"
+          },
+          {
+            "id": "3010-1",
+            "name": "Brick  1 x  4",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3010-1.png"
+          },
+          {
+            "id": "3622-1",
+            "name": "Brick  1 x  3",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3622-1.png"
+          },
+          {
+            "id": "3660-1",
+            "name": "~Moved to 3660a",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3660-1.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 15 pieces",
+        "image": "/demo/instructions/space-transport/step09.png",
+        "pieces": [
+          {
+            "id": "3939-46",
+            "name": "Slope Brick 33  3 x  6",
+            "color": "Trans Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3939-46.png"
+          },
+          {
+            "id": "3710-1",
+            "name": "Plate  1 x  4",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3710-1.png"
+          },
+          {
+            "id": "3937-1",
+            "name": "Hinge  1 x  2 Base",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3937-1.png"
+          },
+          {
+            "id": "3938-1",
+            "name": "Hinge  1 x  2 Top",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3938-1.png"
+          },
+          {
+            "id": "3032-46",
+            "name": "Plate  4 x  6",
+            "color": "Trans Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3032-46.png"
+          },
+          {
+            "id": "3005-1",
+            "name": "Brick  1 x  1",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3005-1.png"
+          },
+          {
+            "id": "3004-1",
+            "name": "Brick  1 x  2",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3004-1.png"
+          },
+          {
+            "id": "3822-7",
+            "name": "Door  1 x  3 x  1 Left",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3822-7.png"
+          },
+          {
+            "id": "3821-7",
+            "name": "Door  1 x  3 x  1 Right",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3821-7.png"
+          },
+          {
+            "id": "3010-1",
+            "name": "Brick  1 x  4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3010-1.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/space-transport/step10.png",
+        "pieces": [
+          {
+            "id": "3795-1",
+            "name": "Plate  2 x  6",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3795-1.png"
+          },
+          {
+            "id": "3031-1",
+            "name": "Plate  4 x  4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3031-1.png"
+          },
+          {
+            "id": "3023-7",
+            "name": "~Moved to 3023b",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3023-7.png"
+          },
+          {
+            "id": "3069b-1",
+            "name": "Tile  1 x  2 with Groove",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3069b-1.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 5 pieces",
+        "image": "/demo/instructions/space-transport/step11.png",
+        "pieces": [
+          {
+            "id": "3020-1",
+            "name": "Plate  2 x  4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-1.png"
+          },
+          {
+            "id": "3963-7",
+            "name": "Brick  2 x  1 with Positioning Rockets",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3963-7.png"
+          },
+          {
+            "id": "3956-1",
+            "name": "Bracket  2 x  2 -  2 x  2 Up",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3956-1.png"
+          },
+          {
+            "id": "3943b-7",
+            "name": "Cone  4 x  4 x  2 with Axlehole",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3943b-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 5 pieces",
+        "image": "/demo/instructions/space-transport/step12.png",
+        "pieces": [
+          {
+            "id": "3024-34",
+            "name": "Plate  1 x  1",
+            "color": "Trans Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/3024-34.png"
+          },
+          {
+            "id": "3957a-7",
+            "name": "Antenna  4H with Rounded Top",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3957a-7.png"
+          },
+          {
+            "id": "3479-7",
+            "name": "Tail  4 x  2 x  2",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3479-7.png"
+          },
+          {
+            "id": "3034-7",
+            "name": "Plate  2 x  8",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3034-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 11 pieces",
+        "image": "/demo/instructions/space-transport/step13.png",
+        "pieces": [
+          {
+            "id": "3842a-4",
+            "name": "Minifig Helmet Classic with Thin Chin Guard and Visor Dimples",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3842a-4.png"
+          },
+          {
+            "id": "3626bp01-14",
+            "name": "Minifig Head with Standard Grin Pattern (Blocked Hollow Stud)",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3626bp01-14.png"
+          },
+          {
+            "id": "3838-4",
+            "name": "Minifig Airtanks",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3838-4.png"
+          },
+          {
+            "id": "973p90-4",
+            "name": "Minifig Torso with Classic Space Pattern",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/973p90-4.png"
+          },
+          {
+            "id": "3815-4",
+            "name": "~Minifig Hips (Obsolete)",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3815-4.png"
+          },
+          {
+            "id": "3818-4",
+            "name": "Minifig Arm Right",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3818-4.png"
+          },
+          {
+            "id": "3819-4",
+            "name": "Minifig Arm Left",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3819-4.png"
+          },
+          {
+            "id": "3820-4",
+            "name": "Minifig Hand",
+            "color": "Red",
+            "count": 2,
+            "image": "/demo/instructions/parts/3820-4.png"
+          },
+          {
+            "id": "3816-4",
+            "name": "~Minifig Leg Right (Obsolete)",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3816-4.png"
+          },
+          {
+            "id": "3817-4",
+            "name": "~Minifig Leg Left (Obsolete)",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3817-4.png"
+          }
+        ]
+      }
+    ]
+  },
+  "mini-shuttle": {
+    "sourceSha256": "a7b12cbed7329d7d7cd2cb1b57292ebc9fc33fd342f47be130cfdb161793fd5e",
+    "sequence": "omr",
+    "modelUrl": "/demo/instructions/mini-shuttle/guide.mpd",
+    "steps": [
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step01.png",
+        "pieces": [
+          {
+            "id": "3034-0",
+            "name": "Plate  2 x  8",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3034-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 4 pieces",
+        "image": "/demo/instructions/mini-shuttle/step02.png",
+        "pieces": [
+          {
+            "id": "3023-7",
+            "name": "~Moved to 3023b",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-7.png"
+          },
+          {
+            "id": "3020-7",
+            "name": "Plate  2 x  4",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3020-7.png"
+          },
+          {
+            "id": "3022-7",
+            "name": "Plate  2 x  2",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step03.png",
+        "pieces": [
+          {
+            "id": "4070-7",
+            "name": "Brick  1 x  1 with Headlight",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/4070-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step04.png",
+        "pieces": [
+          {
+            "id": "3021-8",
+            "name": "Plate  2 x  3",
+            "color": "Dark Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-8.png"
+          },
+          {
+            "id": "3023-4",
+            "name": "~Moved to 3023b",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step05.png",
+        "pieces": [
+          {
+            "id": "54384-15",
+            "name": "Wing  3 x  6 Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/54384-15.png"
+          },
+          {
+            "id": "54383-15",
+            "name": "Wing  3 x  6 Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/54383-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step06.png",
+        "pieces": [
+          {
+            "id": "3062b-8",
+            "name": "Brick  1 x  1 Round with Hollow Stud",
+            "color": "Dark Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3062b-8.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step07.png",
+        "pieces": [
+          {
+            "id": "4589-57",
+            "name": "Cone  1 x  1",
+            "color": "Trans Orange",
+            "count": 2,
+            "image": "/demo/instructions/parts/4589-57.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step08.png",
+        "pieces": [
+          {
+            "id": "3021-8",
+            "name": "Plate  2 x  3",
+            "color": "Dark Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-8.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 4 pieces",
+        "image": "/demo/instructions/mini-shuttle/step09.png",
+        "pieces": [
+          {
+            "id": "6141-7",
+            "name": "Plate  1 x  1 Round",
+            "color": "Light Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/6141-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step10.png",
+        "pieces": [
+          {
+            "id": "4081b-8",
+            "name": "Plate  1 x  1 with Clip Light Type 2",
+            "color": "Dark Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/4081b-8.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 4 pieces",
+        "image": "/demo/instructions/mini-shuttle/step11.png",
+        "pieces": [
+          {
+            "id": "43723-4",
+            "name": "Wing  2 x  3 Left",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/43723-4.png"
+          },
+          {
+            "id": "43722-4",
+            "name": "Wing  2 x  3 Right",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/43722-4.png"
+          },
+          {
+            "id": "41770-15",
+            "name": "Wing  2 x  4 Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41770-15.png"
+          },
+          {
+            "id": "41769-15",
+            "name": "Wing  2 x  4 Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41769-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 3 pieces",
+        "image": "/demo/instructions/mini-shuttle/step12.png",
+        "pieces": [
+          {
+            "id": "3020-15",
+            "name": "Plate  2 x  4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-15.png"
+          },
+          {
+            "id": "3023-7",
+            "name": "~Moved to 3023b",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-7.png"
+          },
+          {
+            "id": "3022-7",
+            "name": "Plate  2 x  2",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step13.png",
+        "pieces": [
+          {
+            "id": "43723-4",
+            "name": "Wing  2 x  3 Left",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/43723-4.png"
+          },
+          {
+            "id": "43722-4",
+            "name": "Wing  2 x  3 Right",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/43722-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step14.png",
+        "pieces": [
+          {
+            "id": "3001-4",
+            "name": "Brick  2 x  4",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3001-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step15.png",
+        "pieces": [
+          {
+            "id": "3623-4",
+            "name": "Plate  1 x  3",
+            "color": "Red",
+            "count": 2,
+            "image": "/demo/instructions/parts/3623-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step16.png",
+        "pieces": [
+          {
+            "id": "3020-15",
+            "name": "Plate  2 x  4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-15.png"
+          },
+          {
+            "id": "3022-15",
+            "name": "Plate  2 x  2",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step17.png",
+        "pieces": [
+          {
+            "id": "61409-8",
+            "name": "~Slope Brick 18  2 x  1 x  0.667 Grille (Obsolete)",
+            "color": "Dark Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/61409-8.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step18.png",
+        "pieces": [
+          {
+            "id": "2412b-7",
+            "name": "Tile  1 x  2 Grille with Groove",
+            "color": "Light Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/2412b-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step19.png",
+        "pieces": [
+          {
+            "id": "3710-15",
+            "name": "Plate  1 x  4",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3710-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 4 pieces",
+        "image": "/demo/instructions/mini-shuttle/step20.png",
+        "pieces": [
+          {
+            "id": "3794b-4",
+            "name": "Plate  1 x  2 with Groove with 1 Centre Stud",
+            "color": "Red",
+            "count": 4,
+            "image": "/demo/instructions/parts/3794b-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step21.png",
+        "pieces": [
+          {
+            "id": "3020-15",
+            "name": "Plate  2 x  4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/mini-shuttle/step22.png",
+        "pieces": [
+          {
+            "id": "4286-4",
+            "name": "Slope Brick 33  3 x  1",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/4286-4.png"
+          },
+          {
+            "id": "4070-7",
+            "name": "Brick  1 x  1 with Headlight",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/4070-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step23.png",
+        "pieces": [
+          {
+            "id": "4070-7",
+            "name": "Brick  1 x  1 with Headlight",
+            "color": "Light Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/4070-7.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step24.png",
+        "pieces": [
+          {
+            "id": "4589-4",
+            "name": "Cone  1 x  1",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/4589-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step25.png",
+        "pieces": [
+          {
+            "id": "44728-4",
+            "name": "Bracket  1 x  2 -  2 x  2 Down",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/44728-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step26.png",
+        "pieces": [
+          {
+            "id": "30602-40",
+            "name": "Slope Brick Curved Top  2 x  2 x  1",
+            "color": "Trans Brown",
+            "count": 1,
+            "image": "/demo/instructions/parts/30602-40.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step27.png",
+        "pieces": [
+          {
+            "id": "3942b-4",
+            "name": "Cone  2 x  2 x  2 with Hollow Stud and Axlehole Teeth",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3942b-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step28.png",
+        "pieces": [
+          {
+            "id": "4286-4",
+            "name": "Slope Brick 33  3 x  1",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/4286-4.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 1 piece",
+        "image": "/demo/instructions/mini-shuttle/step29.png",
+        "pieces": [
+          {
+            "id": "50746-36",
+            "name": "=Slope Brick 31  1 x  1 x  0.667",
+            "color": "Trans Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/50746-36.png"
+          }
+        ]
+      }
+    ]
+  }
+}
