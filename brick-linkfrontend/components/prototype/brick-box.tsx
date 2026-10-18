@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   Blocks,
   Check,
+  Hash,
   LockKeyhole,
   Minus,
   Plus,
@@ -18,7 +19,83 @@ import {
   matchInventory,
 } from "@/lib/demo/inventory";
 import type { BrickBox } from "@/hooks/use-brick-box";
+import type { BrickSet } from "@/lib/demo/types";
 import { KitDialog } from "./kit-dialog";
+
+const extraSets: BrickSet[] = [
+  {
+    id: "31120-1",
+    name: "Sunset Camper Van",
+    pieces: 344,
+    year: 2024,
+    image: "/demo/sets/11001-1.jpg",
+    url: "#",
+    inventory: { "3001:14": 4, "3004:1": 8, "3020:15": 2 },
+  },
+  {
+    id: "41728-1",
+    name: "Heartlake City Diner",
+    pieces: 217,
+    year: 2023,
+    image: "/demo/sets/11017-1.jpg",
+    url: "#",
+    inventory: { "3003:14": 6, "3004:25": 10, "3023:4": 4 },
+  },
+  {
+    id: "60337-1",
+    name: "Express Passenger Train",
+    pieces: 764,
+    year: 2022,
+    image: "/demo/sets/11019-1.jpg",
+    url: "#",
+    inventory: { "3001:1": 8, "3007:71": 2, "3020:0": 4 },
+  },
+  {
+    id: "31140-1",
+    name: "Magical Unicorn",
+    pieces: 145,
+    year: 2024,
+    image: "/demo/sets/10698-1.jpg",
+    url: "#",
+    inventory: { "3004:226": 6, "3005:25": 12, "3023:85": 4 },
+  },
+  {
+    id: "21251-1",
+    name: "Steve’s Desert Expedition",
+    pieces: 92,
+    year: 2025,
+    image: "/demo/sets/11014-1.jpg",
+    url: "#",
+    inventory: { "3003:2": 4, "3004:15": 6, "3022:4": 2 },
+  },
+  {
+    id: "43217-1",
+    name: "Aurora Castle",
+    pieces: 510,
+    year: 2024,
+    image: "/demo/sets/10696-1.jpg",
+    url: "#",
+    inventory: { "3001:70": 4, "3009:14": 2, "3010:1": 6 },
+  },
+  {
+    id: "42154-1",
+    name: "Midnight Roadster",
+    pieces: 660,
+    year: 2023,
+    image: "/demo/sets/11001-1.jpg",
+    url: "#",
+    inventory: { "3001:29": 2, "3002:25": 2, "3021:14": 4 },
+  },
+  {
+    id: "71427-1",
+    name: "Larry’s Dream Balloon",
+    pieces: 221,
+    year: 2025,
+    image: "/demo/sets/11017-1.jpg",
+    url: "#",
+    inventory: { "3004:321": 8, "3005:1": 6, "3023:320": 3 },
+  },
+];
 
 function Counter({
   value,
@@ -56,6 +133,75 @@ function Counter({
   );
 }
 
+function SetCard({ set, box }: { set: BrickSet; box: BrickBox }) {
+  const owned = box.collection.sets[set.id];
+  return (
+    <article className="idea-card set-card">
+      <div className="idea-art">
+        <img src={set.image} alt={set.name} loading="lazy" />
+        {owned && (
+          <span className="build-status status-ready">
+            <Check size={14} /> In my box
+          </span>
+        )}
+        {owned && (
+          <button
+            type="button"
+            className={`wish-button ${owned.keepBuilt ? "is-wished" : ""}`}
+            aria-pressed={owned.keepBuilt}
+            aria-label={
+              owned.keepBuilt
+                ? `Keeping ${set.name} built`
+                : `Keep ${set.name} built`
+            }
+            title={owned.keepBuilt ? "Keeping this built" : "Keep this built"}
+            onClick={() => box.toggleSet(set.id)}
+          >
+            {owned.keepBuilt ? (
+              <LockKeyhole size={18} />
+            ) : (
+              <UnlockKeyhole size={18} />
+            )}
+          </button>
+        )}
+      </div>
+      <div className="idea-card-body">
+        <h3>{set.name}</h3>
+        {owned ? (
+          <Counter
+            value={owned.quantity}
+            name={set.name}
+            onDecrease={() => box.setQuantity(set.id, owned.quantity - 1)}
+            onIncrease={() => box.setQuantity(set.id, owned.quantity + 1)}
+            max={9}
+          />
+        ) : (
+          <button
+            type="button"
+            className="kit-button kit-button-dark"
+            onClick={() => box.setQuantity(set.id, 1)}
+          >
+            <Plus size={17} /> I have this set
+          </button>
+        )}
+        <div className="idea-meta set-meta">
+          <span>
+            <Hash size={18} aria-hidden="true" /> {set.id.split("-")[0]}
+          </span>
+          <span className={owned?.keepBuilt ? "is-locked" : undefined}>
+            {owned?.keepBuilt ? (
+              <LockKeyhole size={18} aria-hidden="true" />
+            ) : (
+              <Blocks size={18} aria-hidden="true" />
+            )}{" "}
+            {set.pieces} pieces
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function BrickBoxDialog({
   box,
   open,
@@ -71,8 +217,8 @@ export function BrickBoxDialog({
     <KitDialog
       open={open}
       onClose={onClose}
-      title="My brick box"
-      description="Your sets, your extra pieces, your next big idea."
+      title="Your sets, extra pieces, and creations"
+      description="Add sets, loose pieces, and track what you’ve built."
       wide
     >
       <BrickBoxPanel box={box} initialTab={initialTab} onDone={onClose} />
@@ -95,6 +241,8 @@ export function BrickBoxPanel({
 }) {
   const [tab, setTab] = useState(initialTab);
   const [query, setQuery] = useState("");
+  const [addingSet, setAddingSet] = useState(false);
+  const [addQuery, setAddQuery] = useState("");
   const [confirmReset, setConfirmReset] = useState<"sample" | "empty" | null>(
     null,
   );
@@ -106,6 +254,8 @@ export function BrickBoxPanel({
   function selectTab(next: "sets" | "pieces" | "made") {
     setTab(next);
     setQuery("");
+    setAddingSet(false);
+    setAddQuery("");
     onTabChange?.(next);
   }
   const available = availablePieces(box.collection);
@@ -113,8 +263,14 @@ export function BrickBoxPanel({
     (sum, item) => sum + item.quantity,
     0,
   );
-  const listedSets = sets.filter((set) =>
+  const listedSets = [
+    ...sets,
+    ...extraSets.filter((set) => box.collection.sets[set.id]),
+  ].filter((set) =>
     `${set.name} ${set.id}`.toLowerCase().includes(query.toLowerCase()),
+  );
+  const popupSets = extraSets.filter((set) =>
+    `${set.name} ${set.id}`.toLowerCase().includes(addQuery.toLowerCase()),
   );
   const listedParts = parts.filter((part) =>
     `${part.name} ${part.colorName} ${part.part}`
@@ -126,7 +282,6 @@ export function BrickBoxPanel({
     <div className={docked ? "box-pane" : undefined}>
       {docked && (
         <header className="box-pane-heading">
-          <p className="section-kicker">MY BRICK BOX</p>
           <h2 id="box-heading">Your sets, extra pieces, and creations</h2>
         </header>
       )}
@@ -181,98 +336,66 @@ export function BrickBoxPanel({
         aria-labelledby={`box-tab-${tab}`}
         className="box-panel"
       >
-        {tab !== "made" && (
+        {tab === "pieces" && (
           <label className="kit-search">
             <Search size={19} />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={
-                tab === "sets"
-                  ? "Find a set by name or number"
-                  : "Find a shape or colour"
-              }
-              aria-label={tab === "sets" ? "Find a set" : "Find an extra piece"}
+              placeholder="Find a shape or colour"
+              aria-label="Find an extra piece"
             />
           </label>
         )}
         {tab === "sets" && (
           <>
-            <p className="kit-helper">
-              Pick the sets you own. Keep a favourite built to save its bricks
-              for later.
-            </p>
-            <div className="set-grid">
-              {listedSets.map((set) => {
-                const owned = box.collection.sets[set.id];
-                return (
-                  <article
-                    key={set.id}
-                    className={`set-card ${owned ? "is-owned" : ""}`}
-                  >
-                    <div className="set-image">
-                      <img src={set.image} alt={set.name} loading="lazy" />
-                      {owned && (
-                        <span className="owned-label">
-                          <Check size={13} /> In my box
-                        </span>
-                      )}
-                    </div>
-                    <div className="set-card-body">
-                      <span className="kit-eyebrow">
-                        {set.id.split("-")[0]} · {set.pieces} pieces
-                      </span>
-                      <h3>{set.name}</h3>
-                      {owned ? (
-                        <>
-                          <Counter
-                            value={owned.quantity}
-                            name={set.name}
-                            onDecrease={() =>
-                              box.setQuantity(set.id, owned.quantity - 1)
-                            }
-                            onIncrease={() =>
-                              box.setQuantity(set.id, owned.quantity + 1)
-                            }
-                            max={9}
-                          />
-                          <button
-                            type="button"
-                            className={`keep-built ${owned.keepBuilt ? "is-locked" : ""}`}
-                            aria-pressed={owned.keepBuilt}
-                            onClick={() => box.toggleSet(set.id)}
-                          >
-                            {owned.keepBuilt ? (
-                              <LockKeyhole size={17} />
-                            ) : (
-                              <UnlockKeyhole size={17} />
-                            )}
-                            <span>
-                              {owned.keepBuilt
-                                ? "Keeping this built"
-                                : "Keep this built"}
-                            </span>
-                          </button>
-                          <p className="set-note">
-                            {owned.keepBuilt
-                              ? "Its bricks are safe. We won’t use them."
-                              : "Its bricks are ready for a new adventure."}
-                          </p>
-                        </>
-                      ) : (
-                        <button
-                          type="button"
-                          className="kit-button kit-button-dark"
-                          onClick={() => box.setQuantity(set.id, 1)}
-                        >
-                          <Plus size={17} /> I have this set
-                        </button>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
+            <div className="idea-grid set-grid">
+              <article className="idea-card set-card add-set-card">
+                <button
+                  type="button"
+                  className="add-set-open"
+                  onClick={() => setAddingSet(true)}
+                >
+                  <Plus size={48} strokeWidth={1.5} />
+                  Add set
+                </button>
+              </article>
+              {listedSets.map((set) => (
+                <SetCard key={set.id} set={set} box={box} />
+              ))}
             </div>
+            <KitDialog
+              open={addingSet}
+              onClose={() => {
+                setAddingSet(false);
+                setAddQuery("");
+              }}
+              title="Add a set"
+              description="Search a set name or number."
+              wide
+            >
+              <label className="kit-search">
+                <Search size={19} />
+                <input
+                  value={addQuery}
+                  onChange={(e) => setAddQuery(e.target.value)}
+                  placeholder="Search set name or number"
+                  aria-label="Search set name or number"
+                />
+              </label>
+              <div className="idea-grid set-grid add-set-catalog">
+                {popupSets.map((set) => (
+                  <SetCard key={set.id} set={set} box={box} />
+                ))}
+              </div>
+              {!popupSets.length && (
+                <div className="kit-empty">
+                  <Search />
+                  <h3>No set here yet</h3>
+                  <p>Try a different name or number.</p>
+                </div>
+              )}
+            </KitDialog>
             {!listedSets.length && (
               <div className="kit-empty">
                 <Search />
@@ -320,10 +443,6 @@ export function BrickBoxPanel({
         )}
         {tab === "made" && (
           <>
-            <p className="kit-helper">
-              A favourite can stay just as it is. Remix it when you’re ready for
-              something new.
-            </p>
             {box.collection.creations.length ? (
               <div className="creation-list">
                 {box.collection.creations.map((creation) => {
@@ -373,8 +492,7 @@ export function BrickBoxPanel({
             ) : (
               <div className="kit-empty">
                 <Blocks size={38} />
-                <h3>A whole shelf of possibilities</h3>
-                <p>Finish your first mini build and it will live here.</p>
+                <h3>Your creations will live here</h3>
               </div>
             )}
           </>

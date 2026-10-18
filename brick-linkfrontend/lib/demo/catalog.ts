@@ -20,8 +20,20 @@ export const emptyCollection: Collection = {
   creations: [],
   wishlist: [],
 };
-export const families: { id: Family; label: string; model: string }[] = [
-  { id: "all", label: "Surprise me", model: "pocket-racer" },
+export const families: {
+  id: Family;
+  label: string;
+  model: string;
+  image?: string;
+  background?: string;
+}[] = [
+  {
+    id: "all",
+    label: "Surprise me",
+    model: "pocket-racer",
+    image: "/demo/models/surprise-present.svg",
+    background: "#E8D4C4",
+  },
   { id: "rides", label: "Things that go", model: "pocket-racer" },
   { id: "animals", label: "Animal friends", model: "sunny-duck" },
   { id: "dinosaurs", label: "Dinosaurs", model: "long-neck" },

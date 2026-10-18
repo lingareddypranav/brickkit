@@ -23,13 +23,6 @@ export function IdeaCard({
   onOpen: () => void;
   onSave: () => void;
 }) {
-  const labels = {
-    rides: "ON THE MOVE",
-    animals: "A NEW LITTLE FRIEND",
-    dinosaurs: "A PREHISTORIC PAL",
-    dragons: "A LITTLE BIT OF MAGIC",
-    space: "BEYOND THE MOON",
-  };
   return (
     <article className="idea-card">
       <div className="idea-art" style={{ background: model.background }}>
@@ -57,7 +50,6 @@ export function IdeaCard({
       </div>
       <div className="idea-card-body">
         <div>
-          <span className="model-family">{labels[model.family]}</span>
           <h3>
             <button onClick={onOpen}>{model.name}</button>
           </h3>
@@ -65,10 +57,10 @@ export function IdeaCard({
         </div>
         <div className="idea-meta">
           <span>
-            <Blocks size={14} /> {match.total} pieces
+            <Blocks size={18} /> {match.total} pieces
           </span>
           <span>
-            <Clock3 size={14} /> {model.minutes} min
+            <Clock3 size={18} /> {model.minutes} min
           </span>
           <button onClick={onOpen} aria-label={`Open ${model.name}`}>
             <ArrowRight size={20} />

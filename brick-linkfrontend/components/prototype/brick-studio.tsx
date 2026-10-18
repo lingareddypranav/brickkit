@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  ArrowLeft,
   ArrowRight,
   Blocks,
   Check,
@@ -11,8 +12,12 @@ import {
 } from "lucide-react";
 import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
+import {
+  buildAssistantReply,
+  type ChatChoice,
+} from "@/lib/demo/chat-script";
 import { families, modelById } from "@/lib/demo/catalog";
-import { countPieces } from "@/lib/demo/inventory";
+import { countPieces, matchInventory } from "@/lib/demo/inventory";
 import type { Blueprint } from "@/lib/demo/types";
 import { BrickBoxPanel } from "./brick-box";
 import { IdeaCard } from "./idea-card";
@@ -22,8 +27,17 @@ import "./prototype.css";
 import "./gallery.css";
 import "./guide.css";
 
-type Pane = "make" | "samples" | "box" | "hero";
+type Pane = "make" | "box" | "hero";
 type BoxTab = "sets" | "pieces" | "made";
+type ChatRole = "user" | "assistant";
+type ChatMessage = {
+  id: string;
+  role: ChatRole;
+  text: string;
+  choices?: ChatChoice[];
+  choiceTaken?: string;
+  results?: string[];
+};
 
 export default function BrickStudio() {
   const box = useBrickBox();
@@ -32,6 +46,12 @@ export default function BrickStudio() {
   const [boxTab, setBoxTab] = useState<BoxTab>("sets");
   const [building, setBuilding] = useState<Blueprint | null>(null);
   const [selected, setSelected] = useState<Blueprint | null>(null);
+  const [chatting, setChatting] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [pending, setPending] = useState(false);
+  const threadRef = useRef<HTMLDivElement>(null);
+  const replyTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const messageId = useRef(0);
   const ownedSets = Object.values(box.collection.sets).reduce(
     (s, x) => s + x.quantity,
     0,
@@ -45,15 +65,78 @@ export default function BrickStudio() {
     setPane("box");
   }
 
-  function goSamples() {
-    setPane("samples");
+  function nextMessageId() {
+    messageId.current += 1;
+    return `chat-${messageId.current}`;
   }
+
+  function enterChat() {
+    setChatting(true);
+  }
+
+  function exitChat() {
+    if (replyTimer.current) {
+      window.clearTimeout(replyTimer.current);
+      replyTimer.current = null;
+    }
+    setChatting(false);
+    setMessages([]);
+    setPending(false);
+    ideas.setPrompt("");
+  }
+
+  function sendChat(text = ideas.prompt.trim(), choice?: ChatChoice) {
+    if (!text || pending) return;
+    enterChat();
+    ideas.setPrompt("");
+    setMessages((current) => [
+      ...current,
+      { id: nextMessageId(), role: "user", text },
+    ]);
+    setPending(true);
+    replyTimer.current = window.setTimeout(() => {
+      setMessages((current) => [
+        ...current,
+        {
+          id: nextMessageId(),
+          role: "assistant",
+          ...buildAssistantReply(text, choice, current),
+        },
+      ]);
+      setPending(false);
+      replyTimer.current = null;
+    }, 550);
+  }
+
+  function pickChoice(messageId: string, choice: ChatChoice) {
+    if (pending) return;
+    setMessages((current) =>
+      current.map((message) =>
+        message.id === messageId
+          ? { ...message, choiceTaken: choice.id }
+          : message,
+      ),
+    );
+    sendChat(choice.label, choice);
+  }
+
+  useEffect(() => {
+    const thread = threadRef.current;
+    if (!thread || !chatting) return;
+    thread.scrollTo({ top: thread.scrollHeight, behavior: "smooth" });
+  }, [messages, pending, chatting]);
+
+  useEffect(() => {
+    return () => {
+      if (replyTimer.current) window.clearTimeout(replyTimer.current);
+    };
+  }, []);
 
   return (
     <div className="kit-app">
       <aside className="kit-sidebar">
         <a
-          className="bp-lockup bp-lockup--sm bp-lockup--on-light kit-sidebar-brand"
+          className="bp-lockup bp-lockup--xs bp-lockup--on-light kit-sidebar-brand"
           href="/"
           aria-label="Blueprint home"
         >
@@ -67,13 +150,6 @@ export default function BrickStudio() {
             onClick={() => setPane("make")}
           >
             Build
-          </button>
-          <button
-            className={pane === "samples" ? "is-active" : ""}
-            aria-current={pane === "samples" ? "page" : undefined}
-            onClick={() => setPane("samples")}
-          >
-            Samples
           </button>
           <button
             className={pane === "box" ? "is-active" : ""}
@@ -96,140 +172,232 @@ export default function BrickStudio() {
 
       <main className="kit-pane">
         {pane === "make" && (
-          <section className="make-pane" aria-labelledby="ideas-heading">
-            <div className="make-pane-inner">
-              <h1 className="make-title" id="ideas-heading">
-                What shall we build?
-              </h1>
-              <form
-                className="idea-prompt"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  ideas.submitPrompt();
-                  goSamples();
-                }}
-              >
-                <Search size={18} />
-                <input
-                  aria-label="What would you like to build?"
-                  placeholder="A dragon? A spaceship? Tell Blueprint your idea…"
-                  value={ideas.prompt}
-                  onChange={(e) => ideas.setPrompt(e.target.value)}
-                />
-                <button type="submit" aria-label="Find an idea">
-                  <ArrowRight size={20} />
-                </button>
-              </form>
-              <div className="family-choices" aria-label="Choose a kind of build">
-                {families.map((family) => (
-                  <button
-                    key={family.id}
-                    aria-pressed={ideas.family === family.id}
-                    onClick={() => {
-                      ideas.setFamily(family.id);
-                      ideas.setSavedOnly(false);
-                      goSamples();
-                    }}
-                  >
-                    <span
-                      style={{ background: modelById[family.model].background }}
-                    >
-                      <img src={modelById[family.model].image} alt="" />
-                    </span>
-                    {family.label}
-                  </button>
-                ))}
-              </div>
-              <div className="idea-controls">
-                <button
-                  className={`bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
-                  role="switch"
-                  aria-checked={ideas.onlyMyBricks}
-                  onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
-                >
-                  <span className="switch-track">
-                    <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
-                  </span>
-                  <span>Use my bricks</span>
-                </button>
-                <button
-                  className={`saved-filter ${ideas.savedOnly ? "is-active" : ""}`}
-                  aria-pressed={ideas.savedOnly}
-                  onClick={() => {
-                    ideas.setSavedOnly(!ideas.savedOnly);
-                    goSamples();
-                  }}
-                >
-                  <Heart
-                    size={16}
-                    fill={ideas.savedOnly ? "currentColor" : "none"}
-                  />{" "}
-                  Saved <span>{box.collection.wishlist.length}</span>
-                </button>
-              </div>
-            </div>
-          </section>
-        )}
+          <section
+            className={`make-pane${chatting ? " is-chatting" : ""}`}
+            aria-labelledby="ideas-heading"
+          >
+            <button
+              type="button"
+              className="chat-back"
+              onClick={exitChat}
+              tabIndex={chatting ? 0 : -1}
+              aria-hidden={!chatting}
+            >
+              <ArrowLeft size={18} />
+              Back
+            </button>
 
-        {pane === "samples" && (
-          <section className="samples-pane" aria-labelledby="samples-heading">
-            <div className="pane-toolbar">
-              <div>
-                <span className="section-kicker">SAMPLES</span>
-                <h2 id="samples-heading">Little ideas to try</h2>
-              </div>
-              <p className="results-count" aria-live="polite">
-                {box.hydrated
-                  ? `${ideas.ideas.length} little ${ideas.ideas.length === 1 ? "idea" : "ideas"}${ideas.onlyMyBricks ? " ready to make" : " to explore"}`
-                  : "Finding your next adventure…"}
-              </p>
+            <div
+              className="make-above"
+              inert={chatting || undefined}
+              aria-hidden={chatting}
+            >
+              <h1 className="make-title" id="ideas-heading">
+                Hi Timmy! What shall we build?
+              </h1>
             </div>
-            {ideas.promptMessage && (
-              <p className="prompt-feedback" role="status">
-                {ideas.promptMessage}
-              </p>
-            )}
-            <div className="kit-pane-scroll">
-              {ideas.ideas.length ? (
-                <div className="idea-grid" aria-busy={!box.hydrated}>
-                  {ideas.ideas.map((idea) => (
-                    <IdeaCard
-                      key={idea.model.id}
-                      {...idea}
-                      onOpen={() => setSelected(idea.model)}
-                      onSave={() => box.toggleWish(idea.model.id)}
-                    />
+
+            <div
+              className="chat-thread"
+              aria-live="polite"
+              aria-hidden={!chatting}
+              inert={!chatting || undefined}
+              ref={threadRef}
+            >
+              <div className="chat-thread-inner">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`chat-turn chat-turn--${message.role}`}
+                  >
+                    <div className={`chat-msg chat-msg--${message.role}`}>
+                      <p>{message.text}</p>
+                    </div>
+                    {message.choices && message.choices.length > 0 && (
+                      <div className="chat-choices" role="group" aria-label="Choose an answer">
+                        {message.choices.map((choice) => (
+                          <button
+                            key={choice.id}
+                            type="button"
+                            disabled={pending || Boolean(message.choiceTaken)}
+                            aria-pressed={message.choiceTaken === choice.id}
+                            onClick={() => pickChoice(message.id, choice)}
+                          >
+                            {choice.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {message.results && message.results.length > 0 && (
+                      <div className="chat-results" aria-label="Blueprint ideas">
+                        {message.results.map((modelId) => {
+                          const model = modelById[modelId];
+                          if (!model) return null;
+                          return (
+                            <IdeaCard
+                              key={model.id}
+                              model={model}
+                              match={matchInventory(
+                                model.inventory,
+                                ideas.available,
+                              )}
+                              saved={box.collection.wishlist.includes(model.id)}
+                              onOpen={() => setSelected(model)}
+                              onSave={() => box.toggleWish(model.id)}
+                            />
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {pending && (
+                  <div
+                    className="chat-msg chat-msg--assistant chat-pending"
+                    aria-label="Blueprint is thinking"
+                  >
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <form
+              className="idea-prompt"
+              onSubmit={(e) => {
+                e.preventDefault();
+                sendChat();
+              }}
+            >
+              <Search size={18} />
+              <input
+                aria-label="What would you like to build?"
+                placeholder={
+                  chatting
+                    ? "Ask Blueprint anything…"
+                    : "A dragon? A spaceship? Tell Blueprint your idea…"
+                }
+                value={ideas.prompt}
+                onChange={(e) => ideas.setPrompt(e.target.value)}
+              />
+              <button type="submit" aria-label="Send idea">
+                <ArrowRight size={20} />
+              </button>
+            </form>
+
+            <div
+              className="make-below"
+              inert={chatting || undefined}
+              aria-hidden={chatting}
+            >
+              <div className="make-below-inner">
+                <div
+                  className="family-choices"
+                  aria-label="Choose a kind of build"
+                >
+                  {families.map((family) => (
+                    <button
+                      key={family.id}
+                      aria-pressed={ideas.family === family.id}
+                      onClick={() => {
+                        ideas.setFamily(family.id);
+                        ideas.setSavedOnly(false);
+                      }}
+                    >
+                      <span
+                        style={{
+                          background:
+                            family.background ??
+                            modelById[family.model].background,
+                        }}
+                      >
+                        <img
+                          src={family.image ?? modelById[family.model].image}
+                          alt=""
+                        />
+                      </span>
+                      {family.label}
+                    </button>
                   ))}
                 </div>
-              ) : (
-                <div className="gallery-empty">
-                  <Blocks size={38} />
-                  <h3>
-                    {ideas.savedOnly
-                      ? "A little room for dreams"
-                      : "Let’s find your next adventure"}
-                  </h3>
-                  <p>
-                    {ideas.savedOnly
-                      ? "Tap a heart to save an idea. You can include ideas that need more pieces, too."
-                      : "Your box doesn’t have all the pieces for these ideas yet. Add your sets, or explore something new."}
-                  </p>
-                  <div>
-                    <button
-                      className="kit-button kit-button-light"
-                      onClick={() => openBox("sets")}
-                    >
-                      Open my brick box
-                    </button>
-                    <button
-                      className="kit-button kit-button-outline"
-                      onClick={() => ideas.setOnlyMyBricks(false)}
-                    >
-                      Show more ideas <Sparkles size={16} />
-                    </button>
-                  </div>
+                <div className="idea-controls">
+                  <button
+                    className={`bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
+                    role="switch"
+                    aria-checked={ideas.onlyMyBricks}
+                    onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
+                  >
+                    <span className="switch-track">
+                      <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
+                    </span>
+                    <span>Use my bricks</span>
+                  </button>
+                  <button
+                    className={`saved-filter ${ideas.savedOnly ? "is-active" : ""}`}
+                    aria-pressed={ideas.savedOnly}
+                    onClick={() => ideas.setSavedOnly(!ideas.savedOnly)}
+                  >
+                    <Heart
+                      size={16}
+                      fill={ideas.savedOnly ? "currentColor" : "none"}
+                    />{" "}
+                    Saved <span>{box.collection.wishlist.length}</span>
+                  </button>
                 </div>
-              )}
+                {ideas.promptMessage && (
+                  <p className="prompt-feedback" role="status">
+                    {ideas.promptMessage}
+                  </p>
+                )}
+                <div className="kit-pane-scroll make-samples">
+                  {ideas.ideas.length ? (
+                    <div
+                      className="idea-carousel"
+                      aria-busy={!box.hydrated}
+                      aria-label="Build ideas"
+                    >
+                      {ideas.ideas.map((idea) => (
+                        <IdeaCard
+                          key={idea.model.id}
+                          {...idea}
+                          onOpen={() => setSelected(idea.model)}
+                          onSave={() => box.toggleWish(idea.model.id)}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="gallery-empty">
+                      <Blocks size={38} />
+                      <h3>
+                        {ideas.savedOnly
+                          ? "A little room for dreams"
+                          : "Let’s find your next adventure"}
+                      </h3>
+                      <p>
+                        {ideas.savedOnly
+                          ? "Tap a heart to save an idea. You can include ideas that need more pieces, too."
+                          : "Your box doesn’t have all the pieces for these ideas yet. Add your sets, or explore something new."}
+                      </p>
+                      <div>
+                        <button
+                          className="kit-button kit-button-light"
+                          onClick={() => openBox("sets")}
+                        >
+                          Open my brick box
+                        </button>
+                        <button
+                          className="kit-button kit-button-outline"
+                          onClick={() => ideas.setOnlyMyBricks(false)}
+                        >
+                          Show more ideas <Sparkles size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </section>
         )}

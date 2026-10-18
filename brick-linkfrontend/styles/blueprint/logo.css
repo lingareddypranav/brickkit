@@ -121,6 +121,9 @@
 .bp-lockup--sm {
   --bp-mark-size: 48px;
 }
+.bp-lockup--xs {
+  --bp-mark-size: 24px;
+}
 .bp-lockup--native {
   --bp-mark-size: 225px;
 }
