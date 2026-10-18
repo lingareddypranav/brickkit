@@ -3,12 +3,12 @@ import { useState } from "react"
 import { ArrowRight, Blocks, Check, Heart, LockKeyhole, Search, Sparkles } from "lucide-react"
 import { useBrickBox } from "@/hooks/use-brick-box"
 import { useBuildIdeas } from "@/hooks/use-build-ideas"
-import { families, modelById, partByKey } from "@/lib/demo/catalog"
-import { countPieces, matchInventory } from "@/lib/demo/inventory"
+import { families, modelById } from "@/lib/demo/catalog"
+import { countPieces } from "@/lib/demo/inventory"
 import type { Blueprint } from "@/lib/demo/types"
 import { BrickBoxDialog } from "./brick-box"
 import { IdeaCard } from "./idea-card"
-import { KitDialog } from "./kit-dialog"
+import { BuildDetail } from "./build-detail"
 import "./prototype.css"
 import "./gallery.css"
 
@@ -16,6 +16,7 @@ export default function BrickStudio() {
   const box = useBrickBox()
   const ideas = useBuildIdeas(box.collection)
   const [boxOpen, setBoxOpen] = useState(false)
+  const [boxTab, setBoxTab] = useState<"sets" | "pieces" | "made">("sets")
   const [selected, setSelected] = useState<Blueprint | null>(null)
   const protectedCount = Object.values(box.collection.sets).filter(set => set.keepBuilt).length + box.collection.creations.filter(model => model.keepBuilt).length
   return <div className="kit-app">
@@ -33,12 +34,7 @@ export default function BrickStudio() {
       </section>
       <footer className="studio-footer"><span>Made for little hands & big imaginations.</span><a href="/explore">Explore the LEGO model library <ArrowRight size={14} /></a></footer>
     </main>
-    {boxOpen && <BrickBoxDialog box={box} open onClose={() => setBoxOpen(false)} />}
-    {selected && <KitDialog open onClose={() => setSelected(null)} title={selected.name} description={selected.description}>
-      <div className="detail-preview" style={{background:selected.background}}><img src={selected.image} alt={selected.name} /></div>
-      <div className="detail-parts">{Object.entries(selected.inventory).map(([key,n]) => <span key={key}>{n} × {partByKey[key].colorName} {partByKey[key].name.toLowerCase()}</span>)}</div>
-      <p>{matchInventory(selected.inventory,ideas.available).ready ? 'You have every piece for this little adventure.' : `Your box needs ${matchInventory(selected.inventory,ideas.available).missingCount} more pieces for this idea.`}</p>
-      <button className="kit-button kit-button-dark" onClick={() => { setSelected(null); setBoxOpen(true) }}>Open my brick box <ArrowRight size={17} /></button>
-    </KitDialog>}
+    {boxOpen && <BrickBoxDialog box={box} initialTab={boxTab} open onClose={() => setBoxOpen(false)} />}
+    {selected && <BuildDetail model={selected} box={box} onClose={() => setSelected(null)} onManageBox={tab => { setSelected(null); setBoxTab(tab); setBoxOpen(true) }} />}
   </div>
 }
