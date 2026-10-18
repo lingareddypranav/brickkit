@@ -28,7 +28,23 @@
 }
 
 .kit-sidebar-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   max-width: 100%;
+  padding-bottom: 0;
+}
+
+.kit-sidebar-brand .bp-mark {
+  align-self: center;
+}
+
+.kit-sidebar-brand .bp-wordmark {
+  align-self: center;
+  text-box: normal;
+  text-box-trim: none;
+  /* Centre the visible letters, including the p, against the whole brick. */
+  transform: translateY(-0.08em);
 }
 
 .kit-sidebar nav {
