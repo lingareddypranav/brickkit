@@ -41,7 +41,7 @@ export const families: {
   { id: "rides", label: "Things that go", model: "blue-racer" },
   { id: "animals", label: "Animal friends", model: "cute-pug" },
   { id: "dinosaurs", label: "Dinosaurs", model: "apatosaurus" },
-  { id: "dragons", label: "Dragons", model: "dragon-friend" },
+  { id: "dragons", label: "Dragons", model: "brick-dragon" },
   { id: "space", label: "Out of this world", model: "shuttle-explorer" },
 ];
 

@@ -52,29 +52,6 @@
     ]
   },
   {
-    "id": "dragon-friend",
-    "name": "Castle Dragon",
-    "family": "dragons",
-    "description": "A green dragon with bright red wings. A small assembly from Dragon Wagon.",
-    "setId": "6056-1",
-    "sourceUrl": "https://library.ldraw.org/omr/sets/1466",
-    "downloadUrl": "https://library.ldraw.org/library/omr/6056-1.mpd",
-    "camera": [
-      20,
-      225
-    ],
-    "submodel": "6056 - Dragon.ldr",
-    "inventory": {
-      "6027:2": 1,
-      "6028:2": 1,
-      "6127:2": 1,
-      "6128:2": 1,
-      "6129c01:2": 1,
-      "6133:4": 2,
-      "6126a:57": 1
-    }
-  },
-  {
     "id": "green-dinosaur",
     "name": "Green Dinosaur",
     "family": "dinosaurs",
@@ -173,19 +150,6 @@
     "setId": "7209-1",
     "sourceUrl": "https://library.ldraw.org/omr/sets/159",
     "downloadUrl": "https://library.ldraw.org/library/omr/7209-1.mpd",
-    "camera": [
-      30,
-      45
-    ]
-  },
-  {
-    "id": "dragon-wagon",
-    "name": "Dragon Wagon",
-    "family": "dragons",
-    "description": "A castle wagon carrying a very special passenger.",
-    "setId": "6056-1",
-    "sourceUrl": "https://library.ldraw.org/omr/sets/1466",
-    "downloadUrl": "https://library.ldraw.org/library/omr/6056-1.mpd",
     "camera": [
       30,
       45

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Cache real LeoCAD picture instructions; no runtime API or model search needed.
 
-OMR STEP/ROTSTEP order is retained, including nested assemblies. The two
-small models without steps use explicit, reviewed placement groups below.
+OMR STEP/ROTSTEP order is retained, including nested assemblies. The dinosaur
+model without steps uses explicit, reviewed placement groups below.
 Run after prepare-omr.py. Requires LeoCAD, the LDraw library and Pillow.
 """
 import argparse
@@ -19,13 +19,6 @@ from PIL import Image
 FRONTEND = Path(__file__).resolve().parents[1]
 IDENTITY = [1, 0, 0, 0, 1, 0, 0, 0, 1]
 CURATED = {
-    'dragon-friend': {
-        'submodel': '6056 - Dragon.ldr',
-        'groups': [[0], [1], [2], [3, 4], [5], [6], [7]],
-        'titles': ['Find the dragon body', 'Click on the tail', 'Add the lower jaw',
-                   'Give your dragon two arms', 'Add one red wing',
-                   'Add the other red wing', 'Time for fire breath!'],
-    },
     'green-dinosaur': {
         'groups': [[0], [31, 30, 32, 33], [1, 2], [3, 4, 5, 6],
                    [7, 11, 12, 13, 15], [8, 9, 10], [14, 16, 17],
@@ -189,7 +182,7 @@ def main():
             guide.append({'title': spec.get('titles', [])[i] if spec.get('titles') else
                           f'Add {len(step)} '+('piece' if len(step)==1 else 'pieces'),
                           'image': '/'+str(img.relative_to(FRONTEND/'public')), 'pieces': pieces})
-        index[model_id] = {'sourceSha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+        index[model_id] = {'kind': 'pictures', 'sourceSha256': hashlib.sha256(source.read_bytes()).hexdigest(),
                            'sequence': 'curated' if 'groups' in spec else 'omr',
                            'modelUrl': '/'+str(guide_model.relative_to(FRONTEND/'public')),
                            'steps': guide}
@@ -199,10 +192,10 @@ def main():
 
     credits = ['# Cached picture guide sources', '',
                'Derived from the OMR models credited below; original credits and licences are also retained in each guide.mpd.',
-               'Step grouping for the dragon and dinosaur was added by the Blueprint project. Spaceship steps retain the OMR construction order.',
+               'Step grouping for the dinosaur was added by the Blueprint project. Spaceship steps retain the OMR construction order.',
                'Part previews are rendered with the LDraw Parts Library. See [LDraw attribution and licences](../omr/CAreadme.txt), [CCAL](../omr/CAlicense.txt) and [CC BY 4.0](../omr/CAlicense4.txt).', '']
     for model in catalog['models']:
-        if model['id'] in index:
+        if model['id'] in index and index[model['id']].get('kind') != 'booklet':
             source = model['source']
             credits += [f"## {model['name']}", '',
                         f"Model by {source['author']}. {source['license']}",

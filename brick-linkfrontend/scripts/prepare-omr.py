@@ -119,6 +119,9 @@ for m in manifest:
     attributions.append(f"| {m['name']} | [{m['setId']}]({m['sourceUrl']}) | {author} | {license} |")
     print('Prepared', m['id'], flush=True)
 
+# Preserve independently prepared booklet-backed builds.
+models.extend(m for m in previous['models'] if m.get('source', {}).get('provider') == 'LEGO')
+
 sample = dict(version=1, sets={id:dict(quantity=1, keepBuilt=(id=='31027-1'))
     for id in ['30542-1','6741-1','7219-1','31027-1']}, loose={}, creations=[], wishlist=[])
 data = dict(parts=list(parts.values()), sets=list(sets.values()), models=models,
@@ -128,7 +131,7 @@ catalog_path.write_text(json.dumps(data, indent=2, ensure_ascii=False)+'\n')
 
 Models downloaded from the official LDraw OMR. Original author and licence headers
 are retained in every MPD. PNG previews are rendered from those MPDs with LeoCAD.
-The Castle Dragon preview selects the original Dragon Wagon dragon assembly.
+Molded-body dragon models are retired from suggestions. Their cached assets remain for saved-creation history.
 
 | Build | OMR source | Author | File licence |
 | --- | --- | --- | --- |
@@ -137,7 +140,7 @@ The Castle Dragon preview selects the original Dragon Wagon dragon assembly.
 CCAL 2.0: https://www.ldraw.org/article/227.html
 CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
 
-Except for the verified eight-piece Castle Dragon assembly, collection checks
+Collection checks
 and reservations deliberately use the complete source set's
 Rebrickable version-1 inventory, excluding spares. This is conservative for
 alternate builds; they can require fewer pieces. These

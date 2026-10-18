@@ -146,6 +146,8 @@ def main():
     catalog = json.loads((FRONTEND/'lib/demo/catalog-data.json').read_text())
     models = {m['id']: m for m in catalog['models']}
     for model_id, guide in guides.items():
+        if guide.get('kind') == 'booklet':
+            continue  # Original booklets stay linked from LEGO; do not repackage them.
         output = PUBLIC/'demo/instructions'/model_id/'instructions.pdf'
         make_booklet(models[model_id], guide, output)
         guide['pdfUrl'] = '/'+str(output.relative_to(PUBLIC))

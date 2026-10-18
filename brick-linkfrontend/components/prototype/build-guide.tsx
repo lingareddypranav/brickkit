@@ -12,6 +12,7 @@ import type { BrickBox } from "@/hooks/use-brick-box";
 import { availablePieces, matchInventory } from "@/lib/demo/inventory";
 import type { Blueprint } from "@/lib/demo/types";
 import { instructionsFor } from "@/lib/demo/instructions";
+import { BookletInstructions } from "./booklet-instructions";
 import { PictureInstructions } from "./picture-instructions";
 import "./guide.css";
 import { KitDialog } from "./kit-dialog";
@@ -40,7 +41,8 @@ export function BuildGuide(props: Props) {
 function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
   const guide = instructionsFor(model.id);
   const [step, setStep] = useState(0);
-  const lastStep = !guide || step === guide.steps.length - 1;
+  const lastStep =
+    guide?.kind !== "pictures" || step === guide.steps.length - 1;
   const [keepBuilt, setKeepBuilt] = useState(true);
   const [saved, setSaved] = useState(false);
   const [in3D, setIn3D] = useState(false);
@@ -80,7 +82,7 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
         </div>
       ) : (
         <>
-          {guide ? (
+          {guide?.kind === "pictures" ? (
             <PictureInstructions
               guide={guide}
               name={model.name}
@@ -88,6 +90,8 @@ function OMRBuildGuide({ model, box, onClose, onShelf }: Props) {
               step={step}
               onStep={setStep}
             />
+          ) : guide?.kind === "booklet" ? (
+            <BookletInstructions model={model} guide={guide} />
           ) : (
             <>
               <div className="guide-title">

@@ -9,6 +9,7 @@ export interface InstructionPiece {
 }
 
 export interface PictureGuide {
+  kind: "pictures";
   sourceSha256: string;
   sequence: "curated" | "omr";
   modelUrl: string;
@@ -20,13 +21,25 @@ export interface PictureGuide {
   }[];
 }
 
+export interface BookletGuide {
+  kind: "booklet";
+  provider: "LEGO";
+  pdfUrl: string;
+  sourceUrl: string;
+  pageCount: number;
+  startPage: number;
+  minimumAge: number;
+}
+
+export type InstructionGuide = PictureGuide | BookletGuide;
+
 // Assets and construction order live outside presentation, so a redesign can
 // reuse the guides without depending on LeoCAD or the API at runtime.
-const guides: Record<string, PictureGuide> = data as Record<
+const guides: Record<string, InstructionGuide> = data as unknown as Record<
   string,
-  PictureGuide
+  InstructionGuide
 >;
 
-export function instructionsFor(modelId: string): PictureGuide | undefined {
+export function instructionsFor(modelId: string): InstructionGuide | undefined {
   return guides[modelId];
 }

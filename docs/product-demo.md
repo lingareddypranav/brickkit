@@ -1,29 +1,39 @@
 # Blueprint demo preparation
 
-## Picture instructions that are ready now
+## Instructions that are ready now
 
-Open a model marked **Picture instructions ready**, then choose **View instructions**
-(or **Let's build** when the collection has the pieces). Every picture, piece
-thumbnail and printable PDF booklet is bundled with the frontend. Choose **Open PDF
-booklet** inside the guide to read or print the book. These guides do not call the Python API,
-search OMR, generate images, or depend on an external instruction website at runtime.
+The dragon demo now uses **Red Dragon (31145)** and **Fire Dragon (31102)**.
+Both build the body, head and wings from separate bricks. Their original LEGO
+booklets have been checked at the opening construction pages: both start with
+ordinary small pieces. The first PDF for each set is the dragon; the other PDFs
+are alternate models and are deliberately not selected.
 
-| Model ID | Build | Steps | Construction order |
-| --- | --- | ---: | --- |
-| `dragon-friend` | Castle Dragon | 7 | Curated assembly of the eight source pieces |
-| `green-dinosaur` | Green Dinosaur | 11 | Curated groups using every original placement once |
-| `mini-shuttle` | Mini Space Shuttle | 29 | Original OMR step order |
-| `space-transport` | Space Transport | 13 | Original OMR step order, including nested assemblies |
+| Model ID | Build | Instructions | Availability |
+| --- | --- | --- | --- |
+| `brick-dragon` | Red Dragon | Original 68-page LEGO booklet, ages 6+ | Direct LEGO CDN link |
+| `fire-dragon` | Fire Dragon | Original 56-page LEGO booklet, ages 7+ | Direct LEGO CDN link |
+| `green-dinosaur` | Green Dinosaur | 11 cached picture steps and PDF | Bundled with frontend |
+| `mini-shuttle` | Mini Space Shuttle | 29 cached OMR picture steps and PDF | Bundled with frontend |
+| `space-transport` | Space Transport | 13 cached OMR picture steps and PDF | Bundled with frontend |
 
-The dragon has red wings and a flame piece. The dinosaur and spaceships are separate
-builds. **We have not verified that this dinosaur fits on either spaceship.** Select
-and physically fit-test the carrier before promising that story beat in the video.
-The siblings are characters in the film; they do not require app profiles or sharing.
+Open a prepared model, choose **View instructions**, then **Open building booklet**
+for the dragons or step through the cached diagrams for the other builds.
+The original dragon PDFs require internet access. They are linked from LEGO,
+not redistributed or relabelled as our generated booklets. There is no downloaded
+CAD model for these two replacements and no 3D-spin button is offered for them.
 
-Kids can inspect the whole guide without owning the pieces. **I made it!** appears
-on the last step and requires available inventory. **Keep it built** retains the
-existing reservation behavior. The remaining gallery models keep their external
-instruction lookup; they are not labelled as having a prepared picture guide.
+The eight-piece molded-body Castle Dragon and Dragon Wagon have been removed
+from suggestions. Their IDs and inventories remain in legacy data solely to keep
+existing saved creations and reservations intact. The misleading seven-step dragon
+guide and PDF have been withdrawn. They must not be used in the demo.
+
+The dinosaur and spaceships are separate builds. **We have not verified that this
+dinosaur fits on either spaceship.** Physically fit-test the carrier before filming
+that story beat. The siblings are film characters, not app profiles or sharing.
+
+Kids can view instructions without owning every piece. Saving a creation still
+requires available inventory; **Keep it built** retains the reservation behavior.
+For original booklets the app does not track the child's position inside the PDF.
 
 ## Rebuild or add a guide
 
@@ -32,6 +42,17 @@ The independent guide contract and lookup live in
 `instructions-data.json`. Presentation lives in `picture-instructions.tsx` and
 `build-guide.tsx`; replacing those components does not change the assets or collection
 rules. The catalogue generator does not overwrite the separate instruction index.
+
+Refresh booklet-backed catalogue entries with:
+
+```sh
+python3 brick-linkfrontend/scripts/prepare-booklet-models.py --data-dir /path/to/rebrickable-csvs --cache /private/tmp/brickkit-booklets
+```
+
+This checks the original PDF's SHA-256 in a private cache and imports real retail
+inventories. `scripts/booklet-models.json` records the reviewed source URLs,
+hashes, page counts and age recommendations. The common instruction contract is
+a discriminated union of `pictures` and `booklet`, independent of presentation.
 
 After refreshing the OMR models, run from the repository root:
 
@@ -55,8 +76,8 @@ demo list, especially subassemblies and mirrored connections.
 Tests check transforms, colour inheritance, curated piece coverage, original-source
 hashes, local assets and distinct step pictures. After refreshing source models,
 the hash check deliberately fails until matching guide assets are regenerated.
-Source inventories still use the documented conservative source-set counts except
-the checked eight-piece dragon assembly.
+Active builds use conservative source-set counts. The retired eight-piece dragon
+inventory remains only for saved-creation compatibility.
 
 ## Agent-assisted product video workflow
 

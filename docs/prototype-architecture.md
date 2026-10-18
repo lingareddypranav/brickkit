@@ -1,11 +1,13 @@
-# Collection prototype and real OMR catalogue
+# Collection prototype and curated build catalogue
 
-The redesigned app at `/` uses 23 real LDraw OMR models, including alternate
-builds, three dinosaurs, dragons, animals, cars, and spacecraft. The original
+The redesigned app at `/` uses 21 cached LDraw OMR models and two brick-built dragon
+options backed by original LEGO booklets. The catalogue includes dinosaurs,
+animals, cars and spacecraft. The original
 live prompt → OMR search → download → LeoCAD flow is accessible at `/explore`.
 The homepage catalogue is cached and deterministic; it needs no AI backend.
 In the product story, these are the AI-generated blueprints. OMR is the source of
-convincing models behind that simulation. Shopping recommendations are separate:
+convincing models behind that simulation; the two dragon replacements use LEGO
+source photos and original booklets because their CAD downloads require forum login. Shopping recommendations are separate:
 existing real retail sets are added to the child's available inventory and ranked
 by how much of the generated build's deficit they cover. The direct “Find missing
 pieces” action opens those suggestions; there is no parent-gating button.
@@ -54,8 +56,8 @@ strict filtering. Chat is scripted, not an LLM or a live OMR search.
   exactly. No LDraw-to-Rebrickable colour or assembly equivalence is assumed.
 - A model uses its **entire source set's version-1 retail inventory**, excluding
   spares. This is a conservative requirement that can overstate what alternate
-  builds need. Castle Dragon uses
-  an explicitly checked eight-piece assembly inventory (`inventoryBasis = "model"`).
+  builds need. The retired Castle Dragon keeps its old eight-piece inventory
+  only for saved-creation compatibility.
   `source.inventoryBasis = "source-set"` makes that limitation explicit.
 - Keeping a creation built reserves that whole inventory. Completing a model
   requires its current availability; remixing releases the reservation.
@@ -77,10 +79,11 @@ strict filtering. Chat is scripted, not an LLM or a live OMR search.
 ## Geometry, previews and instructions
 
 The importer caches the original MPDs and renders transparent 1000×800 PNGs with
-LeoCAD. Every model retains author/licence headers and an OMR source link.
+LeoCAD. Every OMR model retains author/licence headers and an OMR source link.
 `public/demo/omr/SOURCES.md` and the adjacent licence files document redistribution.
-Castle Dragon adds a root selecting the original Dragon Wagon assembly, retaining
-all original submodels and headers. Other files keep the original model content.
+Molded-body dragon models are no longer suggested. Their assets remain available
+for historical creation cards. New dragon IDs prevent old reservations from
+being silently reassigned to larger models.
 
 The optional `model-scene.tsx` loads the real MPD with Three.js's LDraw loader and
 conditional-line material. It normalizes embedded Windows subpart headers in
@@ -88,12 +91,17 @@ memory (`lib/ldraw.ts`) and fits the actual geometry to the camera. It needs an
 LDraw parts library, served by `/ldraw/...`; previews remain available if 3D fails.
 Set `LDRAW_DIR` to your local library. This machine already has one configured.
 
-No invented progressive pictures or assembly instructions are attached to OMR
-models. The builder links to LEGO's official instructions lookup, lets the child
-inspect the model in 3D, and preserves the completion / keep-built / remix flow.
-Some old booklets may be unavailable. Time estimates are approximate and some
-models need adult help; they are not official age ratings. The legacy guide and
-old SVGs remain only to support previously saved prototype creations.
+Three models have cached LeoCAD picture steps and generated PDF booklets. The
+two brick-built dragons link directly to original LEGO assembly PDFs and use
+`source.provider = "LEGO"`; there is no pretend 3D asset or fabricated step list.
+`instructions.ts` distinguishes `pictures` and `booklet` guides. The booklet
+preparation script verifies source PDF hashes and imports retail inventories;
+the OMR preparation script preserves those independent entries.
+
+Model readiness, set recommendations, completion and reservations use the same
+inventory functions for both guide types. Booklets require internet access and
+their page position is not tracked by the app. Other OMR models keep the existing
+external instruction lookup. See `product-demo.md` for sources and preparation.
 
 ## Import another real build
 

@@ -396,3 +396,18 @@
     gap: 5px;
   }
 }
+
+.booklet-instructions .guide-stage {
+  height: 260px;
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
+}
+.booklet-instructions .guide-stage > img {
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+}
+.booklet-instructions > .kit-button {
+  margin-top: 12px;
+  min-height: 48px;
+}

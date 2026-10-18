@@ -158,7 +158,10 @@ export function BuildDetail({
             Some builds need a grown-up’s help. The time shown is an estimate.
           </p>
           <a href={model.source.url} target="_blank" rel="noopener noreferrer">
-            View the original on LDraw OMR <ExternalLink size={13} />
+            {model.source.provider === "LEGO"
+              ? "View original building instructions"
+              : "View the original on LDraw OMR"}{" "}
+            <ExternalLink size={13} />
           </a>
           <p>
             Model by {model.source.author}. {model.source.license}

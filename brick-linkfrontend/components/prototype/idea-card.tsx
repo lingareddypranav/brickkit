@@ -59,7 +59,10 @@ export function IdeaCard({
         </div>
         {instructionsFor(model.id) && (
           <button className="instructions-ready" onClick={onOpen}>
-            <BookOpen size={15} /> Picture instructions ready
+            <BookOpen size={15} />{" "}
+            {instructionsFor(model.id)?.kind === "booklet"
+              ? "Building booklet ready"
+              : "Picture instructions ready"}
           </button>
         )}
         <div className="idea-meta">

@@ -2,7 +2,7 @@
 
 Models downloaded from the official LDraw OMR. Original author and licence headers
 are retained in every MPD. PNG previews are rendered from those MPDs with LeoCAD.
-The Castle Dragon preview selects the original Dragon Wagon dragon assembly.
+The Castle Dragon and Dragon Wagon assets are retired from suggestions and retained only for saved-creation history.
 
 | Build | OMR source | Author | File licence |
 | --- | --- | --- | --- |
@@ -33,7 +33,7 @@ The Castle Dragon preview selects the original Dragon Wagon dragon assembly.
 CCAL 2.0: https://www.ldraw.org/article/227.html
 CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
 
-Except for the verified eight-piece Castle Dragon assembly, collection checks
+For active builds, collection checks
 and reservations deliberately use the complete source set's
 Rebrickable version-1 inventory, excluding spares. This is conservative for
 alternate builds; they can require fewer pieces. These

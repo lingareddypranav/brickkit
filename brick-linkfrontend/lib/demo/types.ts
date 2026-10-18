@@ -50,7 +50,7 @@ export interface Blueprint {
   inventory: Inventory;
   modelUrl?: string;
   source?: {
-    provider: "LDraw OMR";
+    provider: "LDraw OMR" | "LEGO";
     setId: string;
     url: string;
     downloadUrl: string;

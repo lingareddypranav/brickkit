@@ -1,110 +1,4 @@
 {
-  "dragon-friend": {
-    "sourceSha256": "430f2b8d0c50f386caa2c5b9a7d492366adf2c355147d4b524baef67855093cb",
-    "sequence": "curated",
-    "modelUrl": "/demo/instructions/dragon-friend/guide.mpd",
-    "steps": [
-      {
-        "title": "Find the dragon body",
-        "image": "/demo/instructions/dragon-friend/step01.png",
-        "pieces": [
-          {
-            "id": "75174-2",
-            "name": "Animal Dragon Body",
-            "color": "Green",
-            "count": 1,
-            "image": "/demo/instructions/parts/75174-2.png"
-          }
-        ]
-      },
-      {
-        "title": "Click on the tail",
-        "image": "/demo/instructions/dragon-friend/step02.png",
-        "pieces": [
-          {
-            "id": "6028-2",
-            "name": "Animal Dragon Tail",
-            "color": "Green",
-            "count": 1,
-            "image": "/demo/instructions/parts/6028-2.png"
-          }
-        ]
-      },
-      {
-        "title": "Add the lower jaw",
-        "image": "/demo/instructions/dragon-friend/step03.png",
-        "pieces": [
-          {
-            "id": "6027-2",
-            "name": "Animal Dragon Head",
-            "color": "Green",
-            "count": 1,
-            "image": "/demo/instructions/parts/6027-2.png"
-          }
-        ]
-      },
-      {
-        "title": "Give your dragon two arms",
-        "image": "/demo/instructions/dragon-friend/step04.png",
-        "pieces": [
-          {
-            "id": "6127-2",
-            "name": "Animal Dragon Arm Right",
-            "color": "Green",
-            "count": 1,
-            "image": "/demo/instructions/parts/6127-2.png"
-          },
-          {
-            "id": "6128-2",
-            "name": "Animal Dragon Arm Left",
-            "color": "Green",
-            "count": 1,
-            "image": "/demo/instructions/parts/6128-2.png"
-          }
-        ]
-      },
-      {
-        "title": "Add one red wing",
-        "image": "/demo/instructions/dragon-friend/step05.png",
-        "pieces": [
-          {
-            "id": "6133-4",
-            "name": "Animal Dragon Wing",
-            "color": "Red",
-            "count": 1,
-            "image": "/demo/instructions/parts/6133-4.png"
-          }
-        ]
-      },
-      {
-        "title": "Add the other red wing",
-        "image": "/demo/instructions/dragon-friend/step06.png",
-        "pieces": [
-          {
-            "id": "6133-4",
-            "name": "Animal Dragon Wing",
-            "color": "Red",
-            "count": 1,
-            "image": "/demo/instructions/parts/6133-4.png"
-          }
-        ]
-      },
-      {
-        "title": "Time for fire breath!",
-        "image": "/demo/instructions/dragon-friend/step07.png",
-        "pieces": [
-          {
-            "id": "6126a-38",
-            "name": "Minifig Flame with Pegs",
-            "color": "Trans Neon Orange",
-            "count": 1,
-            "image": "/demo/instructions/parts/6126a-38.png"
-          }
-        ]
-      }
-    ],
-    "pdfUrl": "/demo/instructions/dragon-friend/instructions.pdf"
-  },
   "green-dinosaur": {
     "sourceSha256": "70638927bfdab89e915a1225aa5c93ec708244f6a0ee1f942f1cf5fa182b416f",
     "sequence": "curated",
@@ -324,7 +218,8 @@
         ]
       }
     ],
-    "pdfUrl": "/demo/instructions/green-dinosaur/instructions.pdf"
+    "pdfUrl": "/demo/instructions/green-dinosaur/instructions.pdf",
+    "kind": "pictures"
   },
   "space-transport": {
     "sourceSha256": "905751f960197e7305ae145e71558003357e9df8c4791084e5fbc27a68645752",
@@ -802,7 +697,8 @@
         ]
       }
     ],
-    "pdfUrl": "/demo/instructions/space-transport/instructions.pdf"
+    "pdfUrl": "/demo/instructions/space-transport/instructions.pdf",
+    "kind": "pictures"
   },
   "mini-shuttle": {
     "sourceSha256": "a7b12cbed7329d7d7cd2cb1b57292ebc9fc33fd342f47be130cfdb161793fd5e",
@@ -1271,6 +1167,25 @@
         ]
       }
     ],
-    "pdfUrl": "/demo/instructions/mini-shuttle/instructions.pdf"
+    "pdfUrl": "/demo/instructions/mini-shuttle/instructions.pdf",
+    "kind": "pictures"
+  },
+  "brick-dragon": {
+    "kind": "booklet",
+    "provider": "LEGO",
+    "pdfUrl": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6494915.pdf",
+    "sourceUrl": "https://www.lego.com/en-us/service/building-instructions/31145",
+    "pageCount": 68,
+    "minimumAge": 6,
+    "startPage": 4
+  },
+  "fire-dragon": {
+    "kind": "booklet",
+    "provider": "LEGO",
+    "pdfUrl": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6308576.pdf",
+    "sourceUrl": "https://www.lego.com/en-us/service/building-instructions/31102",
+    "pageCount": 56,
+    "minimumAge": 7,
+    "startPage": 4
   }
 }

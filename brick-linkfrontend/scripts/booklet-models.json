@@ -1,0 +1,28 @@
+[
+  {
+    "id": "brick-dragon",
+    "name": "Red Dragon",
+    "description": "Build a friendly dragon's body, head, tail and wings from separate bricks.",
+    "family": "dragons",
+    "setId": "31145-1",
+    "sourceUrl": "https://www.lego.com/en-us/service/building-instructions/31145",
+    "pdfUrl": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6494915.pdf",
+    "pdfSha256": "65c412a52dea4237b48ec92d1299ba14e99ed45c3cd9efb39e2b4139a5268bc2",
+    "pageCount": 68,
+    "minimumAge": 6,
+    "startPage": 4
+  },
+  {
+    "id": "fire-dragon",
+    "name": "Fire Dragon",
+    "description": "Build a flying dragon with wide wings, a long tail and fiery breath.",
+    "family": "dragons",
+    "setId": "31102-1",
+    "sourceUrl": "https://www.lego.com/en-us/service/building-instructions/31102",
+    "pdfUrl": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6308576.pdf",
+    "pdfSha256": "524f3011914f10d2fa9d8fcbd753423907c237504117c6f525101b3b8e64577c",
+    "pageCount": 56,
+    "minimumAge": 7,
+    "startPage": 4
+  }
+]

@@ -23,10 +23,27 @@ const { readCollection } = require("../lib/demo/state.ts");
 const { selectIdeas } = require("../lib/demo/selectors.ts");
 const { buildAssistantReply } = require("../lib/demo/chat-script.ts");
 
-test("every gallery build is a real, attributed OMR file with a rendered preview", () => {
+test("every gallery build has a verified model or original booklet source", () => {
   assert.ok(models.length >= 20);
   assert.equal(new Set(models.map((m) => m.id)).size, models.length);
   for (const model of models) {
+    if (model.source.provider === "LEGO") {
+      assert.match(
+        model.source.url,
+        /^https:\/\/www\.lego\.com\/en-us\/service\/building-instructions\//,
+      );
+      assert.match(
+        model.source.instructionsUrl,
+        /^https:\/\/www\.lego\.com\/cdn\/product-assets\/product\.bi\.core\.pdf\/\d+\.pdf$/,
+      );
+      assert.match(model.source.sha256, /^[a-f0-9]{64}$/);
+      assert.equal(model.modelUrl, undefined);
+      assert.ok(
+        fs.statSync(path.join(__dirname, "../public", model.image)).size >
+          10000,
+      );
+      continue;
+    }
     assert.equal(model.source.provider, "LDraw OMR");
     assert.match(
       model.source.url,
@@ -96,7 +113,7 @@ test("strict mode shows only available models and honours the sample's kept-buil
   );
 });
 
-test("dinosaurs, dragons and spacecraft use distinct real OMR models", () => {
+test("dinosaurs, dragons and spacecraft use distinct sourced builds", () => {
   for (const family of ["dinosaurs", "dragons", "space"]) {
     const ideas = selectIdeas(emptyCollection, {
       family,
@@ -190,7 +207,7 @@ test("two-set suggestions appear when no single set can cover a quantity gap", (
   assert.ok(!suggestions.some((s) => s.sets.length === 1 && s.remaining === 0));
 });
 
-test("chat choices always point to current OMR models", () => {
+test("chat choices always point to current catalogue models", () => {
   for (const family of ["dragon", "dinosaur", "spaceship", "animal", "car"]) {
     const reply = buildAssistantReply(family, undefined, []);
     assert.ok(reply.choices.length >= 2);
@@ -260,7 +277,7 @@ test("shopping favours sets that finish the build over incomplete purchases", ()
   assert.deepEqual(suggestions, []);
 });
 
-test("the extracted dragon only reserves its eight assembly pieces", () => {
+test("retired molded dragon creations retain their original inventory reservations", () => {
   const dragon = modelById["dragon-friend"];
   assert.equal(dragon.source.inventoryBasis, "model");
   assert.equal(countPieces(dragon.inventory), 8);
@@ -274,14 +291,9 @@ test("the extracted dragon only reserves its eight assembly pieces", () => {
 test("story demo builds have complete local picture guides with matching source files", () => {
   const crypto = require("node:crypto");
   const { instructionsFor } = require("../lib/demo/instructions.ts");
-  for (const id of [
-    "dragon-friend",
-    "green-dinosaur",
-    "mini-shuttle",
-    "space-transport",
-  ]) {
+  for (const id of ["green-dinosaur", "mini-shuttle", "space-transport"]) {
     const guide = instructionsFor(id);
-    assert.ok(guide && guide.steps.length > 1, id);
+    assert.ok(guide && guide.kind === "pictures" && guide.steps.length > 1, id);
     assert.ok(guide.pdfUrl, `${id}: missing PDF booklet`);
     const booklet = fs.readFileSync(
       path.join(__dirname, "../public", guide.pdfUrl),
@@ -332,4 +344,76 @@ test("story demo builds have complete local picture guides with matching source 
     );
   }
   assert.equal(instructionsFor("not-a-prepared-model"), undefined);
+});
+
+test("dragon suggestions are brick-built and use verified original assembly booklets", () => {
+  const { instructionsFor } = require("../lib/demo/instructions.ts");
+  const dragons = models.filter((m) => m.family === "dragons");
+  assert.equal(dragons.length, 2);
+  assert.ok(
+    !models.some((m) => ["dragon-friend", "dragon-wagon"].includes(m.id)),
+  );
+  assert.equal(instructionsFor("dragon-friend"), undefined);
+  assert.ok(
+    !fs.existsSync(
+      path.join(
+        __dirname,
+        "../public/demo/instructions/dragon-friend/instructions.pdf",
+      ),
+    ),
+  );
+  for (const model of dragons) {
+    const guide = instructionsFor(model.id);
+    assert.equal(guide.kind, "booklet");
+    assert.equal(guide.provider, "LEGO");
+    assert.equal(guide.pdfUrl, model.source.instructionsUrl);
+    assert.ok(guide.pageCount >= 50);
+    assert.equal(guide.startPage, 4);
+    assert.ok(countPieces(model.inventory) >= 100);
+    for (const key of Object.keys(model.inventory)) {
+      assert.ok(
+        !["75174", "6129", "6129c01"].includes(key.split(":")[0]),
+        "A molded body cannot substitute for building a dragon",
+      );
+    }
+    const original = structuredClone(emptyCollection);
+    original.sets[model.source.setId] = { quantity: 1, keepBuilt: false };
+    const hydrated = readCollection(JSON.stringify(original));
+    assert.equal(
+      matchInventory(model.inventory, availablePieces(hydrated)).ready,
+      true,
+    );
+    hydrated.creations.push({
+      id: model.id,
+      modelId: model.id,
+      keepBuilt: true,
+    });
+    assert.equal(
+      matchInventory(model.inventory, availablePieces(hydrated)).ready,
+      false,
+    );
+    const suggestions = recommendSets(model, {});
+    assert.ok(
+      suggestions.some(
+        (s) =>
+          s.remaining === 0 &&
+          s.sets.some((set) => set.id === model.source.setId),
+      ),
+    );
+  }
+});
+
+test("retired creations survive storage reload without being reassigned a new dragon inventory", () => {
+  const box = structuredClone(emptyCollection);
+  box.loose = { ...modelById["dragon-friend"].inventory };
+  box.creations.push({
+    id: "old-dragon",
+    modelId: "dragon-friend",
+    keepBuilt: true,
+  });
+  const hydrated = readCollection(JSON.stringify(box));
+  assert.equal(hydrated.creations[0].modelId, "dragon-friend");
+  assert.equal(countPieces(availablePieces(hydrated)), 0);
+  hydrated.creations[0].keepBuilt = false;
+  assert.equal(countPieces(availablePieces(hydrated)), 8);
 });
