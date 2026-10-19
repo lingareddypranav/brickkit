@@ -29,6 +29,7 @@ CURATED = {
                    'Build the head', 'Add two eyes', 'Add the little arms. Roar!'],
     },
     'mini-shuttle': {},
+    'shuttle-explorer': {},
     'space-transport': {},
 }
 

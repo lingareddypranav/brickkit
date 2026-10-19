@@ -56,6 +56,9 @@
 }
 .detail-decision .kit-button {
   width: 100%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 .build-detail-grid .kit-button.preview-toggle,
 .detail-decision .kit-button.detail-cta {
@@ -63,7 +66,10 @@
   padding: 0 16px;
   font-size: var(--bp-text-ui);
 }
-.detail-decision .detail-cta {
+.detail-decision .detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-top: auto;
 }
 .detail-decision .kit-text-button {
@@ -298,7 +304,7 @@
     padding-top: 8px;
     padding-bottom: 0;
   }
-  .detail-decision .detail-cta {
+  .detail-decision .detail-actions {
     margin-top: 4px;
   }
   .detail-decision .kit-text-button {

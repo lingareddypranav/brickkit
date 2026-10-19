@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   ArrowRight,
   Blocks,
+  BookOpen,
   Check,
   ChevronDown,
   ChevronUp,
@@ -99,27 +100,39 @@ export function BuildDetail({
               <Clock3 size={18} /> ~{model.minutes} min
             </span>
           </div>
-          {match.ready ? (
-            onBuild ? (
-              <button className="kit-button kit-button-dark detail-cta" onClick={onBuild}>
-                Let’s build <ArrowRight size={18} />
-              </button>
+          <div className="detail-actions">
+            {match.ready ? (
+              onBuild ? (
+                <button className="kit-button kit-button-dark detail-cta" onClick={onBuild}>
+                  Let’s build <ArrowRight size={18} />
+                </button>
+              ) : (
+                <button
+                  className="kit-button kit-button-dark detail-cta"
+                  onClick={() => onManageBox("sets")}
+                >
+                  Open my brick box <ArrowRight size={18} />
+                </button>
+              )
             ) : (
-              <button
-                className="kit-button kit-button-dark detail-cta"
-                onClick={() => onManageBox("sets")}
-              >
-                Open my brick box <ArrowRight size={18} />
-              </button>
-            )
-          ) : (
-            <button
-              className="kit-button kit-button-dark detail-cta"
-              onClick={onFindPieces}
-            >
-              <ShoppingBag size={18} /> Find missing pieces
-            </button>
-          )}
+              <>
+                {onBuild && (
+                  <button
+                    className="kit-button kit-button-light"
+                    onClick={onBuild}
+                  >
+                    <BookOpen size={18} /> View instructions
+                  </button>
+                )}
+                <button
+                  className="kit-button kit-button-dark detail-cta"
+                  onClick={onFindPieces}
+                >
+                  <ShoppingBag size={18} /> Find missing pieces
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
       {!match.ready && (

@@ -107,7 +107,7 @@ memory (`lib/ldraw.ts`) and fits the actual geometry to the camera. It needs an
 LDraw parts library, served by `/ldraw/...`; previews remain available if 3D fails.
 Set `LDRAW_DIR` to your local library. This machine already has one configured.
 
-Three models have cached LeoCAD picture steps and generated PDF booklets. The
+Four models have cached LeoCAD picture steps and generated PDF booklets. The
 two brick-built dragons link directly to original LEGO assembly PDFs and use
 `source.provider = "LEGO"`; there is no pretend 3D asset or fabricated step list.
 `instructions.ts` distinguishes `pictures` and `booklet` guides. The booklet

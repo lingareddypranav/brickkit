@@ -1187,5 +1187,1500 @@
     "pageCount": 56,
     "minimumAge": 7,
     "startPage": 4
+  },
+  "shuttle-explorer": {
+    "kind": "pictures",
+    "sourceSha256": "a3fa9aefe145784c800cbbf86e83eebb802f9097b7c6c13cb98cca148d100d21",
+    "sequence": "omr",
+    "modelUrl": "/demo/instructions/shuttle-explorer/guide.mpd",
+    "steps": [
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step01.png",
+        "pieces": [
+          {
+            "id": "3029-0",
+            "name": "Plate 4 x 12",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3029-0.png"
+          },
+          {
+            "id": "3710-4",
+            "name": "Plate 1 x 4",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3710-4.png"
+          },
+          {
+            "id": "6141-2",
+            "name": "Plate 1 x 1 Round",
+            "color": "Green",
+            "count": 2,
+            "image": "/demo/instructions/parts/6141-2.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 2,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "3068b-19",
+            "name": "Tile 2 x 2 with Groove",
+            "color": "Tan",
+            "count": 1,
+            "image": "/demo/instructions/parts/3068b-19.png"
+          },
+          {
+            "id": "3460-14",
+            "name": "Plate 1 x 8",
+            "color": "Yellow",
+            "count": 2,
+            "image": "/demo/instructions/parts/3460-14.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 7 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step02.png",
+        "pieces": [
+          {
+            "id": "3666-0",
+            "name": "Plate 1 x 6",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3666-0.png"
+          },
+          {
+            "id": "85984-72",
+            "name": "Slope Brick 31 1 x 2 x 0.667",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/85984-72.png"
+          },
+          {
+            "id": "3666-71",
+            "name": "Plate 1 x 6",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3666-71.png"
+          },
+          {
+            "id": "3623-0",
+            "name": "Plate 1 x 3",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3623-0.png"
+          },
+          {
+            "id": "3036-0",
+            "name": "Plate 6 x 8",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3036-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 7 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step03.png",
+        "pieces": [
+          {
+            "id": "41770-0",
+            "name": "Wing 2 x 4 Left without Chamfer",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/41770-0.png"
+          },
+          {
+            "id": "41769-0",
+            "name": "Wing 2 x 4 Right without Chamfer",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/41769-0.png"
+          },
+          {
+            "id": "6636-71",
+            "name": "Tile 1 x 6",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/6636-71.png"
+          },
+          {
+            "id": "3036-0",
+            "name": "Plate 6 x 8",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3036-0.png"
+          },
+          {
+            "id": "3020-71",
+            "name": "Plate 2 x 4",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-71.png"
+          },
+          {
+            "id": "3020-1",
+            "name": "Plate 2 x 4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-1.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 8 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step04.png",
+        "pieces": [
+          {
+            "id": "92584-0",
+            "name": "Plate 10 x 10 without Corner without Studs in Center",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/92584-0.png"
+          },
+          {
+            "id": "30504-15",
+            "name": "Plate 8 x 8 without Corner",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/30504-15.png"
+          },
+          {
+            "id": "2654-72",
+            "name": "Dish 2 x 2 with Rim",
+            "color": "Dark Bluish Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/2654-72.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 7 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step05.png",
+        "pieces": [
+          {
+            "id": "3623-0",
+            "name": "Plate 1 x 3",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3623-0.png"
+          },
+          {
+            "id": "4477-0",
+            "name": "Plate 1 x 10",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/4477-0.png"
+          },
+          {
+            "id": "50304-0",
+            "name": "Wing 3 x 8 Pentagonal Right",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/50304-0.png"
+          },
+          {
+            "id": "50305-0",
+            "name": "Wing 3 x 8 Pentagonal Left",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/50305-0.png"
+          },
+          {
+            "id": "50305-15",
+            "name": "Wing 3 x 8 Pentagonal Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/50305-15.png"
+          },
+          {
+            "id": "50304-15",
+            "name": "Wing 3 x 8 Pentagonal Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/50304-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 13 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step06.png",
+        "pieces": [
+          {
+            "id": "41770-15",
+            "name": "Wing 2 x 4 Left without Chamfer",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41770-15.png"
+          },
+          {
+            "id": "41769-15",
+            "name": "Wing 2 x 4 Right without Chamfer",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41769-15.png"
+          },
+          {
+            "id": "3023-15",
+            "name": "Plate 1 x 2",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3023-15.png"
+          },
+          {
+            "id": "3710-15",
+            "name": "Plate 1 x 4",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3710-15.png"
+          },
+          {
+            "id": "3666-15",
+            "name": "Plate 1 x 6",
+            "color": "White",
+            "count": 3,
+            "image": "/demo/instructions/parts/3666-15.png"
+          },
+          {
+            "id": "3068b-72",
+            "name": "Tile 2 x 2 with Groove",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3068b-72.png"
+          },
+          {
+            "id": "2431-72",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/2431-72.png"
+          },
+          {
+            "id": "3022-1",
+            "name": "Plate 2 x 2",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3022-1.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 12 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step07.png",
+        "pieces": [
+          {
+            "id": "3666-1",
+            "name": "Plate 1 x 6",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3666-1.png"
+          },
+          {
+            "id": "4477-1",
+            "name": "Plate 1 x 10",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/4477-1.png"
+          },
+          {
+            "id": "2431-1",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/2431-1.png"
+          },
+          {
+            "id": "3700-1",
+            "name": "Technic Brick 1 x 2 with Hole",
+            "color": "Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/3700-1.png"
+          },
+          {
+            "id": "3700-71",
+            "name": "Technic Brick 1 x 2 with Hole",
+            "color": "Light Bluish Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/3700-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step08.png",
+        "pieces": [
+          {
+            "id": "92280-15",
+            "name": "Plate 1 x 2 with Single Clip on Top",
+            "color": "White",
+            "count": 4,
+            "image": "/demo/instructions/parts/92280-15.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 2,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "2431-15",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/2431-15.png"
+          },
+          {
+            "id": "6636-15",
+            "name": "Tile 1 x 6",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/6636-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 15 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step09.png",
+        "pieces": [
+          {
+            "id": "92280-15",
+            "name": "Plate 1 x 2 with Single Clip on Top",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/92280-15.png"
+          },
+          {
+            "id": "3710-15",
+            "name": "Plate 1 x 4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3710-15.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "64799-71",
+            "name": "Plate 4 x 4 with Open Centre 2 x 2",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/64799-71.png"
+          },
+          {
+            "id": "11211-4",
+            "name": "Brick 1 x 2 with Two Studs on One Side",
+            "color": "Red",
+            "count": 5,
+            "image": "/demo/instructions/parts/11211-4.png"
+          },
+          {
+            "id": "31066---3665a-72",
+            "name": "LEGO piece",
+            "color": "Dark Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/31066---3665a-72.png"
+          },
+          {
+            "id": "3004-15",
+            "name": "Brick 1 x 2",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3004-15.png"
+          },
+          {
+            "id": "26604-19",
+            "name": "Brick 1 x 1 with Studs on Two Adjacent Sides",
+            "color": "Tan",
+            "count": 2,
+            "image": "/demo/instructions/parts/26604-19.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 7 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step10.png",
+        "pieces": [
+          {
+            "id": "99206-15",
+            "name": "Plate 2 x 2 x 0.667 with Two Studs On Side and Two Raised with Closed Understud",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/99206-15.png"
+          },
+          {
+            "id": "63325-0",
+            "name": "=Plate 2 x 2 Corner",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/63325-0.png"
+          },
+          {
+            "id": "3023-71",
+            "name": "Plate 1 x 2",
+            "color": "Light Bluish Grey",
+            "count": 3,
+            "image": "/demo/instructions/parts/3023-71.png"
+          },
+          {
+            "id": "47759-0",
+            "name": "Wedge 2 x 4 Triple",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/47759-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step11.png",
+        "pieces": [
+          {
+            "id": "3020-1",
+            "name": "Plate 2 x 4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-1.png"
+          },
+          {
+            "id": "51739-1",
+            "name": "Wing 2 x 4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/51739-1.png"
+          },
+          {
+            "id": "99206-15",
+            "name": "Plate 2 x 2 x 0.667 with Two Studs On Side and Two Raised with Closed Understud",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/99206-15.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "85984ps1-72",
+            "name": "Slope Brick 31 1 x 2 x 0.667 with SW Reddish Console Pattern",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/85984ps1-72.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 5 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step12.png",
+        "pieces": [
+          {
+            "id": "31066---11291-15",
+            "name": "LEGO piece",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/31066---11291-15.png"
+          },
+          {
+            "id": "6141-19",
+            "name": "Plate 1 x 1 Round",
+            "color": "Tan",
+            "count": 2,
+            "image": "/demo/instructions/parts/6141-19.png"
+          },
+          {
+            "id": "63325-15",
+            "name": "=Plate 2 x 2 Corner",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/63325-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 7 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step13.png",
+        "pieces": [
+          {
+            "id": "61678-15",
+            "name": "Slope Brick Curved 4 x 1",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/61678-15.png"
+          },
+          {
+            "id": "3700-71",
+            "name": "Technic Brick 1 x 2 with Hole",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3700-71.png"
+          },
+          {
+            "id": "3176-0",
+            "name": "Plate 3 x 2 with Hole",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3176-0.png"
+          },
+          {
+            "id": "15100-0",
+            "name": "Technic Pin with Friction with Perpendicular Pin Hole Type 1",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/15100-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 8 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step14.png",
+        "pieces": [
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "4070-15",
+            "name": "Brick 1 x 1 with Headlight",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/4070-15.png"
+          },
+          {
+            "id": "3070b-71",
+            "name": "Tile 1 x 1 with Groove",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3070b-71.png"
+          },
+          {
+            "id": "2357-15",
+            "name": "Brick 2 x 2 Corner",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/2357-15.png"
+          },
+          {
+            "id": "2431-72",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/2431-72.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 12 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step15.png",
+        "pieces": [
+          {
+            "id": "18972-40",
+            "name": "Windscreen 5 x 4 x 1.667 Curved",
+            "color": "Trans Brown",
+            "count": 1,
+            "image": "/demo/instructions/parts/18972-40.png"
+          },
+          {
+            "id": "45677-15",
+            "name": "Wedge 4 x 4 x 0.667 Curved",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/45677-15.png"
+          },
+          {
+            "id": "3022-4",
+            "name": "Plate 2 x 2",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-4.png"
+          },
+          {
+            "id": "13731-0",
+            "name": "=Slope Brick Curved 1 x 8 with Plate 1 x 2",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/13731-0.png"
+          },
+          {
+            "id": "3020-1",
+            "name": "Plate 2 x 4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-1.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "15068-15",
+            "name": "Slope Brick Curved 2 x 2 x 0.667",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/15068-15.png"
+          },
+          {
+            "id": "24299-0",
+            "name": "Wing 2 x 2 Left",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/24299-0.png"
+          },
+          {
+            "id": "24299-15",
+            "name": "Wing 2 x 2 Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/24299-15.png"
+          },
+          {
+            "id": "41747-15",
+            "name": "Wedge 2 x 6 Double Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41747-15.png"
+          },
+          {
+            "id": "2412b-15",
+            "name": "Tile 1 x 2 Grille with Groove",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/2412b-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step16.png",
+        "pieces": [
+          {
+            "id": "3022-4",
+            "name": "Plate 2 x 2",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-4.png"
+          },
+          {
+            "id": "13731-0",
+            "name": "=Slope Brick Curved 1 x 8 with Plate 1 x 2",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/13731-0.png"
+          },
+          {
+            "id": "3020-1",
+            "name": "Plate 2 x 4",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3020-1.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "15068-15",
+            "name": "Slope Brick Curved 2 x 2 x 0.667",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/15068-15.png"
+          },
+          {
+            "id": "24307-0",
+            "name": "Wing 2 x 2 Right",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/24307-0.png"
+          },
+          {
+            "id": "24307-15",
+            "name": "Wing 2 x 2 Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/24307-15.png"
+          },
+          {
+            "id": "41748-15",
+            "name": "Wedge 2 x 6 Double Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/41748-15.png"
+          },
+          {
+            "id": "2412b-15",
+            "name": "Tile 1 x 2 Grille with Groove",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/2412b-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step17.png",
+        "pieces": [
+          {
+            "id": "43093-1",
+            "name": "Technic Axle Pin with Friction",
+            "color": "Blue",
+            "count": 3,
+            "image": "/demo/instructions/parts/43093-1.png"
+          },
+          {
+            "id": "32016-71",
+            "name": "Technic Angle Connector #3 (157.5 degree)",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/32016-71.png"
+          },
+          {
+            "id": "3705-0",
+            "name": "Technic Axle 4",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3705-0.png"
+          },
+          {
+            "id": "32123b-14",
+            "name": "Technic Bush 1/2 Smooth with Axle Hole Semi-Reduced",
+            "color": "Yellow",
+            "count": 2,
+            "image": "/demo/instructions/parts/32123b-14.png"
+          },
+          {
+            "id": "31066---33299a-71",
+            "name": "LEGO piece",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/31066---33299a-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step18.png",
+        "pieces": [
+          {
+            "id": "60208-72",
+            "name": "Wheel Rim 16 x 31 with 6 Pegholes",
+            "color": "Dark Bluish Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/60208-72.png"
+          },
+          {
+            "id": "3673-71",
+            "name": "Technic Pin",
+            "color": "Light Bluish Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/3673-71.png"
+          },
+          {
+            "id": "4185b-38",
+            "name": "Technic Wedge Belt Wheel - Reinforced",
+            "color": "Trans Neon Orange",
+            "count": 2,
+            "image": "/demo/instructions/parts/4185b-38.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 12 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step19.png",
+        "pieces": [
+          {
+            "id": "3004-15",
+            "name": "Brick 1 x 2",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3004-15.png"
+          },
+          {
+            "id": "92593-72",
+            "name": "Plate 1 x 4 with Two Studs",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/92593-72.png"
+          },
+          {
+            "id": "2412b-15",
+            "name": "Tile 1 x 2 Grille with Groove",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/2412b-15.png"
+          },
+          {
+            "id": "3623-0",
+            "name": "Plate 1 x 3",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3623-0.png"
+          },
+          {
+            "id": "6141-1",
+            "name": "Plate 1 x 1 Round",
+            "color": "Blue",
+            "count": 4,
+            "image": "/demo/instructions/parts/6141-1.png"
+          },
+          {
+            "id": "93274-0",
+            "name": "Bracket 1 x 2 - 2 x 4",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/93274-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 14 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step20.png",
+        "pieces": [
+          {
+            "id": "99780-71",
+            "name": "Bracket 1 x 2 - 1 x 2 Up",
+            "color": "Light Bluish Grey",
+            "count": 4,
+            "image": "/demo/instructions/parts/99780-71.png"
+          },
+          {
+            "id": "3022-1",
+            "name": "Plate 2 x 2",
+            "color": "Blue",
+            "count": 1,
+            "image": "/demo/instructions/parts/3022-1.png"
+          },
+          {
+            "id": "11211-19",
+            "name": "Brick 1 x 2 with Two Studs on One Side",
+            "color": "Tan",
+            "count": 1,
+            "image": "/demo/instructions/parts/11211-19.png"
+          },
+          {
+            "id": "3023-14",
+            "name": "Plate 1 x 2",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/3023-14.png"
+          },
+          {
+            "id": "11476-15",
+            "name": "Plate 1 x 2 with Clip Horizontal on Side (Thick C-Clip)",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/11476-15.png"
+          },
+          {
+            "id": "15672-71",
+            "name": "Slope Plate 45 2 x 1",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/15672-71.png"
+          },
+          {
+            "id": "48336-4",
+            "name": "Plate 1 x 2 with Handle Type 2",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/48336-4.png"
+          },
+          {
+            "id": "3004-15",
+            "name": "Brick 1 x 2",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3004-15.png"
+          },
+          {
+            "id": "2412b-15",
+            "name": "Tile 1 x 2 Grille with Groove",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/2412b-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step21.png",
+        "pieces": [
+          {
+            "id": "3020-15",
+            "name": "Plate 2 x 4",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3020-15.png"
+          },
+          {
+            "id": "2431-15",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/2431-15.png"
+          },
+          {
+            "id": "15068-15",
+            "name": "Slope Brick Curved 2 x 2 x 0.667",
+            "color": "White",
+            "count": 4,
+            "image": "/demo/instructions/parts/15068-15.png"
+          },
+          {
+            "id": "3666-15",
+            "name": "Plate 1 x 6",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3666-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step22.png",
+        "pieces": [
+          {
+            "id": "32062-4",
+            "name": "Technic Axle 2 Notched",
+            "color": "Red",
+            "count": 1,
+            "image": "/demo/instructions/parts/32062-4.png"
+          },
+          {
+            "id": "32015-0",
+            "name": "Technic Angle Connector #5 (112.5 degree)",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/32015-0.png"
+          },
+          {
+            "id": "32123b-14",
+            "name": "Technic Bush 1/2 Smooth with Axle Hole Semi-Reduced",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/32123b-14.png"
+          },
+          {
+            "id": "3705-0",
+            "name": "Technic Axle 4",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3705-0.png"
+          },
+          {
+            "id": "60208-72",
+            "name": "Wheel Rim 16 x 31 with 6 Pegholes",
+            "color": "Dark Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/60208-72.png"
+          },
+          {
+            "id": "4185b-38",
+            "name": "Technic Wedge Belt Wheel - Reinforced",
+            "color": "Trans Neon Orange",
+            "count": 1,
+            "image": "/demo/instructions/parts/4185b-38.png"
+          },
+          {
+            "id": "3673-71",
+            "name": "Technic Pin",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3673-71.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 8 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step23.png",
+        "pieces": [
+          {
+            "id": "32013-72",
+            "name": "Technic Angle Connector #1",
+            "color": "Dark Bluish Grey",
+            "count": 3,
+            "image": "/demo/instructions/parts/32013-72.png"
+          },
+          {
+            "id": "32073-71",
+            "name": "Technic Axle 5",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/32073-71.png"
+          },
+          {
+            "id": "2780-0",
+            "name": "Technic Pin with Friction and Slots",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/2780-0.png"
+          },
+          {
+            "id": "30553-72",
+            "name": "Hinge Arm Locking with Dual Finger and Axlehole",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/30553-72.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 10 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step24.png",
+        "pieces": [
+          {
+            "id": "4477-15",
+            "name": "Plate 1 x 10",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/4477-15.png"
+          },
+          {
+            "id": "18910-15",
+            "name": "Hinge Panel 3 x 4 x 3 Curved",
+            "color": "White",
+            "count": 6,
+            "image": "/demo/instructions/parts/18910-15.png"
+          },
+          {
+            "id": "6636-15",
+            "name": "Tile 1 x 6",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/6636-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step25.png",
+        "pieces": [
+          {
+            "id": "6143-72",
+            "name": "Brick 2 x 2 Round Reinforced",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/6143-72.png"
+          },
+          {
+            "id": "48336-297",
+            "name": "Plate 1 x 2 with Handle Type 2",
+            "color": "Pearl Gold",
+            "count": 2,
+            "image": "/demo/instructions/parts/48336-297.png"
+          },
+          {
+            "id": "44728-72",
+            "name": "Bracket 1 x 2 - 2 x 2 Down",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/44728-72.png"
+          },
+          {
+            "id": "30367c-71",
+            "name": "Cylinder 2 x 2 with Dome Top with Axle Hole and Hollow Stud",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/30367c-71.png"
+          },
+          {
+            "id": "44567-72",
+            "name": "Hinge Plate 1 x 2 Locking with Groove with Single Finger On Side Vertical",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/44567-72.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step26.png",
+        "pieces": [
+          {
+            "id": "6141-297",
+            "name": "Plate 1 x 1 Round",
+            "color": "Pearl Gold",
+            "count": 1,
+            "image": "/demo/instructions/parts/6141-297.png"
+          },
+          {
+            "id": "98138-47",
+            "name": "Tile 1 x 1 Round with Groove",
+            "color": "Trans Clear",
+            "count": 1,
+            "image": "/demo/instructions/parts/98138-47.png"
+          },
+          {
+            "id": "30350b-43",
+            "name": "Tile 2 x 3 with Clips Horizontal (Thick C-Clips)",
+            "color": "Trans Light Blue",
+            "count": 2,
+            "image": "/demo/instructions/parts/30350b-43.png"
+          },
+          {
+            "id": "2412b-297",
+            "name": "Tile 1 x 2 Grille with Groove",
+            "color": "Pearl Gold",
+            "count": 2,
+            "image": "/demo/instructions/parts/2412b-297.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step27.png",
+        "pieces": [
+          {
+            "id": "3937-72",
+            "name": "Hinge 1 x 2 Base",
+            "color": "Dark Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3937-72.png"
+          },
+          {
+            "id": "6134-71",
+            "name": "Hinge 2 x 2 Top",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/6134-71.png"
+          },
+          {
+            "id": "43712-15",
+            "name": "Wedge 6 x 4 Triple Curved",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/43712-15.png"
+          },
+          {
+            "id": "3021-72",
+            "name": "Plate 2 x 3",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-72.png"
+          },
+          {
+            "id": "99781-0",
+            "name": "Bracket 1 x 2 - 1 x 2 Down",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/99781-0.png"
+          },
+          {
+            "id": "6141-38",
+            "name": "Plate 1 x 1 Round",
+            "color": "Trans Neon Orange",
+            "count": 2,
+            "image": "/demo/instructions/parts/6141-38.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step28.png",
+        "pieces": [
+          {
+            "id": "3937-72",
+            "name": "Hinge 1 x 2 Base",
+            "color": "Dark Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3937-72.png"
+          },
+          {
+            "id": "6134-71",
+            "name": "Hinge 2 x 2 Top",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/6134-71.png"
+          },
+          {
+            "id": "43712-15",
+            "name": "Wedge 6 x 4 Triple Curved",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/43712-15.png"
+          },
+          {
+            "id": "3021-72",
+            "name": "Plate 2 x 3",
+            "color": "Dark Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/3021-72.png"
+          },
+          {
+            "id": "99781-0",
+            "name": "Bracket 1 x 2 - 1 x 2 Down",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/99781-0.png"
+          },
+          {
+            "id": "6141-38",
+            "name": "Plate 1 x 1 Round",
+            "color": "Trans Neon Orange",
+            "count": 2,
+            "image": "/demo/instructions/parts/6141-38.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 5 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step29.png",
+        "pieces": [
+          {
+            "id": "3710-15",
+            "name": "Plate 1 x 4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3710-15.png"
+          },
+          {
+            "id": "3040b-0",
+            "name": "Slope Brick 45 2 x 1",
+            "color": "Black",
+            "count": 2,
+            "image": "/demo/instructions/parts/3040b-0.png"
+          },
+          {
+            "id": "3024-0",
+            "name": "Plate 1 x 1",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3024-0.png"
+          },
+          {
+            "id": "3009-15",
+            "name": "Brick 1 x 6",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3009-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 9 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step30.png",
+        "pieces": [
+          {
+            "id": "3666-15",
+            "name": "Plate 1 x 6",
+            "color": "White",
+            "count": 2,
+            "image": "/demo/instructions/parts/3666-15.png"
+          },
+          {
+            "id": "3710-15",
+            "name": "Plate 1 x 4",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3710-15.png"
+          },
+          {
+            "id": "60478-15",
+            "name": "Plate 1 x 2 with Handle on End",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/60478-15.png"
+          },
+          {
+            "id": "61409-0",
+            "name": "Slope Brick 18 2 x 1 x 0.667 Grille",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/61409-0.png"
+          },
+          {
+            "id": "3024-0",
+            "name": "Plate 1 x 1",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3024-0.png"
+          },
+          {
+            "id": "3710-0",
+            "name": "Plate 1 x 4",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3710-0.png"
+          },
+          {
+            "id": "49673-0",
+            "name": "=Plate 1 x 1 with Tooth",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/49673-0.png"
+          },
+          {
+            "id": "2431-0",
+            "name": "Tile 1 x 4 with Groove",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/2431-0.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 2 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step31.png",
+        "pieces": [
+          {
+            "id": "24201-15",
+            "name": "Slope Brick Curved 2 x 1 Inverted",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/24201-15.png"
+          },
+          {
+            "id": "60478-15",
+            "name": "Plate 1 x 2 with Handle on End",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/60478-15.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 12 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step32.png",
+        "pieces": [
+          {
+            "id": "3815-0",
+            "name": "Minifig Hips",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/3815-0.png"
+          },
+          {
+            "id": "3816-15",
+            "name": "Minifig Leg Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3816-15.png"
+          },
+          {
+            "id": "3817-15",
+            "name": "Minifig Leg Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3817-15.png"
+          },
+          {
+            "id": "973p8s-15",
+            "name": "Minifig Torso Spacesuit with Silver Belt and Chest Piece with Space Shuttle Logo on Front and Back Pattern",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/973p8s-15.png"
+          },
+          {
+            "id": "3819-15",
+            "name": "Minifig Arm Left",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3819-15.png"
+          },
+          {
+            "id": "3818-15",
+            "name": "Minifig Arm Right",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3818-15.png"
+          },
+          {
+            "id": "18986-47",
+            "name": "Bracket 1 x 1 - 1 x 2",
+            "color": "Trans Clear",
+            "count": 1,
+            "image": "/demo/instructions/parts/18986-47.png"
+          },
+          {
+            "id": "31066---3626cp80-14",
+            "name": "LEGO piece",
+            "color": "Yellow",
+            "count": 1,
+            "image": "/demo/instructions/parts/31066---3626cp80-14.png"
+          },
+          {
+            "id": "3820-72",
+            "name": "Minifig Hand",
+            "color": "Dark Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/3820-72.png"
+          },
+          {
+            "id": "2446-15",
+            "name": "Minifig Helmet Standard",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/2446-15.png"
+          },
+          {
+            "id": "31066---2447-40",
+            "name": "LEGO piece",
+            "color": "Trans Brown",
+            "count": 1,
+            "image": "/demo/instructions/parts/31066---2447-40.png"
+          }
+        ]
+      },
+      {
+        "title": "Add 6 pieces",
+        "image": "/demo/instructions/shuttle-explorer/step33.png",
+        "pieces": [
+          {
+            "id": "99206-15",
+            "name": "Plate 2 x 2 x 0.667 with Two Studs On Side and Two Raised with Closed Understud",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/99206-15.png"
+          },
+          {
+            "id": "18649-71",
+            "name": "Plate 1 x 2 with Handles on Opposite Ends",
+            "color": "Light Bluish Grey",
+            "count": 1,
+            "image": "/demo/instructions/parts/18649-71.png"
+          },
+          {
+            "id": "3839b-15",
+            "name": "Plate 1 x 2 with Handles Type 2",
+            "color": "White",
+            "count": 1,
+            "image": "/demo/instructions/parts/3839b-15.png"
+          },
+          {
+            "id": "63868-71",
+            "name": "Plate 1 x 2 with Clip Horizontal on End (Thick C-Clip)",
+            "color": "Light Bluish Grey",
+            "count": 2,
+            "image": "/demo/instructions/parts/63868-71.png"
+          },
+          {
+            "id": "4006-0",
+            "name": "Minifig Tool Spanner/Screwdriver",
+            "color": "Black",
+            "count": 1,
+            "image": "/demo/instructions/parts/4006-0.png"
+          }
+        ]
+      }
+    ],
+    "pdfUrl": "/demo/instructions/shuttle-explorer/instructions.pdf"
   }
 }

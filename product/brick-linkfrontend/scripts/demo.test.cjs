@@ -291,7 +291,7 @@ test("retired molded dragon creations retain their original inventory reservatio
 test("story demo builds have complete local picture guides with matching source files", () => {
   const crypto = require("node:crypto");
   const { instructionsFor } = require("../lib/demo/instructions.ts");
-  for (const id of ["green-dinosaur", "mini-shuttle", "space-transport"]) {
+  for (const id of ["green-dinosaur", "mini-shuttle", "shuttle-explorer", "space-transport"]) {
     const guide = instructionsFor(id);
     assert.ok(guide && guide.kind === "pictures" && guide.steps.length > 1, id);
     assert.ok(guide.pdfUrl, `${id}: missing PDF booklet`);

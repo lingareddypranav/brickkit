@@ -14,6 +14,7 @@ are alternate models and are deliberately not selected.
 | `fire-dragon` | Fire Dragon | Original 56-page LEGO booklet, ages 7+ | Direct LEGO CDN link |
 | `green-dinosaur` | Green Dinosaur | 11 cached picture steps and PDF | Bundled with frontend |
 | `mini-shuttle` | Mini Space Shuttle | 29 cached OMR picture steps and PDF | Bundled with frontend |
+| `shuttle-explorer` | Space Shuttle Explorer | 33 cached OMR picture steps and PDF | Bundled with frontend |
 | `space-transport` | Space Transport | 13 cached OMR picture steps and PDF | Bundled with frontend |
 
 Open a prepared model, choose **View instructions**, then **Open building booklet**
