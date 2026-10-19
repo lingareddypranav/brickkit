@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Package the cached LeoCAD diagrams as illustrated, printable step booklets.
+"""Package the cached LeoCAD diagrams as simple printable step booklets.
 
-Run after prepare-instructions.py. No model search, live API or renderer needed.
-Requires ReportLab. The diagrams and construction order are not invented here.
+Two steps per page: the photo, then each piece with how many to add.
+Run after prepare-instructions.py. Requires ReportLab.
 """
+import argparse
+from io import BytesIO
 import json
 import math
 from pathlib import Path
 
+from PIL import Image
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
@@ -16,11 +19,13 @@ from reportlab.pdfgen import canvas
 FRONTEND = Path(__file__).resolve().parents[1]
 PUBLIC = FRONTEND / 'public'
 WIDTH, HEIGHT = A4
-BLUE = HexColor('#3157C8')
 INK = HexColor('#172646')
-MUTED = HexColor('#53647D')
-PALE = HexColor('#EDF3FD')
-MARGIN = 40
+RULE = HexColor('#E5E7EB')
+MARGIN = 36
+# Images are drawn at this many pixels per PDF point (300 dpi). The source
+# photos are much larger; extra pixels only inflate the file.
+PRINT_SCALE = 300 / 72
+_images = {}
 
 
 def local(url):
@@ -30,129 +35,137 @@ def local(url):
     return path
 
 
-def label(pdf, text, x, y, size=12, bold=False, color=INK):
-    pdf.setFillColor(color)
-    pdf.setFont('Helvetica-Bold' if bold else 'Helvetica', size)
-    pdf.drawString(x, y, text)
-
-
-def lines(pdf, text, x, y, width, size=12, leading=18, color=INK, bold=False):
-    """Wrap using actual PDF font widths, rather than guessed character counts."""
-    font = 'Helvetica-Bold' if bold else 'Helvetica'
-    current = ''
-    for word in text.split():
-        trial = (current + ' ' + word).strip()
-        if current and pdf.stringWidth(trial, font, size) > width:
-            label(pdf, current, x, y, size, bold, color)
-            y -= leading
-            current = word
-        else:
-            current = trial
-    if current:
-        label(pdf, current, x, y, size, bold, color)
-        y -= leading
-    return y
+def pdf_image(url, width, height):
+    """Embed a print-sized JPEG: sharp at 300 dpi, far smaller than the source PNG."""
+    max_w = max(32, round(width * PRINT_SCALE))
+    max_h = max(32, round(height * PRINT_SCALE))
+    key = (url, max_w, max_h)
+    if key not in _images:
+        image = Image.open(local(url)).convert('RGBA')
+        box = image.getbbox()
+        if box:
+            image = image.crop(box)
+        image.thumbnail((max_w, max_h), Image.Resampling.LANCZOS)
+        paper = Image.new('RGB', image.size, (255, 255, 255))
+        paper.paste(image, mask=image.getchannel('A'))
+        buffer = BytesIO()
+        paper.save(buffer, format='JPEG', quality=90, optimize=True, subsampling=0)
+        _images[key] = buffer.getvalue()
+    return ImageReader(BytesIO(_images[key]))
 
 
 def picture(pdf, url, x, y, width, height):
-    # Keep the LeoCAD image intact. Alpha is preserved against the paper colour.
-    pdf.drawImage(ImageReader(str(local(url))), x, y, width, height,
-                  preserveAspectRatio=True, anchor='c', mask='auto')
+    pdf.drawImage(pdf_image(url, width, height), x, y, width, height,
+                  preserveAspectRatio=True, anchor='c')
 
 
-def page_base(pdf, name, page, total):
-    pdf.setFillColor(white)
-    pdf.rect(0, 0, WIDTH, HEIGHT, stroke=0, fill=1)
-    label(pdf, 'blueprint', MARGIN, HEIGHT-38, 16, True, BLUE)
-    pdf.setFont('Helvetica', 10)
-    pdf.setFillColor(MUTED)
-    pdf.drawRightString(WIDTH-MARGIN, HEIGHT-36, name)
-    pdf.setStrokeColor(HexColor('#CCD9F0'))
-    pdf.line(MARGIN, HEIGHT-50, WIDTH-MARGIN, HEIGHT-50)
-    label(pdf, 'BUILDING INSTRUCTIONS', MARGIN, 28, 8, True, MUTED)
-    pdf.setFont('Helvetica', 9)
-    pdf.drawRightString(WIDTH-MARGIN, 28, f'{page} / {total}')
+def draw_pieces(pdf, pieces, x, y, width, height):
+    if not pieces:
+        return
+    count = len(pieces)
+    gap = 6
+    slot = min(58, (width - (count - 1) * gap) / count)
+    image_h = min(slot * 0.78, height - 16)
+    row = count * slot + (count - 1) * gap
+    left = x + (width - row) / 2
+    for i, piece in enumerate(pieces):
+        px = left + i * (slot + gap)
+        picture(pdf, piece['image'], px, y + 14, slot, image_h)
+        pdf.setFillColor(INK)
+        pdf.setFont('Helvetica-Bold', 10)
+        pdf.drawCentredString(px + slot / 2, y, f"×{piece['count']}")
+
+
+def draw_step(pdf, step, number, x, y, width, height):
+    pdf.setFillColor(INK)
+    pdf.setFont('Helvetica-Bold', 16)
+    pdf.drawString(x, y + height - 16, str(number))
+    pieces_h = 70
+    photo_bottom = y + pieces_h + 8
+    photo_height = height - pieces_h - 28
+    if photo_height > 40:
+        picture(pdf, step['image'], x, photo_bottom, width, photo_height)
+    draw_pieces(pdf, step['pieces'], x, y, width, pieces_h)
 
 
 def make_booklet(model, guide, output):
     steps = guide['steps']
+    total = max(1, math.ceil(len(steps) / 2))
     pdf = canvas.Canvas(str(output), pagesize=A4, invariant=1, pageCompression=1)
     pdf.setTitle(f"{model['name']} - building instructions")
-    pdf.setAuthor('Blueprint; OMR model by '+model['source']['author'])
-    pdf.setSubject('LeoCAD-rendered picture steps with piece callouts')
-    total = len(steps)+2
-
-    page_base(pdf, model['name'], 1, total)
-    lines(pdf, model['name'], MARGIN, HEIGHT-126, WIDTH-2*MARGIN,
-          34, 40, INK, True)
-    label(pdf, 'Build it one step at a time.', MARGIN, HEIGHT-208, 18, color=MUTED)
-    pdf.setFillColor(PALE)
-    pdf.roundRect(MARGIN, 195, WIDTH-2*MARGIN, 385, 18, stroke=0, fill=1)
-    picture(pdf, model['image'], MARGIN+15, 210, WIDTH-2*MARGIN-30, 355)
-    label(pdf, f"{len(steps)} PICTURE STEPS", MARGIN, 148, 16, True, BLUE)
-    label(pdf, 'Find the pieces. Match the picture. Turn the page.', MARGIN, 116, 12)
-    label(pdf, 'A Blueprint guide made from an LDraw OMR model.', MARGIN, 76, 10, color=MUTED)
-    pdf.showPage()
-
-    for i, step in enumerate(steps, 1):
-        page_base(pdf, model['name'], i+1, total)
-        label(pdf, str(i), MARGIN, HEIGHT-126, 52, True, BLUE)
-        lines(pdf, step['title'], MARGIN+85, HEIGHT-100,
-              WIDTH-2*MARGIN-85, 21, 26, INK, True)
-        cols = 6
-        rows = math.ceil(len(step['pieces'])/cols)
-        tray_top = HEIGHT-170
-        tray_height = 30+rows*68
-        tray_bottom = tray_top-tray_height
-        pdf.setFillColor(PALE)
-        pdf.roundRect(MARGIN, tray_bottom, WIDTH-2*MARGIN, tray_height, 10, stroke=0, fill=1)
-        label(pdf, 'FIND THESE PIECES', MARGIN+14, tray_top-18, 9, True, BLUE)
-        cell_width = (WIDTH-2*MARGIN-20)/cols
-        for n, piece in enumerate(step['pieces']):
-            x = MARGIN+10+(n%cols)*cell_width
-            y = tray_top-30-(n//cols+1)*68
-            picture(pdf, piece['image'], x, y+6, cell_width-10, 53)
-            label(pdf, f"{piece['count']}x", x+cell_width-27, y+6, 12, True)
-        picture(pdf, step['image'], MARGIN, 78, WIDTH-2*MARGIN, tray_bottom-98)
-        pdf.setFont('Helvetica', 11)
-        pdf.setFillColor(MUTED)
-        pdf.drawCentredString(WIDTH/2, 53, f'Step {i} of {len(steps)}')
+    pdf.setAuthor('Blueprint; OMR model by ' + model['source']['author'])
+    pdf.setSubject('LeoCAD-rendered picture steps with piece counts')
+    inner_h = HEIGHT - 2 * MARGIN
+    gap = 18
+    half = (inner_h - gap) / 2
+    for start in range(0, len(steps), 2):
+        pdf.setFillColor(white)
+        pdf.rect(0, 0, WIDTH, HEIGHT, stroke=0, fill=1)
+        pair = steps[start:start + 2]
+        if len(pair) == 2:
+            draw_step(pdf, pair[1], start + 2, MARGIN, MARGIN, WIDTH - 2 * MARGIN, half)
+            pdf.setStrokeColor(RULE)
+            pdf.setLineWidth(0.8)
+            pdf.line(MARGIN, MARGIN + half + gap / 2,
+                     WIDTH - MARGIN, MARGIN + half + gap / 2)
+            draw_step(pdf, pair[0], start + 1, MARGIN, MARGIN + half + gap,
+                      WIDTH - 2 * MARGIN, half)
+        else:
+            draw_step(pdf, pair[0], start + 1, MARGIN, MARGIN + half + gap,
+                      WIDTH - 2 * MARGIN, half)
         pdf.showPage()
-
-    page_base(pdf, model['name'], total, total)
-    label(pdf, 'You built it!', MARGIN, HEIGHT-120, 34, True)
-    picture(pdf, model['image'], MARGIN, 440, WIDTH-2*MARGIN, 240)
-    source = model['source']
-    y = lines(pdf, 'Keep it built, or use your pieces for a new adventure.',
-              MARGIN, 417, WIDTH-2*MARGIN, 17, 24, INK, True)
-    y -= 22
-    for text in [f"OMR model by {source['author']}.", source['license'],
-                 'Construction order: '+('curated for this picture guide.' if guide['sequence']=='curated'
-                                         else 'based on the OMR model steps.'),
-                 'Diagrams rendered with LeoCAD and the LDraw Parts Library. Booklet prepared by Blueprint.',
-                 'This generated guide has not been physically build-tested. It is not an official LEGO instruction booklet.']:
-        y = lines(pdf, text, MARGIN, y, WIDTH-2*MARGIN, 10, 15, MUTED)-10
-    label(pdf, 'Original model and licence details', MARGIN, y, 10, color=BLUE)
-    pdf.linkURL(source['url'], (MARGIN, y-2, WIDTH-MARGIN, y+12), relative=0)
-    y -= 22
-    label(pdf, 'LDraw attribution: ldraw.org and the bundled guide source credits.', MARGIN, y, 9, color=MUTED)
-    pdf.linkURL('https://www.ldraw.org/article/227.html', (MARGIN, y-2, WIDTH-MARGIN, y+10), relative=0)
     pdf.save()
+    return total
+
+
+def rasterize(pdf_path, folder, pages=3):
+    """Write the first pages as PNGs so a preview can be reviewed in the editor."""
+    import pypdfium2 as pdfium
+    document = pdfium.PdfDocument(str(pdf_path))
+    folder.mkdir(parents=True, exist_ok=True)
+    written = []
+    for i in range(min(pages, len(document))):
+        image = document[i].render(scale=2).to_pil()
+        out = folder / f'page-{i + 1:02}.png'
+        image.save(out, optimize=True)
+        written.append(out)
+    return written
 
 
 def main():
-    index_path = FRONTEND/'lib/demo/instructions-data.json'
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--preview', nargs='?', const='shuttle-explorer',
+                        help='Write one model to a preview folder instead of replacing booklets')
+    parser.add_argument('--preview-pages', type=int, default=3)
+    args = parser.parse_args()
+    index_path = FRONTEND / 'lib/demo/instructions-data.json'
     guides = json.loads(index_path.read_text())
-    catalog = json.loads((FRONTEND/'lib/demo/catalog-data.json').read_text())
+    catalog = json.loads((FRONTEND / 'lib/demo/catalog-data.json').read_text())
     models = {m['id']: m for m in catalog['models']}
+
+    if args.preview:
+        model_id = args.preview
+        guide = guides[model_id]
+        if guide.get('kind') == 'booklet':
+            raise SystemExit(f'{model_id} uses an original LEGO booklet')
+        folder = Path('/tmp/brickkit-pdf-preview') / model_id
+        folder.mkdir(parents=True, exist_ok=True)
+        output = folder / 'instructions.pdf'
+        pages = make_booklet(models[model_id], guide, output)
+        images = rasterize(output, folder, args.preview_pages)
+        print(f'Preview {model_id}: {pages} pages -> {output}', flush=True)
+        for image in images:
+            print(f'  {image}', flush=True)
+        return
+
     for model_id, guide in guides.items():
         if guide.get('kind') == 'booklet':
             continue  # Original booklets stay linked from LEGO; do not repackage them.
-        output = PUBLIC/'demo/instructions'/model_id/'instructions.pdf'
-        make_booklet(models[model_id], guide, output)
-        guide['pdfUrl'] = '/'+str(output.relative_to(PUBLIC))
-        print(f"{model_id}: {len(guide['steps'])+2} PDF pages", flush=True)
-    index_path.write_text(json.dumps(guides, indent=2)+'\n')
+        output = PUBLIC / 'demo/instructions' / model_id / 'instructions.pdf'
+        pages = make_booklet(models[model_id], guide, output)
+        guide['pdfUrl'] = '/' + str(output.relative_to(PUBLIC))
+        print(f'{model_id}: {pages} PDF pages', flush=True)
+    index_path.write_text(json.dumps(guides, indent=2) + '\n')
 
 
 if __name__ == '__main__':

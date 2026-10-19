@@ -113,6 +113,20 @@ test("strict mode shows only available models and honours the sample's kept-buil
   );
 });
 
+test("instruction ready lists only picture-guide builds, not booklet dragons", () => {
+  const ideas = selectIdeas(emptyCollection, {
+    family: "all",
+    onlyMyBricks: false,
+    onlyInstructions: true,
+    savedOnly: false,
+  });
+  assert.deepEqual(
+    ideas.map((idea) => idea.model.id).sort(),
+    ["green-dinosaur", "mini-shuttle", "shuttle-explorer", "space-transport"],
+  );
+  assert.ok(!ideas.some((idea) => idea.model.family === "dragons"));
+});
+
 test("dinosaurs, dragons and spacecraft use distinct sourced builds", () => {
   for (const family of ["dinosaurs", "dragons", "space"]) {
     const ideas = selectIdeas(emptyCollection, {
@@ -368,11 +382,22 @@ test("dragon suggestions are brick-built and use verified original assembly book
   );
   for (const model of dragons) {
     const guide = instructionsFor(model.id);
-    assert.equal(guide.kind, "booklet");
-    assert.equal(guide.provider, "LEGO");
-    assert.equal(guide.pdfUrl, model.source.instructionsUrl);
-    assert.ok(guide.pageCount >= 50);
-    assert.equal(guide.startPage, 4);
+    if (model.id === "fire-dragon") {
+      assert.equal(guide.kind, "pictures");
+      assert.ok(guide.steps.length > 20);
+      assert.equal(guide.pdfUrl, model.source.instructionsUrl);
+      assert.ok(
+        fs.existsSync(
+          path.join(__dirname, "../public", guide.steps[0].image),
+        ),
+      );
+    } else {
+      assert.equal(guide.kind, "booklet");
+      assert.equal(guide.provider, "LEGO");
+      assert.equal(guide.pdfUrl, model.source.instructionsUrl);
+      assert.ok(guide.pageCount >= 50);
+      assert.equal(guide.startPage, 4);
+    }
     assert.ok(countPieces(model.inventory) >= 100);
     for (const key of Object.keys(model.inventory)) {
       assert.ok(

@@ -13,7 +13,7 @@ import { useBuildIdeas } from "@/hooks/use-build-ideas";
 import { buildAssistantReply, type ChatChoice } from "@/lib/demo/chat-script";
 import { families, modelById } from "@/lib/demo/catalog";
 import { matchInventory } from "@/lib/demo/inventory";
-import { instructionsFor } from "@/lib/demo/instructions";
+import { hasPictureInstructions } from "@/lib/demo/instructions";
 import type { Blueprint } from "@/lib/demo/types";
 import { BrickBoxPanel, type BoxTab } from "./brick-box";
 import { IdeaCard } from "./idea-card";
@@ -252,7 +252,9 @@ export default function BrickStudio() {
                         aria-label="Blueprint ideas"
                       >
                         {ideas.onlyInstructions &&
-                          !message.results.some((id) => instructionsFor(id)) && (
+                          !message.results.some((id) =>
+                            hasPictureInstructions(id),
+                          ) && (
                             <div className="gallery-empty">
                               <p>
                                 None of these ideas have picture instructions
@@ -294,7 +296,7 @@ export default function BrickStudio() {
                           .filter((id) => {
                             if (
                               ideas.onlyInstructions &&
-                              !instructionsFor(id)
+                              !hasPictureInstructions(id)
                             )
                               return false;
                             if (

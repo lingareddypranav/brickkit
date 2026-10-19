@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight, CheckCheck } from "lucide-react";
 import type { PictureGuide } from "@/lib/demo/instructions";
 
@@ -42,33 +42,6 @@ function contentBox(image: HTMLImageElement) {
   return box;
 }
 
-function sharpen(context: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-  const width = canvas.width;
-  const height = canvas.height;
-  const frame = context.getImageData(0, 0, width, height);
-  const source = frame.data;
-  const output = new Uint8ClampedArray(source);
-  const amount = 0.35;
-  for (let y = 1; y < height - 1; y += 1) {
-    for (let x = 1; x < width - 1; x += 1) {
-      const index = (y * width + x) * 4;
-      if (source[index + 3] < 20) continue;
-      for (let channel = 0; channel < 3; channel += 1) {
-        const center = source[index + channel];
-        const neighbors =
-          source[index - 4 + channel] +
-          source[index + 4 + channel] +
-          source[index - width * 4 + channel] +
-          source[index + width * 4 + channel];
-        const value = center + (center - neighbors / 4) * amount;
-        output[index + channel] = Math.max(0, Math.min(255, value));
-      }
-    }
-  }
-  frame.data.set(output);
-  context.putImageData(frame, 0, 0);
-}
-
 function drawStepImage(
   image: HTMLImageElement,
   canvas: HTMLCanvasElement,
@@ -106,7 +79,6 @@ function drawStepImage(
     sourceH * scale,
   );
   context.setTransform(1, 0, 0, 1, 0, 0);
-  sharpen(context, canvas);
 }
 
 export function PictureInstructions({
@@ -193,7 +165,10 @@ export function PictureInstructions({
         />
       </div>
       {current.pieces.length > 0 && (
-        <div className="step-pieces">
+        <div
+          className="step-pieces"
+          style={{ "--piece-count": current.pieces.length } as CSSProperties}
+        >
           {current.pieces.map((piece) => (
             <div
               className="step-piece"

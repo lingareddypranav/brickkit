@@ -1180,13 +1180,277 @@
     "startPage": 4
   },
   "fire-dragon": {
-    "kind": "booklet",
-    "provider": "LEGO",
+    "kind": "pictures",
+    "sourceSha256": "524f3011914f10d2fa9d8fcbd753423907c237504117c6f525101b3b8e64577c",
+    "sequence": "booklet",
     "pdfUrl": "https://www.lego.com/cdn/product-assets/product.bi.core.pdf/6308576.pdf",
-    "sourceUrl": "https://www.lego.com/en-us/service/building-instructions/31102",
-    "pageCount": 56,
-    "minimumAge": 7,
-    "startPage": 4
+    "steps": [
+      {
+        "title": "Step 1",
+        "image": "/demo/instructions/fire-dragon/step01.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 2",
+        "image": "/demo/instructions/fire-dragon/step02.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 3",
+        "image": "/demo/instructions/fire-dragon/step03.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 4",
+        "image": "/demo/instructions/fire-dragon/step04.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 5",
+        "image": "/demo/instructions/fire-dragon/step05.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 6",
+        "image": "/demo/instructions/fire-dragon/step06.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 7",
+        "image": "/demo/instructions/fire-dragon/step07.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 8",
+        "image": "/demo/instructions/fire-dragon/step08.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 9",
+        "image": "/demo/instructions/fire-dragon/step09.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 10",
+        "image": "/demo/instructions/fire-dragon/step10.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 11",
+        "image": "/demo/instructions/fire-dragon/step11.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 12",
+        "image": "/demo/instructions/fire-dragon/step12.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 13",
+        "image": "/demo/instructions/fire-dragon/step13.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 14",
+        "image": "/demo/instructions/fire-dragon/step14.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 15",
+        "image": "/demo/instructions/fire-dragon/step15.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 16",
+        "image": "/demo/instructions/fire-dragon/step16.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 17",
+        "image": "/demo/instructions/fire-dragon/step17.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 18",
+        "image": "/demo/instructions/fire-dragon/step18.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 19",
+        "image": "/demo/instructions/fire-dragon/step19.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 20",
+        "image": "/demo/instructions/fire-dragon/step20.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 21",
+        "image": "/demo/instructions/fire-dragon/step21.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 22",
+        "image": "/demo/instructions/fire-dragon/step22.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 23",
+        "image": "/demo/instructions/fire-dragon/step23.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 24",
+        "image": "/demo/instructions/fire-dragon/step24.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 25",
+        "image": "/demo/instructions/fire-dragon/step25.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 26",
+        "image": "/demo/instructions/fire-dragon/step26.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 27",
+        "image": "/demo/instructions/fire-dragon/step27.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 28",
+        "image": "/demo/instructions/fire-dragon/step28.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 29",
+        "image": "/demo/instructions/fire-dragon/step29.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 30",
+        "image": "/demo/instructions/fire-dragon/step30.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 31",
+        "image": "/demo/instructions/fire-dragon/step31.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 32",
+        "image": "/demo/instructions/fire-dragon/step32.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 33",
+        "image": "/demo/instructions/fire-dragon/step33.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 34",
+        "image": "/demo/instructions/fire-dragon/step34.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 35",
+        "image": "/demo/instructions/fire-dragon/step35.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 36",
+        "image": "/demo/instructions/fire-dragon/step36.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 37",
+        "image": "/demo/instructions/fire-dragon/step37.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 38",
+        "image": "/demo/instructions/fire-dragon/step38.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 39",
+        "image": "/demo/instructions/fire-dragon/step39.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 40",
+        "image": "/demo/instructions/fire-dragon/step40.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 41",
+        "image": "/demo/instructions/fire-dragon/step41.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 42",
+        "image": "/demo/instructions/fire-dragon/step42.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 43",
+        "image": "/demo/instructions/fire-dragon/step43.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 44",
+        "image": "/demo/instructions/fire-dragon/step44.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 45",
+        "image": "/demo/instructions/fire-dragon/step45.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 46",
+        "image": "/demo/instructions/fire-dragon/step46.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 47",
+        "image": "/demo/instructions/fire-dragon/step47.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 48",
+        "image": "/demo/instructions/fire-dragon/step48.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 49",
+        "image": "/demo/instructions/fire-dragon/step49.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 50",
+        "image": "/demo/instructions/fire-dragon/step50.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 51",
+        "image": "/demo/instructions/fire-dragon/step51.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 52",
+        "image": "/demo/instructions/fire-dragon/step52.jpg",
+        "pieces": []
+      },
+      {
+        "title": "Step 53",
+        "image": "/demo/instructions/fire-dragon/step53.jpg",
+        "pieces": []
+      }
+    ]
   },
   "shuttle-explorer": {
     "kind": "pictures",

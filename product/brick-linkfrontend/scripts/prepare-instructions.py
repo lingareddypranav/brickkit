@@ -87,20 +87,34 @@ def timeline(models, name, p=None, m=None, color='7', stack=()):
     return steps
 
 
-def run_render(args, model, output, camera, first=None, last=None, highlight=False):
+def run_render(args, model, output, camera, first=None, last=None, highlight=False, large=False):
+    # Step diagrams are cropped and shown large. Render them well above display
+    # size so edges stay smooth. Piece thumbnails stay small.
+    # Same outlined mode as the catalogue previews. Line width scales with the
+    # canvas so the strokes stay the same weight, and the large canvas keeps
+    # them from looking jagged when the step is shown big.
+    width, height = (6400, 5120) if large else (1000, 800)
     command = [args.leocad, '-l', str(args.ldraw), str(model), '-i', str(output),
-               '-w', '1000', '-h', '800', '--orthographic', '--camera-angles',
-               *map(str, camera), '--aa-samples', '4', '--line-width', '0.8']
+               '-w', str(width), '-h', str(height), '--orthographic', '--camera-angles',
+               *map(str, camera), '--aa-samples', '8' if large else '4',
+               '--line-width', '4.5' if large else '0.7']
     if first is not None:
         command += ['-f', str(first), '-t', str(last)]
     if highlight:
         command += ['--fade-steps', '--fade-steps-color', '#FFB8C3D1',
                     '--highlight', '--highlight-color', '#FF2563EB']
-    subprocess.run(command, check=True, stdout=subprocess.DEVNULL, timeout=180)
+    subprocess.run(command, check=True, stdout=subprocess.DEVNULL, timeout=1200 if large else 180)
 
 
 def optimize(path):
     with Image.open(path) as img:
+        img = img.convert('RGBA')
+        box = img.getbbox()
+        if box:
+            pad = 12
+            x0, y0, x1, y1 = box
+            img = img.crop((max(0, x0-pad), max(0, y0-pad),
+                            min(img.width, x1+pad), min(img.height, y1+pad)))
         img.save(path, optimize=True)
 
 
@@ -173,7 +187,7 @@ def main():
         if not unchanged or len(images) != len(steps):
             for stale in images:
                 stale.unlink()
-            run_render(args, guide_model, out/'step.png', manifest['camera'], 1, len(steps), True)
+            run_render(args, guide_model, out/'step.png', manifest['camera'], 1, len(steps), True, large=True)
         images = sorted(out.glob('step[0-9]*.png'))
         assert len(images) == len(steps), (model_id, len(images), len(steps))
         guide = []

@@ -1,6 +1,6 @@
 import { models, modelById, sets } from "./catalog";
 import { addInventory, availablePieces, matchInventory } from "./inventory";
-import { instructionsFor } from "./instructions";
+import { hasPictureInstructions } from "./instructions";
 import type { Blueprint, Collection, Family } from "./types";
 
 export interface IdeaFilters {
@@ -27,7 +27,8 @@ export function selectIdeas(collection: Collection, filters: IdeaFilters) {
     }))
     .filter((idea) => !filters.onlyMyBricks || idea.match.ready)
     .filter(
-      (idea) => !filters.onlyInstructions || Boolean(instructionsFor(idea.model.id)),
+      (idea) =>
+        !filters.onlyInstructions || hasPictureInstructions(idea.model.id),
     )
     .sort((a, b) => Number(b.match.ready) - Number(a.match.ready));
 }

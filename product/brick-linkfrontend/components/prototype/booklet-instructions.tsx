@@ -16,12 +16,6 @@ export function BookletInstructions({
       className="booklet-instructions"
       aria-label={`${model.name} instructions`}
     >
-      <div className="guide-title">
-        <div>
-          <span className="kit-eyebrow">BUILD IT FROM BRICKS</span>
-          <h3>Your building booklet</h3>
-        </div>
-      </div>
       <div className="guide-stage" style={{ background: model.background }}>
         <img src={model.image} alt={model.name} />
       </div>

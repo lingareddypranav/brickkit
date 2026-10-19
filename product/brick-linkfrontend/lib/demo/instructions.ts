@@ -11,9 +11,10 @@ export interface InstructionPiece {
 export interface PictureGuide {
   kind: "pictures";
   // SHA-256 of UTF-8 source text with LF line endings, stable across Git checkouts.
+  // Booklet-page guides hash the official PDF bytes instead.
   sourceSha256: string;
-  sequence: "curated" | "omr";
-  modelUrl: string;
+  sequence: "curated" | "omr" | "booklet";
+  modelUrl?: string;
   pdfUrl?: string;
   steps: {
     title: string;
@@ -43,4 +44,9 @@ const guides: Record<string, InstructionGuide> = data as unknown as Record<
 
 export function instructionsFor(modelId: string): InstructionGuide | undefined {
   return guides[modelId];
+}
+
+export function hasPictureInstructions(modelId: string): boolean {
+  const guide = instructionsFor(modelId);
+  return guide?.kind === "pictures" && guide.sequence !== "booklet";
 }

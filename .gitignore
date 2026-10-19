@@ -1,4 +1,7 @@
 .DS_Store
+
+# Local Premiere project and media (not for GitHub)
+launch_video/
 __pycache__/
 *.py[cod]
 .env

@@ -123,8 +123,10 @@ def main():
                                        license='Original LEGO building instructions, linked from LEGO.com.',
                                        sha256=m['pdfSha256'], inventoryBasis='source-set',
                                        instructionsUrl=m['pdfUrl'])))
-        guides[m['id']] = dict(kind='booklet', provider='LEGO', pdfUrl=m['pdfUrl'],
-                               sourceUrl=m['sourceUrl'], pageCount=m['pageCount'], minimumAge=m['minimumAge'], startPage=m['startPage'])
+        if guides.get(m['id'], {}).get('kind') != 'pictures':
+            guides[m['id']] = dict(kind='booklet', provider='LEGO', pdfUrl=m['pdfUrl'],
+                                   sourceUrl=m['sourceUrl'], pageCount=m['pageCount'],
+                                   minimumAge=m['minimumAge'], startPage=m['startPage'])
         print(m['name'], sum(inventory.values()), 'source-set pieces; original booklet verified', flush=True)
     for id in RETIRED:
         guides.pop(id, None)
