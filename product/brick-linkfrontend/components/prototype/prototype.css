@@ -177,8 +177,8 @@
 }
 
 .make-pane:not(.is-chatting) {
-  /* Fixed inset — avoid flex spacers that reflow when the samples row height changes */
-  padding-top: calc(var(--bp-space-6) + var(--bp-space-4));
+  justify-content: center;
+  padding-top: var(--bp-space-5);
   padding-bottom: var(--bp-space-5);
 }
 

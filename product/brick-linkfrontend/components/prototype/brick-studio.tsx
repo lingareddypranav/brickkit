@@ -11,7 +11,7 @@ import {
 import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
 import { buildAssistantReply, type ChatChoice, type PreviewNotice } from "@/lib/demo/chat-script";
-import { families, modelById, models } from "@/lib/demo/catalog";
+import { modelById, models } from "@/lib/demo/catalog";
 import { matchInventory } from "@/lib/demo/inventory";
 import { hasPictureInstructions } from "@/lib/demo/instructions";
 import type { Blueprint } from "@/lib/demo/types";
@@ -402,34 +402,6 @@ export default function BrickStudio() {
               aria-hidden={chatting}
             >
               <div className="make-below-inner">
-                <div
-                  className="family-choices"
-                  aria-label="Choose a kind of build"
-                >
-                  {families.map((family) => (
-                    <button
-                      key={family.id}
-                      aria-pressed={ideas.family === family.id}
-                      onClick={() => {
-                        ideas.setFamily(family.id);
-                      }}
-                    >
-                      <span
-                        style={{
-                          background:
-                            family.background ??
-                            modelById[family.model].background,
-                        }}
-                      >
-                        <img
-                          src={family.image ?? modelById[family.model].image}
-                          alt=""
-                        />
-                      </span>
-                      {family.label}
-                    </button>
-                  ))}
-                </div>
                 <div className="prompt-feedback-slot" role="status" aria-live="polite">
                   {ideas.promptMessage ? (
                     <p className="prompt-feedback">{ideas.promptMessage}</p>

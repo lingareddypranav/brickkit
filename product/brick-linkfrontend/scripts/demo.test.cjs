@@ -508,3 +508,16 @@ test("preview follows the current adventure for unsupported follow-up requests",
   assert.ok(afterResults.preview);
   assert.ok(afterResults.choices.every(choice => modelById[choice.models[0]].family === "space"));
 });
+
+
+test("category chips appear on request rather than after a preview blueprint", () => {
+  const reply = buildAssistantReply("Mini Space Shuttle", undefined, []);
+  assert.deepEqual(reply.results, ["mini-shuttle"]);
+  assert.equal(reply.choices, undefined);
+  const categories = buildAssistantReply("show me the categories", undefined, [{ role: "assistant", ...reply }]);
+  assert.equal(categories.preview, undefined);
+  assert.ok(categories.choices.length > 0);
+  assert.ok(categories.choices.every(choice => choice.family));
+  const selected = buildAssistantReply(categories.choices[0].label, categories.choices[0], []);
+  assert.ok(selected.choices.every(choice => choice.models.length > 0));
+});
