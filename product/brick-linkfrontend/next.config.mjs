@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
+  // These files are read by the /ldraw route at runtime as well as served statically.
+  outputFileTracingIncludes: {
+    "/ldraw/*": ["./public/landing/ldraw/**/*"],
   },
   async redirects() {
     return [

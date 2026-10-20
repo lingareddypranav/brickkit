@@ -12,7 +12,7 @@ Remote: [lingareddypranav/brickkit](https://github.com/lingareddypranav/brickkit
 
 ## Run the workspace
 
-Use Node.js 20.11 or newer. Install the product's dependencies once, then run
+Use Node.js 22. Install the product's dependencies once, then run
 from this workspace root:
 
 ```bash
@@ -33,8 +33,10 @@ design CSS directly, so its token and logo changes update without a copy step.
 
 The collection, curated builds, shopping suggestions and cached picture guides
 work without the Python API. Original LEGO dragon booklets need internet access.
-For the live OMR explorer at `/explore`, install `product/requirements.txt`, keep
-backend settings in `product/.env`, and start the API from `product/`:
+The hosted Preview redirects `/explore` to the prepared-build experience. The
+legacy explorer component remains in the source for future backend integration.
+To run the Python OMR API separately, install `product/requirements.txt`, keep
+backend settings in `product/.env`, and start it from `product/`:
 
 ```bash
 cd product
@@ -74,3 +76,19 @@ Blueprint turns the bricks kids already own into the things they imagine. Colors
 - **Color:** only `light1` `#F6F4EB`, `blue1` `#3860E5`, `dark1` `#2F2F2F`, `orange1` `#F85F19`. Muted is dark1 at 64% on cream (`--bp-muted-1`), not a fifth hue. Orange is accent / CTA.
 - **Tap:** 48px minimum.
 - **Texture:** Bayer 8×8 overlay (`design-system/assets/textures/dither-bayer.svg`) on logos and bricks only. Page stays flat cream.
+
+
+## Host the Preview on Vercel
+
+Use the `redesign` branch and Next.js preset. Set the project Root Directory to
+`product/brick-linkfrontend`, enable source files outside that directory, and
+select Node.js 22. The app's `vercel.json` selects `npm ci` and `npm run build`,
+so the npm lockfile is authoritative even though an older pnpm lockfile remains.
+The prebuild script prepares the landing page and design system, including the
+LDraw files traced into the model-parts function. The normal build validates
+TypeScript errors.
+
+The landing page is at `/landing`, the playable app at `/`, and the instruction
+PDFs and images are served from local public assets. Collections remain in each
+visitor's browser. No database, AI-provider key, or Python server is needed for
+the curated Preview. `/explore` redirects into that experience.
