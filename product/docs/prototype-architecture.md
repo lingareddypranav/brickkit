@@ -155,3 +155,27 @@ Browser QA covers real previews, categories, 3D, adding a real set, reload,
 strict filtering, parent suggestions, completion/reservation/remix, chat, and a
 narrow viewport. Generated outputs from the live Python app are excluded from
 the implementation commits.
+
+## Playable Blueprint Preview
+
+The product labels itself Preview and uses prepared catalogue builds rather than
+live generation. A supported request such as “a spaceship” enters the normal
+choice flow; a catalogue model name opens that blueprint. Unsupported subjects,
+custom features and follow-up edits get a Preview explanation with up to three
+actual builds to try. The original request remains in the conversation. Selecting
+an alternative adds a new user turn instead of silently replacing the request.
+
+`lib/demo/preview-prompts.ts` owns the supported phrases, classification and
+catalogue suggestions. `lib/demo/chat-script.ts` owns the reply shape. The chat
+component renders the notice and alternative thumbnails. This keeps preview
+behavior independent of the frontend design and gives a future generator one
+reply boundary to replace.
+
+Fallback suggestions respect **Use my bricks** and **Instruction ready**. If no
+build qualifies, the chat offers an explicit **Explore all preview ideas** action
+that clears those filters; it never adds inventory or changes kept-built pieces.
+Preview chat makes no network or AI-provider requests. Normal model, instruction
+and retail links retain their existing behavior.
+
+Run `npm test` to verify supported / unsupported prompts, follow-up context,
+catalogue-only alternatives and filter handling alongside the collection checks.

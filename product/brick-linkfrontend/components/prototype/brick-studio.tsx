@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
-import { buildAssistantReply, type ChatChoice } from "@/lib/demo/chat-script";
-import { families, modelById } from "@/lib/demo/catalog";
+import { buildAssistantReply, type ChatChoice, type PreviewNotice } from "@/lib/demo/chat-script";
+import { families, modelById, models } from "@/lib/demo/catalog";
 import { matchInventory } from "@/lib/demo/inventory";
 import { hasPictureInstructions } from "@/lib/demo/instructions";
 import type { Blueprint } from "@/lib/demo/types";
@@ -32,6 +32,7 @@ type ChatMessage = {
   choices?: ChatChoice[];
   choiceTaken?: string;
   results?: string[];
+  preview?: PreviewNotice;
 };
 
 export default function BrickStudio() {
@@ -78,22 +79,25 @@ export default function BrickStudio() {
     ideas.setPrompt("");
   }
 
-  function sendChat(text = ideas.prompt.trim(), choice?: ChatChoice) {
+  function sendChat(text = ideas.prompt.trim(), choice?: ChatChoice, exploreAllPreview = false) {
     if (!text || pending) return;
     enterChat();
     ideas.setPrompt("");
-    setMessages((current) => [
-      ...current,
-      { id: nextMessageId(), role: "user", text },
-    ]);
+    const userId = nextMessageId();
+    setMessages((current) => [...current, { id: userId, role: "user", text }]);
+    const allowedModelIds = exploreAllPreview ? undefined : models
+      .filter((model) => !ideas.onlyInstructions || hasPictureInstructions(model.id))
+      .filter((model) => !ideas.onlyMyBricks || matchInventory(model.inventory, ideas.available).ready)
+      .map((model) => model.id);
     setPending(true);
     replyTimer.current = window.setTimeout(() => {
+      const assistantId = nextMessageId();
       setMessages((current) => [
         ...current,
         {
-          id: nextMessageId(),
+          id: assistantId,
           role: "assistant",
-          ...buildAssistantReply(text, choice, current),
+          ...buildAssistantReply(text, choice, current, { allowedModelIds }),
         },
       ]);
       setPending(false);
@@ -110,7 +114,12 @@ export default function BrickStudio() {
           : message,
       ),
     );
-    sendChat(choice.label, choice);
+    const exploreAllPreview = choice.action === "explore-preview";
+    if (exploreAllPreview) {
+      ideas.setOnlyMyBricks(false);
+      ideas.setOnlyInstructions(false);
+    }
+    sendChat(choice.label, choice, exploreAllPreview);
   }
 
   useEffect(() => {
@@ -128,6 +137,7 @@ export default function BrickStudio() {
   return (
     <div className="kit-app">
       <aside className="kit-sidebar">
+        <div className="kit-sidebar-brand-row">
         <a
           className="bp-lockup bp-lockup--xs bp-lockup--on-light kit-sidebar-brand"
           href="/"
@@ -136,6 +146,8 @@ export default function BrickStudio() {
           <span className="bp-mark" aria-hidden="true" />
           <span className="bp-wordmark">Blueprint</span>
         </a>
+        <span className="kit-preview-badge" aria-label="Blueprint Preview">Preview</span>
+        </div>
         <nav aria-label="Main navigation">
           <button
             className={pane === "make" ? "is-active" : ""}
@@ -209,11 +221,13 @@ export default function BrickStudio() {
               <h1 className="make-title" id="ideas-heading">
                 Hi Timmy! What shall we build?
               </h1>
+              <p className="make-preview-copy">You’re in Blueprint Preview. Play with a few ready-to-build ideas.</p>
             </div>
 
             <div
               className="chat-thread"
               aria-live="polite"
+              aria-busy={pending}
               aria-hidden={!chatting}
               inert={!chatting || undefined}
               ref={threadRef}
@@ -225,13 +239,19 @@ export default function BrickStudio() {
                     className={`chat-turn chat-turn--${message.role}`}
                   >
                     <div className={`chat-msg chat-msg--${message.role}`}>
+                      {message.preview && (
+                        <div className="chat-preview-notice">
+                          <strong><Sparkles size={17} aria-hidden />{message.preview.title}</strong>
+                          <p>{message.preview.detail}</p>
+                        </div>
+                      )}
                       <p>{message.text}</p>
                     </div>
                     {message.choices && message.choices.length > 0 && (
                       <div
-                        className="chat-choices"
+                        className={`chat-choices${message.preview ? " chat-choices--preview" : ""}`}
                         role="group"
-                        aria-label="Choose an answer"
+                        aria-label={message.preview ? "Try a preview build" : "Choose an answer"}
                       >
                         {message.choices.map((choice) => (
                           <button
@@ -241,7 +261,11 @@ export default function BrickStudio() {
                             aria-pressed={message.choiceTaken === choice.id}
                             onClick={() => pickChoice(message.id, choice)}
                           >
-                            {choice.label}
+                            {message.preview && choice.models?.length === 1 && modelById[choice.models[0]] && (
+                              <img src={modelById[choice.models[0]].image} alt="" />
+                            )}
+                            <span>{message.preview && choice.models?.length === 1 && <small>Try instead</small>}{choice.label}</span>
+                            {message.preview && <ArrowRight size={17} aria-hidden />}
                           </button>
                         ))}
                       </div>
@@ -360,13 +384,14 @@ export default function BrickStudio() {
                 aria-label="What would you like to build?"
                 placeholder={
                   chatting
-                    ? "Ask Blueprint anything…"
+                    ? "Try another build idea…"
                     : "A dragon? A spaceship? Tell Blueprint your idea…"
                 }
+                maxLength={280}
                 value={ideas.prompt}
                 onChange={(e) => ideas.setPrompt(e.target.value)}
               />
-              <button type="submit" aria-label="Send idea">
+              <button type="submit" aria-label="Send idea" disabled={pending || !ideas.prompt.trim()}>
                 <ArrowRight size={18} strokeWidth={2} aria-hidden />
               </button>
             </form>

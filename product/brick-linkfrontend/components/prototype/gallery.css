@@ -454,3 +454,63 @@
     gap: 8px;
   }
 }
+
+
+/* Preview boundaries are a normal part of play, with an explicit next idea. */
+.kit-sidebar-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.kit-preview-badge {
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--bp-blue-1) 24%, transparent);
+  border-radius: 20px;
+  color: var(--bp-blue-1);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.make-preview-copy {
+  margin: 12px auto 0;
+  max-width: 42em;
+  color: var(--bp-color-fg-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.chat-preview-notice {
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  border: 1px solid color-mix(in srgb, var(--bp-blue-1) 22%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bp-blue-1) 4%, var(--bp-light-1));
+}
+.chat-preview-notice strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--bp-blue-1);
+}
+.chat-preview-notice strong svg { flex-shrink: 0; }
+.chat-preview-notice p { margin-top: 8px; color: var(--bp-color-fg-muted); }
+.chat-choices--preview { width: min(880px, 100%); max-width: 100%; }
+.chat-choices--preview > button {
+  display: flex;
+  flex: 1 1 225px;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 14px;
+}
+.chat-choices--preview > button > img { width: 68px; height: 62px; object-fit: contain; flex-shrink: 0; }
+.chat-choices--preview > button > span { flex: 1; }
+.chat-choices--preview > button > svg { flex-shrink: 0; }
+.chat-choices--preview small { display: block; margin-bottom: 4px; font-size: 11px; font-weight: 400; color: var(--bp-color-fg-muted); }
+@media (max-width: 540px) {
+  .make-preview-copy { max-width: 25em; padding-inline: 12px; font-size: 12px; }
+  .chat-preview-notice { padding: 14px; }
+  .chat-preview-notice strong { align-items: flex-start; }
+  .chat-choices--preview > button { flex-basis: 100%; }
+}
