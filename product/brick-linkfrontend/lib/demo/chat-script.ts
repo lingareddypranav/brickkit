@@ -29,6 +29,20 @@ const QUESTIONS: Record<Exclude<Family, "all">, string> = {
   rides: "Something that goes! Pick your next ride.",
 };
 
+function wantsCategoryPicker(text: string): boolean {
+  const needle = text.trim().toLowerCase();
+  if (
+    /\b(categor(y|ies)|kinds? of (builds?|adventures?))\b/.test(needle) ||
+    /^(show( me)?|browse|pick|choose|see)\s+(the\s+)?(all\s+)?categor/.test(
+      needle,
+    ) ||
+    /^(what|which)\s+(build\s+)?categor/.test(needle)
+  ) {
+    return true;
+  }
+  return false;
+}
+
 /** Choices come from the catalogue, so new OMR imports never leave stale recipe IDs. */
 export function buildAssistantReply(
   text: string,
@@ -47,6 +61,11 @@ export function buildAssistantReply(
     return {
       text: "Here are the blueprints I made for you. The badge shows which ones fit your brick box. Tap one to take a closer look.",
       results,
+    };
+  }
+  if (wantsCategoryPicker(text) && !picked?.family) {
+    return {
+      text: "Pick a kind of adventure and I’ll find a build for you.",
       choices: FAMILY_CHOICES,
     };
   }
