@@ -446,3 +446,65 @@ test("retired creations survive storage reload without being reassigned a new dr
   hydrated.creations[0].keepBuilt = false;
   assert.equal(countPieces(availablePieces(hydrated)), 8);
 });
+
+test("preview distinguishes supported requests from unsupported custom details", () => {
+  const { classifyPreviewRequest } = require("../lib/demo/preview-prompts.ts");
+  assert.deepEqual(classifyPreviewRequest("Can you please build a spaceship?"), { kind: "family", family: "space" });
+  assert.equal(classifyPreviewRequest("A spaceship my dinosaur can ride").kind, "outside-preview");
+  assert.equal(classifyPreviewRequest("a pink dinosaur with a swimming pool").kind, "outside-preview");
+  assert.equal(classifyPreviewRequest("a cat").kind, "outside-preview");
+  assert.equal(classifyPreviewRequest("constructor").kind, "outside-preview");
+  assert.equal(classifyPreviewRequest("Surprise me!").kind, "explore");
+  assert.equal(classifyPreviewRequest("DINASOURS PLEASE").kind, "family");
+  for (const model of models) {
+    const request = classifyPreviewRequest(`Please make a ${model.name}!`);
+    assert.equal(request.kind, "build", model.id);
+    assert.deepEqual(request.modelIds, [model.id]);
+  }
+});
+
+test("unsupported ideas get a clear preview boundary and playable catalogue alternatives", () => {
+  for (const prompt of ["a birthday cake", "a unicorn", "remix it with a trampoline", "a spaceship that fits a dinosaur"]) {
+    const reply = buildAssistantReply(prompt, undefined, []);
+    assert.match(reply.preview.title, /Blueprint Preview/);
+    assert.equal(reply.results, undefined);
+    assert.ok(reply.choices.length > 0 && reply.choices.length <= 3);
+    for (const choice of reply.choices) {
+      assert.equal(choice.models.length, 1);
+      assert.ok(models.some(model => model.id === choice.models[0]));
+      const next = buildAssistantReply(choice.label, choice, []);
+      assert.deepEqual(next.results, choice.models);
+      assert.equal(next.preview, undefined);
+    }
+  }
+  const spacecraft = buildAssistantReply("a spaceship that fits a dinosaur", undefined, []);
+  assert.ok(spacecraft.choices.every(choice => modelById[choice.models[0]].family === "space"));
+});
+
+test("preview alternatives respect strict inventory and picture instruction filters", () => {
+  const allowed = selectIdeas(sampleCollection, {
+    family: "all", onlyMyBricks: true, onlyInstructions: true, savedOnly: false,
+  }).map(idea => idea.model.id);
+  assert.ok(allowed.length > 0);
+  const reply = buildAssistantReply("a unicorn spaceship", undefined, [], { allowedModelIds: allowed });
+  assert.ok(reply.choices.every(choice => choice.models.every(id => allowed.includes(id))));
+  const empty = buildAssistantReply("a birthday cake", undefined, [], { allowedModelIds: [] });
+  assert.equal(empty.choices.length, 1);
+  assert.equal(empty.choices[0].action, "explore-preview");
+  assert.match(empty.text, /filters/);
+  // Nothing silently relaxes the filters. The UI offers this explicit action.
+  assert.equal(empty.results, undefined);
+});
+
+test("preview follows the current adventure for unsupported follow-up requests", () => {
+  const space = buildAssistantReply("spaceship", undefined, []);
+  assert.equal(space.preview, undefined);
+  const next = buildAssistantReply("make it purple", undefined, [{ role: "assistant", choices: space.choices }]);
+  assert.ok(next.preview);
+  assert.ok(next.choices.every(choice => modelById[choice.models[0]].family === "space"));
+  const typedChoice = buildAssistantReply(space.choices[0].label.toUpperCase(), undefined, [{ role: "assistant", choices: space.choices }]);
+  assert.deepEqual(typedChoice.results, space.choices[0].models);
+  const afterResults = buildAssistantReply("give it a swimming pool", undefined, [{ role: "assistant", ...typedChoice }]);
+  assert.ok(afterResults.preview);
+  assert.ok(afterResults.choices.every(choice => modelById[choice.models[0]].family === "space"));
+});
