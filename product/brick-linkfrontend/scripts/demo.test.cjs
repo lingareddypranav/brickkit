@@ -521,3 +521,34 @@ test("category chips appear on request rather than after a preview blueprint", (
   const selected = buildAssistantReply(categories.choices[0].label, categories.choices[0], []);
   assert.ok(selected.choices.every(choice => choice.models.length > 0));
 });
+
+test("every prepared 3D model has its complete part dependency tree in the published library", () => {
+  const library = path.resolve(__dirname, "../../../landing/ldraw");
+  const visited = new Set();
+  const normalize = name => {
+    let key = name.trim().replace(/\\/g, "/").toLowerCase();
+    if (key.startsWith("s/")) key = `parts/${key}`;
+    else if (/^(48|8)\//.test(key)) key = `p/${key}`;
+    return key;
+  };
+  function walk(source, owner) {
+    const embedded = new Set([...source.matchAll(/^0 FILE ([^\r\n]+)/gm)].map(match => normalize(match[1])));
+    for (const line of source.split(/\r?\n/)) {
+      if (!line.startsWith("1 ")) continue;
+      const ref = normalize(line.trim().split(/\s+/).slice(14).join(" "));
+      if (embedded.has(ref)) continue;
+      const candidates = /^(parts|p)\//.test(ref) ? [ref] : [`parts/${ref}`, `p/${ref}`];
+      const file = candidates.map(name => path.join(library, name)).find(name => fs.existsSync(name));
+      assert.ok(file, `${owner} needs missing part ${ref}`);
+      if (visited.has(file)) continue;
+      visited.add(file);
+      const part = fs.readFileSync(file, "utf8");
+      assert.ok(part.includes("!LICENSE"), `${ref} must retain its source license`);
+      walk(part, ref);
+    }
+  }
+  for (const model of models.filter(model => model.modelUrl)) {
+    walk(fs.readFileSync(path.join(__dirname, "../public", model.modelUrl), "utf8"), model.id);
+  }
+  assert.ok(visited.size > 500);
+});
