@@ -4,7 +4,7 @@
 
 Verify the running product's version and origin, then rehearse the requested journey before filming. Prepare deterministic demo state through the app or an explicitly supported fixture mechanism. Never paint counts or replies into captures.
 
-Record viewport CSS dimensions and source pixel dimensions; they may differ. A high-resolution render cannot recover missing source detail. Where permitted and available, use native 1920×1080 source for 1080p delivery. If the available capture is smaller, preserve its aspect ratio and restrain zoom. Respect the current environment's viewport/browser-control rules.
+Record viewport CSS dimensions and source pixel dimensions; they may differ. A high-resolution render cannot recover missing source detail. **Every delivered MP4 must be at least 1920×1080.** Capture at native **1920×1080** (or higher when explicitly requested) before editing. If the available capture is smaller, re-capture at full HD, use a supported higher-resolution recorder, or disclose the blocker; do not upscale sub-1080p footage to meet the minimum. When source is larger than 1080p, preserve aspect ratio and compose down only if the final export still meets the minimum. Respect the current environment's viewport/browser-control rules.
 
 Test a short moving/typing capture first. If it produces an error, black frames, frozen content or no file, use a supported alternative after a bounded diagnosis. Do not spend the session building a recorder while footage remains unmade. Disclose a screenshot-based fallback; for an explicit native-video requirement, explain the blocker and continue independent preparation.
 

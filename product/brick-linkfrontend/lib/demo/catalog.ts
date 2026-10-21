@@ -81,6 +81,8 @@ export function findFamily(prompt: string): Family | null {
     rover: "space",
     moon: "space",
     astronaut: "space",
+    spaceman: "space",
+    benny: "space",
   };
   return words.map((word) => aliases[word]).find(Boolean) ?? null;
 }

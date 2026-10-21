@@ -7,6 +7,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: "/landing", destination: "/landing/index.html", permanent: false },
+      { source: "/landing-v2", destination: "/landing-v2/index.html", permanent: false },
       { source: "/welcome", destination: "/landing/index.html", permanent: false },
       { source: "/design-system", destination: "/design-system/index.html", permanent: false },
     ];

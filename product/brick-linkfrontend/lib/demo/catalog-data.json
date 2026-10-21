@@ -7344,6 +7344,121 @@
       "depth": 1,
       "height": 1,
       "shape": "brick"
+    },
+    {
+      "key": "3842a:1",
+      "part": "3842a",
+      "color": 1,
+      "name": "Classic Space helmet",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/3842a.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3626bp01:14",
+      "part": "3626bp01",
+      "color": 14,
+      "name": "Minifig head with smile",
+      "colorName": "Yellow",
+      "hex": "#F2CD37",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/14/3626bp01.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "973p90:1",
+      "part": "973p90",
+      "color": 1,
+      "name": "Torso with Classic Space logo",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/973p90.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3815:1",
+      "part": "3815",
+      "color": 1,
+      "name": "Minifig hips",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/3815c01.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3818:1",
+      "part": "3818",
+      "color": 1,
+      "name": "Minifig arm right",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/3818.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3819:1",
+      "part": "3819",
+      "color": 1,
+      "name": "Minifig arm left",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/3819.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3820:1",
+      "part": "3820",
+      "color": 1,
+      "name": "Minifig hand",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "image": "https://cdn.rebrickable.com/media/parts/ldraw/1/3820.png",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3816:1",
+      "part": "3816",
+      "color": 1,
+      "name": "Minifig leg right",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
+    },
+    {
+      "key": "3817:1",
+      "part": "3817",
+      "color": 1,
+      "name": "Minifig leg left",
+      "colorName": "Blue",
+      "hex": "#0055BF",
+      "width": 1,
+      "depth": 1,
+      "height": 1,
+      "shape": "brick"
     }
   ],
   "sets": [
@@ -9240,9 +9355,69 @@
         "99781:0": 4
       },
       "url": "https://rebrickable.com/sets/31102-1/"
+    },
+    {
+      "id": "blue-spaceman",
+      "name": "Classic Space Minifigure",
+      "pieces": 10,
+      "year": 1979,
+      "image": "/demo/omr/blue-spaceman.png",
+      "url": "https://rebrickable.com/minifigs/sp001/",
+      "inventory": {
+        "3842a:1": 1,
+        "3626bp01:14": 1,
+        "973p90:1": 1,
+        "3815:1": 1,
+        "3818:1": 1,
+        "3819:1": 1,
+        "3820:1": 2,
+        "3816:1": 1,
+        "3817:1": 1
+      }
     }
   ],
   "models": [
+    {
+      "id": "blue-spaceman",
+      "name": "Blue Spaceman",
+      "description": "The classic blue spaceman, with the space logo on his chest.",
+      "family": "space",
+      "tags": [
+        "space",
+        "spaceman",
+        "astronaut",
+        "minifig",
+        "omr"
+      ],
+      "background": "#E6E7F3",
+      "image": "/demo/omr/blue-spaceman.png",
+      "modelUrl": "/demo/omr/blue-spaceman.ldr",
+      "minutes": 5,
+      "steps": [],
+      "placements": [],
+      "inventory": {
+        "3842a:1": 1,
+        "3626bp01:14": 1,
+        "973p90:1": 1,
+        "3815:1": 1,
+        "3818:1": 1,
+        "3819:1": 1,
+        "3820:1": 2,
+        "3816:1": 1,
+        "3817:1": 1
+      },
+      "source": {
+        "provider": "LDraw OMR",
+        "setId": "blue-spaceman",
+        "url": "https://library.ldraw.org/omr/sets/102",
+        "downloadUrl": "https://library.ldraw.org/library/omr/918-1.mpd",
+        "author": "Willy Tschager [Holly-Wood]",
+        "license": "Redistributable under CCAL version 2.0 : see CAreadme.txt",
+        "sha256": "0c777bafe3b2b13be5e14c9cab201ce2639c155c2c9800d2d385788e6fd5ec18",
+        "inventoryBasis": "source-set",
+        "instructionsUrl": "https://www.lego.com/en-us/service/building-instructions/918"
+      }
+    },
     {
       "id": "shuttle-explorer",
       "name": "Space Shuttle Explorer",

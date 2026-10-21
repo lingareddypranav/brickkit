@@ -5,8 +5,10 @@ import {
   ArrowRight,
   Blocks,
   Check,
+  Menu,
   Search,
   Sparkles,
+  X,
 } from "lucide-react";
 import { useBrickBox } from "@/hooks/use-brick-box";
 import { useBuildIdeas } from "@/hooks/use-build-ideas";
@@ -44,6 +46,7 @@ export default function BrickStudio() {
   const [selected, setSelected] = useState<Blueprint | null>(null);
   const [needed, setNeeded] = useState<Blueprint | null>(null);
   const [chatting, setChatting] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [pending, setPending] = useState(false);
   const threadRef = useRef<HTMLDivElement>(null);
@@ -57,6 +60,12 @@ export default function BrickStudio() {
     setNeeded(null);
     setBoxTab(tab);
     setPane("box");
+    setMenuOpen(false);
+  }
+
+  function openMake() {
+    setPane("make");
+    setMenuOpen(false);
   }
 
   function nextMessageId() {
@@ -134,6 +143,75 @@ export default function BrickStudio() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setMenuOpen(false);
+    }
+    function onResize() {
+      if (window.innerWidth > 850) setMenuOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [menuOpen]);
+
+  function NavButtons() {
+    return (
+      <>
+        <button
+          className={pane === "make" ? "is-active" : ""}
+          aria-current={pane === "make" ? "page" : undefined}
+          onClick={openMake}
+        >
+          Build
+        </button>
+        <button
+          className={pane === "box" ? "is-active" : ""}
+          aria-current={pane === "box" ? "page" : undefined}
+          onClick={() => openBox(boxTab)}
+        >
+          My brick box
+          <span>{ownedSets}</span>
+        </button>
+      </>
+    );
+  }
+
+  function FilterSwitches() {
+    return (
+      <>
+        <button
+          type="button"
+          className={`kit-sidebar-switch bricks-switch ${ideas.onlyInstructions ? "is-on" : ""}`}
+          role="switch"
+          aria-checked={ideas.onlyInstructions}
+          onClick={() => ideas.setOnlyInstructions(!ideas.onlyInstructions)}
+        >
+          Instruction ready
+          <span className="switch-track" aria-hidden="true">
+            <span>{ideas.onlyInstructions && <Check size={11} />}</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          className={`kit-sidebar-switch bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
+          role="switch"
+          aria-checked={ideas.onlyMyBricks}
+          onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
+        >
+          Use my bricks
+          <span className="switch-track" aria-hidden="true">
+            <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
+          </span>
+        </button>
+      </>
+    );
+  }
+
   return (
     <div className="kit-app">
       <aside className="kit-sidebar">
@@ -148,51 +226,40 @@ export default function BrickStudio() {
         </a>
         <span className="kit-preview-badge" aria-label="Blueprint Preview">Preview</span>
         </div>
-        <nav aria-label="Main navigation">
-          <button
-            className={pane === "make" ? "is-active" : ""}
-            aria-current={pane === "make" ? "page" : undefined}
-            onClick={() => setPane("make")}
-          >
-            Build
-          </button>
-          <button
-            className={pane === "box" ? "is-active" : ""}
-            aria-current={pane === "box" ? "page" : undefined}
-            onClick={() => openBox(boxTab)}
-          >
-            My brick box
-            <span>{ownedSets}</span>
-          </button>
-          <a href="/landing/index.html#credits">
-            About Blueprint <ArrowRight size={14} />
-          </a>
+        <nav className="kit-sidebar-nav" aria-label="Main navigation">
+          <NavButtons />
         </nav>
         <div className="kit-sidebar-filters">
-          <button
-            type="button"
-            className={`kit-sidebar-switch bricks-switch ${ideas.onlyInstructions ? "is-on" : ""}`}
-            role="switch"
-            aria-checked={ideas.onlyInstructions}
-            onClick={() => ideas.setOnlyInstructions(!ideas.onlyInstructions)}
-          >
-            Instruction ready
-            <span className="switch-track" aria-hidden="true">
-              <span>{ideas.onlyInstructions && <Check size={11} />}</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            className={`kit-sidebar-switch bricks-switch ${ideas.onlyMyBricks ? "is-on" : ""}`}
-            role="switch"
-            aria-checked={ideas.onlyMyBricks}
-            onClick={() => ideas.setOnlyMyBricks(!ideas.onlyMyBricks)}
-          >
-            Use my bricks
-            <span className="switch-track" aria-hidden="true">
-              <span>{ideas.onlyMyBricks && <Check size={11} />}</span>
-            </span>
-          </button>
+          <FilterSwitches />
+        </div>
+        <button
+          type="button"
+          className="kit-menu-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="kit-mobile-menu"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+        </button>
+        {menuOpen && (
+          <div
+            className="kit-menu-backdrop"
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+        <div
+          id="kit-mobile-menu"
+          className={`kit-mobile-menu${menuOpen ? " is-open" : ""}`}
+          aria-hidden={!menuOpen}
+        >
+          <nav aria-label="Mobile navigation">
+            <NavButtons />
+          </nav>
+          <div className="kit-mobile-filters">
+            <FilterSwitches />
+          </div>
         </div>
       </aside>
 

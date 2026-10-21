@@ -3,11 +3,15 @@ import path from "node:path";
 import { existsSync } from "node:fs";
 
 const root = path.resolve(import.meta.dirname);
-const library = path.join(root, "ldraw");
+const libraries = [
+  path.join(root, "ldraw"),
+  path.join(root, "../.cache/ldraw"),
+];
 const models = [
   "blue-racer.mpd",
   "shuttle-explorer.mpd",
   "green-dinosaur.mpd",
+  "blue-spaceman.mpd",
 ];
 
 function ldrawName(file) {
@@ -46,10 +50,14 @@ function locate(file) {
   const names = [slash];
   const lower = slash.toLowerCase();
   if (lower !== slash) names.push(lower);
-  for (const name of names) {
-    for (const folder of ["parts", "p", "models"]) {
-      const dest = path.join(library, folder, name);
-      if (existsSync(dest)) return dest;
+  for (const library of libraries) {
+    for (const name of names) {
+      for (const folder of ["parts", "p", "models", ""]) {
+        const dest = folder
+          ? path.join(library, folder, name)
+          : path.join(library, name);
+        if (existsSync(dest)) return dest;
+      }
     }
   }
   return null;
@@ -68,7 +76,10 @@ async function pack(name) {
     if (seen.has(key)) continue;
     seen.add(key);
     const dest = locate(file);
-    if (!dest) continue;
+    if (!dest) {
+      console.warn(name, "missing", file);
+      continue;
+    }
     const text = await readFile(dest, "utf8");
     parts.push(`0 FILE ${ldrawName(file)}\n${text.trim()}\n`);
     queue.push(...references(text));

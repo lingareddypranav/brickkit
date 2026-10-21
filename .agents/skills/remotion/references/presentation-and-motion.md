@@ -4,7 +4,7 @@ Use this when styling a walkthrough, creating a launch/page variant, adding requ
 
 ## Decide the destination from context
 
-A narrated walkthrough follows the user's script/audio. A launch edit needs a clear product promise and a finished payoff. A looping page clip needs a readable muted flow and a non-jarring seam. These are different editorial jobs, not fixed duration/aspect presets. The user's requested long film is not subject to a generic 60/90-second ceiling.
+A narrated walkthrough follows the user's script/audio. A launch edit needs a clear product promise and a finished payoff. A looping page clip needs a readable muted flow and a non-jarring seam. These are different editorial jobs, not fixed duration/aspect presets. The user's requested long film is not subject to a generic 60/90-second ceiling. Every encoded deliverable must be **at least 1920×1080**, including loops and silent page variants.
 
 For an unscripted tour, read both the landing page and app. The site explains promises and emphasis; the app establishes real screens, actions and copy. Choose a through-line that survives cuts, such as one request and the creation it produces. Follow an existing user-supplied script rather than replacing it with marketing section order. State consequential assumptions briefly; ask only for information genuinely missing from the context.
 

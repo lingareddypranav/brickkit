@@ -13,6 +13,7 @@ Make footage that proves the narrated product behavior and is easy to edit into 
 - Establish whether this is a narrated walkthrough, a launch edit or a looping page clip from the request/context. For a new unscripted tour, compare the landing-page promises with the actual app; use the user's brief as the authority. Do not infer the story from sidebar order alone. A reshoot with an agreed flow does not need a new briefing/approval cycle.
 - Record the source branch/commit and relevant dirty files. If asked for the latest push, fetch and inspect the intended branch before capture. Preserve unrelated work. Verify the running app was built from that source.
 - Inspect `demo-video/` and `product/brick-linkfrontend/`. Derive commands, Node requirements, asset paths and ports from the current checkout. Do not freeze the previous commit, inventory, viewport or duration into a new demo.
+- Treat **1920×1080** as the minimum delivery resolution for every exported MP4 (master, chapters, samples and looping variants). Capture and compose at native **1920×1080** unless the user explicitly requests a higher resolution; never ship below **1920×1080** by upscaling, padding or stretching.
 - Write a shot plan: script cue, narration start/end, visible starting state, action, visible outcome, source asset and chapter. Time to actual narration audio when supplied. With text only, state that timings are provisional; do not call them synchronized.
 - Prepare a separate demo origin/profile/collection. Keep ownership, filters, locked creations and counts consistent across connected shots without disturbing the user's normal app state.
 
@@ -32,7 +33,8 @@ Read [references/editing-and-verification.md](references/editing-and-verificatio
 
 - Narration cues govern timing. Budget typing, pointer travel and reading holds. If the flow cannot fit, shorten an appropriate prompt, find a natural split or revise provisional timing; do not rush it to satisfy an arbitrary old timestamp.
 - Keep connected flows together. Trim dead time and use deliberate time jumps, such as early instruction steps to the final step. Avoid repeated resets or retyping merely to fill narration.
-- Keep input text, control labels, instructions and the claim's evidence in frame. Check zoom endpoints. Upscaling a small capture does not make it native 1080p detail.
+- Keep input text, control labels, instructions and the claim's evidence in frame. Check zoom endpoints. Upscaling a small capture does not make it native 1080p detail and does not satisfy the minimum resolution rule.
+- Set Remotion composition and render output to at least **1920×1080**. Letterbox or crop when source aspect differs; do not stretch. Higher-resolution masters are allowed when requested; downscale only with an explicit editorial reason, never below **1920×1080**.
 - Keep the pointer stationary through the press and its brief follow-through; use repeated position keys before moving to the next target. Arriving on the right coordinate is not enough if interpolation carries it away during the click.
 - Make editable chapters separate authored Remotion timeline/composition entries. Use deterministic frame-based animation and supported installed APIs. Keep source playback/typing timing independent of eased camera movement.
 - Existing `demo-video/src/Walkthrough.tsx` and the export script are material to inspect, **not a quality-approved template**: the first edit had sparse typing captures, guessed coordinates and provisional timing. Reuse structure only after checking it against this workflow.
@@ -44,7 +46,7 @@ For editorial motion, titles, looping variants, sound or flicker troubleshooting
 
 - Run applicable lint/type checks. Export a master and the requested grouped clips with a scene/cue timing map. Preserve supplied narration; otherwise label the footage silent.
 - Watch encoded typing and key actions at 1×, not only contact sheets. Inspect cuts, chapter boundaries, first/last frames, labels at maximum zoom, and real PDF/build content.
-- Run [scripts/check_video.py](scripts/check_video.py) on the master and each chapter with the **planned** duration/fps. It checks decoded frames, dimensions, cadence and the requested audio state. It cannot judge pacing or replace watching.
+- Run [scripts/check_video.py](scripts/check_video.py) on the master and each chapter with the **planned** duration/fps. It checks decoded frames, **minimum** width/height (default **1920×1080**), cadence and the requested audio state. It cannot judge pacing or replace watching. Reject any export narrower than 1920 or shorter than 1080.
 - Reject non-monotonic timestamp warnings, duration drift, unintended blank/loading frames, incorrect typing or outcomes preceding clicks. Fix and re-check the **final packaged files**, not earlier drafts.
 - Open the final MP4/gallery and verify playback. Provide working absolute file links and the local preview URL when useful. Distinguish rendering drafts from finished exports; include editable source and physical-footage edit points.
 

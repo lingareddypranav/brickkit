@@ -18,6 +18,7 @@ const MODELS = [
     scale: 1.5,
   },
   { name: "Dinosaur", url: new URL("models/green-dinosaur.packed.mpd", landing).href },
+  { name: "Benny", url: new URL("models/blue-spaceman.packed.mpd", landing).href, scale: 1.2, fitPad: 1.15 },
 ];
 const LIFT = 110;
 const MODEL_SCALE = 3.15;
@@ -101,11 +102,12 @@ function viewAngles() {
 
 function baseDistance() {
   const fit = home.fitScale || 1;
+  const pad = home.fitPad || 1;
   const size = home.size.clone().multiplyScalar(1 / fit);
   const fov = (camera.fov * Math.PI) / 180;
   const half = Math.tan(fov / 2);
   const aspect = Math.max(camera.aspect, 0.2);
-  return Math.max(size.y / (2 * half), size.x / (2 * half * aspect), size.z / (2 * half)) * 1.75;
+  return Math.max(size.y / (2 * half), size.x / (2 * half * aspect), size.z / (2 * half)) * 1.75 * pad;
 }
 
 function pose() {
@@ -505,6 +507,7 @@ function mount(spec, index, model) {
       center: bounds.getCenter(new THREE.Vector3()),
       size: bounds.getSize(new THREE.Vector3()),
       fitScale: spec.scale ?? 1,
+      fitPad: spec.fitPad ?? 1,
     },
   };
   card.dataset.modelsReady = String(packs.filter(Boolean).length);
@@ -527,7 +530,7 @@ const files = MODELS.map(async (spec) => {
   return response.text();
 });
 await loader.preloadMaterials(LIBRARY + "LDConfig.ldr");
-const order = [0, 2, 1];
+const order = [0, 2, 1, 3];
 for (const i of order) {
   try {
     mount(MODELS[i], i, await parse(prepareText(MODELS[i], await files[i])));

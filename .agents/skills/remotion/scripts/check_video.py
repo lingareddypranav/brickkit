@@ -81,8 +81,17 @@ def inspect_video(args):
     cadence_tolerance = max(0.00001, 2 * tick)
     duration_tolerance = max(0.001, frame_duration / 2)
     errors = []
-    if (stream.get("width"), stream.get("height")) != (args.width, args.height):
-        errors.append(f"Size is {stream.get('width')}×{stream.get('height')}; expected {args.width}×{args.height}.")
+    width = stream.get("width")
+    height = stream.get("height")
+    if args.exact_dimensions:
+        if (width, height) != (args.min_width, args.min_height):
+            errors.append(
+                f"Size is {width}×{height}; expected exactly {args.min_width}×{args.min_height}."
+            )
+    elif width is None or height is None or width < args.min_width or height < args.min_height:
+        errors.append(
+            f"Size is {width}×{height}; must be at least {args.min_width}×{args.min_height}."
+        )
     for field in ("r_frame_rate", "avg_frame_rate"):
         if Fraction(stream.get(field, "0")) != fps:
             errors.append(f"{field} is {stream.get(field)}; expected {fps}.")
@@ -110,7 +119,9 @@ def inspect_video(args):
         errors.append("Expected narration/audio, but the export has no audio stream.")
     return {
         "ok": not errors, "video": str(video), "ffprobe": str(probe),
-        "codec": stream.get("codec_name"), "width": stream.get("width"), "height": stream.get("height"),
+        "codec": stream.get("codec_name"), "width": width, "height": height,
+        "minWidth": args.min_width, "minHeight": args.min_height,
+        "exactDimensions": args.exact_dimensions,
         "fps": stream.get("avg_frame_rate"), "timeBase": stream.get("time_base"),
         "durationSeconds": duration, "plannedSeconds": float(expected),
         "decodedFrames": len(frames), "plannedFrames": int(exact_frames),
@@ -125,8 +136,13 @@ def main():
     parser.add_argument("video", type=Path)
     parser.add_argument("--expected-seconds", required=True)
     parser.add_argument("--fps", default="30")
-    parser.add_argument("--width", type=int, default=1920)
-    parser.add_argument("--height", type=int, default=1080)
+    parser.add_argument("--min-width", type=int, default=1920, help="Minimum decoded width (default: 1920).")
+    parser.add_argument("--min-height", type=int, default=1080, help="Minimum decoded height (default: 1080).")
+    parser.add_argument(
+        "--exact-dimensions",
+        action="store_true",
+        help="Require width and height to match --min-width and --min-height exactly.",
+    )
     audio = parser.add_mutually_exclusive_group()
     audio.add_argument("--silent", action="store_true")
     audio.add_argument("--audio", action="store_true")

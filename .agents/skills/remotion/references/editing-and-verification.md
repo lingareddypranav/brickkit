@@ -22,6 +22,8 @@ Use camera movement to direct attention while preserving evidence. Derive placem
 
 Letterbox or intentionally crop different aspect ratios; never stretch screens. Avoid extreme zoom into small screenshots. Do not transition through a loading model/empty canvas. Re-measure pointer coordinates when camera/viewport/scroll context changes.
 
+Set composition and final encode dimensions to **at least 1920×1080** for every master, chapter, sample and loop. Default Remotion output should be **1920×1080** at the project fps unless the user asks for higher resolution. Upscaling a smaller canvas does not satisfy the minimum.
+
 Source playback should be linear unless intentionally retimed. Easing the camera is fine; selecting source frames with that eased progress creates unwanted slow/fast playback and uneven typing. Keep source time separate, using acquisition timestamps for irregular frame sequences.
 
 Make independently editable chapters explicit authored composition/timeline entries, reusing capture/cursor components. Check installed APIs before copying a newer Remotion example. Use deterministic frame/fps-based animation rather than CSS/wall-clock animation, random state or live network dependencies in the final render.
@@ -42,12 +44,12 @@ Before stream-copy concatenation, inspect codec, dimensions, frame rate and `tim
 
 Some bundled macOS FFmpeg/FFprobe binaries require their compositor directory prepended to `DYLD_LIBRARY_PATH`. The checker handles the bundled binary's library path. Do not hardcode the author's home directory. A platform-version warning alone does not prove failure; decoded playable output is the evidence.
 
-Use the repo-local verifier with the **planned** duration/format, substituting current values:
+Use the repo-local verifier with the **planned** duration/format, substituting current values. By default `--min-width 1920` and `--min-height 1080` require every stream to meet or exceed full HD; pass `--exact-dimensions` when a file must match one size exactly (for example a strict **1920×1080** master with no larger canvas).
 
 ```sh
 python3 .agents/skills/remotion/scripts/check_video.py \
   demo-video/out/Blueprint-Scenes-01-26.mp4 \
-  --expected-seconds 221 --fps 30 --width 1920 --height 1080 --silent
+  --expected-seconds 221 --fps 30 --min-width 1920 --min-height 1080 --silent
 ```
 
 Use `--audio` for narration. `--ffprobe /path/to/ffprobe` overrides discovery; `--report /path/to/report.json` saves a compact report. Check every chapter against its own planned length. For a continuous master, their frame counts should sum to the master's. Review encoder logs as well.
