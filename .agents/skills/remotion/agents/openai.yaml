@@ -1,0 +1,4 @@
+interface:
+  display_name: "Remotion Product Walkthrough"
+  short_description: "Record real product flows with narration-ready timing"
+  default_prompt: "Use $remotion in this repo to record the requested product walkthrough with visible typing, accurate timing, and verified video exports."
