@@ -80,6 +80,8 @@ def draw_step(pdf, step, number, x, y, width, height):
     pdf.setFillColor(INK)
     pdf.setFont('Helvetica-Bold', 16)
     pdf.drawString(x, y + height - 16, str(number))
+    pdf.setFont('Helvetica', 10)
+    pdf.drawString(x + 32, y + height - 14, step['title'])
     pieces_h = 70
     photo_bottom = y + pieces_h + 8
     photo_height = height - pieces_h - 28
@@ -101,6 +103,9 @@ def make_booklet(model, guide, output):
     for start in range(0, len(steps), 2):
         pdf.setFillColor(white)
         pdf.rect(0, 0, WIDTH, HEIGHT, stroke=0, fill=1)
+        pdf.setFillColor(INK)
+        pdf.setFont('Helvetica-Bold', 10)
+        pdf.drawString(MARGIN, HEIGHT - 20, model['name'])
         pair = steps[start:start + 2]
         if len(pair) == 2:
             draw_step(pdf, pair[1], start + 2, MARGIN, MARGIN, WIDTH - 2 * MARGIN, half)
@@ -113,6 +118,13 @@ def make_booklet(model, guide, output):
         else:
             draw_step(pdf, pair[0], start + 1, MARGIN, MARGIN + half + gap,
                       WIDTH - 2 * MARGIN, half)
+        pdf.setFillColor(INK)
+        pdf.setFont('Helvetica', 7)
+        license_name = 'CC BY 4.0' if 'CC BY 4.0' in model['source']['license'] else 'CCAL 2.0'
+        credit = f"OMR: {model['source']['author']} | {license_name}"
+        pdf.drawString(MARGIN, 15, credit)
+        pdf.linkURL(model['source']['url'], (MARGIN, 10, WIDTH - MARGIN - 45, 24), relative=0)
+        pdf.drawRightString(WIDTH - MARGIN, 15, f'{start // 2 + 1} / {total}')
         pdf.showPage()
     pdf.save()
     return total
@@ -137,16 +149,21 @@ def main():
     parser.add_argument('--preview', nargs='?', const='shuttle-explorer',
                         help='Write one model to a preview folder instead of replacing booklets')
     parser.add_argument('--preview-pages', type=int, default=3)
+    parser.add_argument('--models', nargs='+', help='Rebuild only these prepared model IDs')
     args = parser.parse_args()
     index_path = FRONTEND / 'lib/demo/instructions-data.json'
     guides = json.loads(index_path.read_text())
     catalog = json.loads((FRONTEND / 'lib/demo/catalog-data.json').read_text())
     models = {m['id']: m for m in catalog['models']}
+    if args.models:
+        unknown = set(args.models) - set(guides)
+        if unknown:
+            raise SystemExit('No prepared guides for: ' + ', '.join(sorted(unknown)))
 
     if args.preview:
         model_id = args.preview
         guide = guides[model_id]
-        if guide.get('kind') == 'booklet':
+        if guide.get('kind') == 'booklet' or guide.get('sequence') == 'booklet':
             raise SystemExit(f'{model_id} uses an original LEGO booklet')
         folder = Path('/tmp/brickkit-pdf-preview') / model_id
         folder.mkdir(parents=True, exist_ok=True)
@@ -159,7 +176,9 @@ def main():
         return
 
     for model_id, guide in guides.items():
-        if guide.get('kind') == 'booklet':
+        if args.models and model_id not in args.models:
+            continue
+        if guide.get('kind') == 'booklet' or guide.get('sequence') == 'booklet':
             continue  # Original booklets stay linked from LEGO; do not repackage them.
         output = PUBLIC / 'demo/instructions' / model_id / 'instructions.pdf'
         pages = make_booklet(models[model_id], guide, output)

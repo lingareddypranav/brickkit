@@ -12,13 +12,25 @@ are alternate models and are deliberately not selected.
 | --- | --- | --- | --- |
 | `brick-dragon` | Red Dragon | Original 68-page LEGO booklet, ages 6+ | Direct LEGO CDN link |
 | `fire-dragon` | Fire Dragon | Original 56-page LEGO booklet, ages 7+ | Direct LEGO CDN link |
-| `green-dinosaur` | Green Dinosaur | 11 cached picture steps and PDF | Bundled with frontend |
-| `mini-shuttle` | Mini Space Shuttle | 29 cached OMR picture steps and PDF | Bundled with frontend |
-| `shuttle-explorer` | Space Shuttle Explorer | 33 cached OMR picture steps and PDF | Bundled with frontend |
-| `space-transport` | Space Transport | 13 cached OMR picture steps and PDF | Bundled with frontend |
+| `green-dinosaur` | Green Dinosaur | 11 curated picture steps and PDF | Bundled with frontend |
+| `apatosaurus` | Apatosaurus | 12 curated picture steps and PDF | Bundled with frontend |
+| `pteranodon` | Pteranodon | 12 curated picture steps and PDF | Bundled with frontend |
+| `cute-pug` | Cute Pug | 34 OMR picture steps and PDF | Bundled with frontend |
+| `koala` | Koala | 28 OMR picture steps and PDF | Bundled with frontend |
+| `turkey` | Turkey | 21 OMR picture steps and PDF | Bundled with frontend |
+| `mini-jet` | Mini Jet | 29 OMR picture steps and PDF | Bundled with frontend |
+| `speedboat` | Speedboat | 27 OMR picture steps and PDF | Bundled with frontend |
+| `mini-shuttle` | Mini Space Shuttle | 29 OMR picture steps and PDF | Bundled with frontend |
+| `shuttle-explorer` | Space Shuttle Explorer | 33 OMR picture steps and PDF | Bundled with frontend |
+| `space-transport` | Space Transport | 13 OMR picture steps and PDF | Bundled with frontend |
+| `space-rover` | Space Rover | 23 OMR picture steps and PDF | Bundled with frontend |
+| `moon-base` | Moon Base | 29 OMR picture steps and PDF | Bundled with frontend |
 
 Open a prepared model, choose **View instructions**, then **Open building booklet**
-for the dragons or step through the cached diagrams for the other builds.
+for the dragons or step through the cached diagrams for the thirteen other builds.
+The two dragons are original LEGO booklets and are not counted among the thirteen
+locally prepared guides. Space Rover, Moon Base and Shuttle Explorer have busier
+steps (often 8–15 pieces) and suit an adult helper better than the animals and dinosaurs.
 The original dragon PDFs require internet access. They are linked from LEGO,
 not redistributed or relabelled as our generated booklets. There is no downloaded
 CAD model for these two replacements and no 3D-spin button is offered for them.
@@ -69,10 +81,28 @@ re-rendering in LeoCAD, run `python3 product/brick-linkfrontend/scripts/prepare-
 Pass `--leocad` if the executable is outside the default macOS application path.
 The script caches assets by model, retains credits/licences and embedded definitions,
 and checks curated placement coverage. It flattens nested model transforms and
-inherited colours while retaining STEP/ROTSTEP boundaries. Rotation instructions
-are presented from a fixed camera; these are picture guides, not official LEGO
-booklets. Check assembly visibility and order before adding another model to the
-demo list, especially subassemblies and mirrored connections.
+inherited colours while retaining STEP/ROTSTEP boundaries, so every guide shows
+individual bricks rather than prebuilt subassemblies. These are picture guides,
+not official LEGO booklets.
+
+Every step is framed from the finished model's part bounds with an explicit
+LeoCAD camera, so nothing clips and the model does not jump between steps
+(LeoCAD 25.09's automatic zoom clipped tall and long models). Each model has one
+default camera angle in `omr-models.json`. In `prepare-instructions.py`, `views`
+gives a reviewed second angle for steps whose new piece is on the far side, with
+a "Turn it around" title. `order` moves a source step when its pieces would be
+hidden, and `groups` curates steps for models without usable OMR steps.
+
+Before publishing a new or changed guide, audit it and review every step:
+
+```sh
+python3 product/brick-linkfrontend/scripts/verify-instruction-assets.py --review-dir /tmp/brickkit-guide-review
+```
+
+This fails on clipped diagrams, missing callouts or thumbnails, repeated pictures
+and wrong PDF page counts. It reports `lowVisibilitySteps` where the blue
+new-piece highlight is barely visible. Inspect those steps and the contact sheets
+it writes (all steps, plus first, middle and last PDF pages) before adding a model.
 
 Tests check transforms, colour inheritance, curated piece coverage, original-source
 hashes, local assets and distinct step pictures. After refreshing source models,

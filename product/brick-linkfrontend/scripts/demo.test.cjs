@@ -113,7 +113,7 @@ test("strict mode shows only available models and honours the sample's kept-buil
   );
 });
 
-test("instruction ready lists only picture-guide builds, not booklet dragons", () => {
+test("instruction ready offers at least thirteen complete local picture-guide builds", () => {
   const ideas = selectIdeas(emptyCollection, {
     family: "all",
     onlyMyBricks: false,
@@ -122,8 +122,10 @@ test("instruction ready lists only picture-guide builds, not booklet dragons", (
   });
   assert.deepEqual(
     ideas.map((idea) => idea.model.id).sort(),
-    ["green-dinosaur", "mini-shuttle", "shuttle-explorer", "space-transport"],
+    ["apatosaurus", "cute-pug", "green-dinosaur", "koala", "mini-jet", "mini-shuttle", "moon-base", "pteranodon", "shuttle-explorer", "space-rover", "space-transport", "speedboat", "turkey"],
   );
+  assert.ok(ideas.length >= 13);
+  assert.deepEqual(new Set(ideas.map((idea) => idea.model.family)), new Set(["space", "animals", "rides", "dinosaurs"]));
   assert.ok(!ideas.some((idea) => idea.model.family === "dragons"));
 });
 
@@ -302,10 +304,12 @@ test("retired molded dragon creations retain their original inventory reservatio
   assert.ok(countPieces(modelById["dragon-wagon"].inventory) > 8);
 });
 
-test("story demo builds have complete local picture guides with matching source files", () => {
+test("every published picture guide has a matching source, PDF, and unique local diagrams", () => {
   const crypto = require("node:crypto");
-  const { instructionsFor } = require("../lib/demo/instructions.ts");
-  for (const id of ["green-dinosaur", "mini-shuttle", "shuttle-explorer", "space-transport"]) {
+  const { instructionsFor, hasPictureInstructions } = require("../lib/demo/instructions.ts");
+  const preparedIds = models.filter((model) => hasPictureInstructions(model.id)).map((model) => model.id);
+  assert.ok(preparedIds.length >= 13);
+  for (const id of preparedIds) {
     const guide = instructionsFor(id);
     assert.ok(guide && guide.kind === "pictures" && guide.steps.length > 1, id);
     assert.ok(guide.pdfUrl, `${id}: missing PDF booklet`);
